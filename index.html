@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MATEO — Portfolio</title>
+  <meta name="description" content="Mateo González Silva. Construyo cosas en la web. mundoatletismo.es · lanedata.es" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Fondo: olas muy sutiles que reaccionan al cursor -->
+  <canvas id="sea" aria-hidden="true"></canvas>
+  <!-- Ola de primer plano (easter egg): arrasa lo que toca -->
+  <canvas id="tide" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <span class="loader__text">MATEO</span>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <header class="nav">
+    <a href="#hero" class="nav__logo">M.</a>
+    <nav class="nav__menu">
+      <a href="#proyectos">Proyectos</a>
+      <a href="#certificaciones">Certs</a>
+      <a href="#historia">Educación</a>
+      <a href="#contacto" class="nav__pill">Contacto ↗</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+      <p class="hero__tag mono">// portfolio — 2026</p>
+      <h1 class="hero__title">
+        <span class="hero__line"><span data-line>MATEO</span></span>
+        <span class="hero__line hero__line--outline"><span data-line>GONZÁLEZ</span></span>
+        <span class="hero__line"><span data-line>SILVA<em class="hero__accent">*</em></span></span>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__desc">
+          <em>*</em> Construyo cosas en la web. Ingeniería Informática e IA
+          aplicada a la Robótica en la UFV.
+        </p>
+      </div>
+      <a href="#proyectos" class="hero__cue mono" id="hero-cue">SCROLL<br>↓</a>
+    </section>
+
+    <!-- ===== PROYECTOS ===== -->
+    <section class="section" id="proyectos">
+      <div class="section__head">
+        <h2 class="section__title" data-reveal>PROYECTOS</h2>
+        <span class="section__count mono">(02+1)</span>
+      </div>
+
+      <div class="projects">
+        <!-- Mundo Atletismo: fila con identidad propia -->
+        <a class="proj proj--ma" href="https://mundoatletismo.es" target="_blank" rel="noopener" data-reveal data-scales="232,73,31">
+          <img src="assets/mundoatletismo.png" alt="Logo de Mundo Atletismo" class="proj__logo" />
+          <div class="proj__main">
+            <div class="proj__top">
+              <span class="proj__num mono">01</span>
+              <h3 class="proj__name">MUNDO ATLETISMO</h3>
+            </div>
+            <p class="proj__desc">Medio digital de atletismo · web, contenidos y producto</p>
+          </div>
+          <div class="proj__side">
+            <span class="proj__url mono">mundoatletismo.es</span>
+            <span class="proj__arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- Lanedata: fila con identidad propia -->
+        <a class="proj proj--ld" href="https://lanedata.es" target="_blank" rel="noopener" data-reveal data-scales="13,42,20">
+          <img src="assets/lanedata.svg" alt="Logo de Lanedata" class="proj__logo" />
+          <div class="proj__main">
+            <div class="proj__top">
+              <span class="proj__num mono">02</span>
+              <h3 class="proj__name">LANEDATA</h3>
+            </div>
+            <p class="proj__desc">Datos y análisis aplicados al deporte, en visual</p>
+          </div>
+          <div class="proj__side">
+            <span class="proj__url mono">lanedata.es</span>
+            <span class="proj__arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- Proyecto secreto -->
+        <div class="proj proj--secret" data-reveal>
+          <canvas class="proj__rain" aria-hidden="true"></canvas>
+          <div class="proj__hidden">
+            <svg class="proj__eye" id="secret-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+              <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+              <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+              <line x1="2" y1="2" x2="22" y2="22" />
+            </svg>
+          </div>
+          <div class="proj__main">
+            <div class="proj__top">
+              <span class="proj__num mono">03</span>
+              <h3 class="proj__name">PROYECTO <span class="proj__glitch" id="glitch-x">X</span><span class="proj__cursor">_</span></h3>
+            </div>
+            <p class="proj__desc">Clasificado · en el horno a fuego lento</p>
+          </div>
+          <div class="proj__side">
+            <span class="proj__url mono">acceso denegado</span>
+            <span class="proj__arrow">🤫</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CERTIFICACIONES ===== -->
+    <section class="section" id="certificaciones">
+      <div class="section__head">
+        <h2 class="section__title" data-reveal>CERTIFICACIONES</h2>
+        <span class="section__count mono">(02)</span>
+      </div>
+
+      <div class="certs">
+        <article class="cert" data-reveal>
+          <div class="cert__badge cert__badge--anthropic">
+            <!-- Logomark de Anthropic -->
+            <svg viewBox="0 0 46 32" fill="currentColor" aria-hidden="true">
+              <path d="M32.73 0h-6.94l12.6 32h6.91L32.73 0Z"/>
+              <path d="M13.27 0 .66 32h7.08l2.58-6.68h13.2L26.1 32h7.08L20.57 0h-7.3Zm-.68 19.4 4.32-11.18 4.31 11.18h-8.63Z"/>
+            </svg>
+          </div>
+          <div class="cert__info">
+            <h3 class="cert__name">Claude Code in Action</h3>
+            <p class="cert__issuer">Anthropic · jul 2026</p>
+            <p class="cert__id mono">ouxpxxc5cizk</p>
+          </div>
+        </article>
+
+        <article class="cert" data-reveal>
+          <div class="cert__badge cert__badge--cisco">
+            <!-- Puente de Cisco -->
+            <svg viewBox="0 0 48 24" fill="currentColor" aria-hidden="true">
+              <rect x="1"  y="14" width="3.2" height="6" rx="1.6"/>
+              <rect x="7.4" y="10" width="3.2" height="10" rx="1.6"/>
+              <rect x="13.8" y="14" width="3.2" height="6" rx="1.6"/>
+              <rect x="20.2" y="4" width="3.2" height="16" rx="1.6"/>
+              <rect x="26.6" y="14" width="3.2" height="6" rx="1.6"/>
+              <rect x="33"  y="10" width="3.2" height="10" rx="1.6"/>
+              <rect x="39.4" y="14" width="3.2" height="6" rx="1.6"/>
+            </svg>
+          </div>
+          <div class="cert__info">
+            <h3 class="cert__name">Introduction to Cybersecurity</h3>
+            <p class="cert__issuer">Cisco Networking Academy · jul 2026</p>
+            <p class="cert__id mono">741c71bb</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== EDUCACIÓN Y EXPERIENCIA ===== -->
+    <section class="section" id="historia">
+      <div class="section__head">
+        <h2 class="section__title" data-reveal>EDUCACIÓN Y EXPERIENCIA</h2>
+        <span class="section__count mono">(→)</span>
+      </div>
+      <div class="xp">
+        <!-- Experiencia: de lo más reciente hacia atrás -->
+        <div class="xp__col" data-reveal>
+          <h3 class="xp__label mono">// experiencia</h3>
+          <div class="xp__list">
+            <div class="xp__item">
+              <span class="xp__dot xp__dot--pulse" aria-hidden="true"></span>
+              <span class="xp__year">2026 — HOY</span>
+              <h4>MUNDOATLETISMO + LANEDATA</h4>
+              <p class="xp__where mono">Web de atletismo · Datos deportivos · en activo</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Educación: con su rango completo -->
+        <div class="xp__col" data-reveal>
+          <h3 class="xp__label mono">// educación</h3>
+          <div class="xp__list">
+            <div class="xp__item">
+              <span class="xp__dot" aria-hidden="true"></span>
+              <span class="xp__year">2025 — 2029</span>
+              <h4>GRADO EN ING. INFORMÁTICA + IA APLICADA A LA ROBÓTICA</h4>
+              <p class="xp__where mono">UFV · Bilingüe · en curso</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LINKS ===== -->
+    <section class="section" id="contacto">
+      <div class="section__head">
+        <h2 class="section__title" data-reveal>LINKS</h2>
+        <span class="section__count mono">(04)</span>
+      </div>
+      <div class="links">
+        <a class="link-card" href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
+          <span class="link-card__value">@mateogsilvaa</span>
+        </a>
+        <a class="link-card" href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener" data-reveal>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.49 2.49 0 1 1 5 8.48a2.49 2.49 0 0 1-.02-4.98zM3 9.75h4v10.75H3zM9.5 9.75h3.8v1.47h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.6 4.78 5.98v6.25h-4v-5.54c0-1.32-.03-3.02-1.88-3.02-1.88 0-2.17 1.44-2.17 2.93v5.63h-4z"/></svg>
+          <span class="link-card__value">LinkedIn</span>
+        </a>
+        <a class="link-card" href="mailto:mateogonsilva@gmail.com" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg>
+          <span class="link-card__value">Correo</span>
+        </a>
+        <a class="link-card" href="https://github.com/mateogsilvaa" target="_blank" rel="noopener" data-reveal>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 0 0 8.68 21.96c.53.1.72-.23.72-.5v-1.98c-2.92.64-3.54-1.24-3.54-1.24-.48-1.21-1.17-1.54-1.17-1.54-.95-.65.07-.64.07-.64 1.06.08 1.61 1.08 1.61 1.08.94 1.6 2.46 1.14 3.06.87.1-.68.37-1.14.66-1.4-2.33-.27-4.78-1.17-4.78-5.2 0-1.14.41-2.08 1.08-2.81-.11-.27-.47-1.34.1-2.79 0 0 .88-.28 2.89 1.08a10 10 0 0 1 5.26 0c2-1.36 2.88-1.08 2.88-1.08.58 1.45.22 2.52.11 2.79.67.73 1.08 1.67 1.08 2.81 0 4.04-2.46 4.92-4.8 5.18.38.33.71.96.71 1.95v2.89c0 .28.19.61.73.5A10.5 10.5 0 0 0 12 1.5z"/></svg>
+          <span class="link-card__value">GitHub</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span>MATEO GONZÁLEZ SILVA</span>
+    <span class="footer__sea" title="↑↑↓↓←→←→BA · en móvil, desliza">EL MAR GUARDA SECRETOS</span>
+  </footer>
+
+  <!-- Easter egg: tormenta -->
+  <div class="storm-dark" id="storm-dark" aria-hidden="true"></div>
+  <div class="lightning" id="lightning" aria-hidden="true"></div>
+  <div class="egg-toast mono" id="egg-toast" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

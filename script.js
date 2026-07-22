@@ -447,34 +447,21 @@ document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
     "color:#00a5cf; font-family:monospace; font-size:13px;"
   );
 
-  // Táctil (móvil): la misma secuencia deslizando el dedo —
-  // ↑↑↓↓←→←→ con swipes y, para B A, dos toques rápidos.
+  // Móvil: los swipes chocaban con el scroll, así que aquí el
+  // secreto se despierta tocando "el mar" tres veces seguidas.
   (() => {
-    let x0, y0, t0;
-
-    window.addEventListener("touchstart", (e) => {
-      const t = e.changedTouches[0];
-      x0 = t.clientX;
-      y0 = t.clientY;
-      t0 = Date.now();
-    }, { passive: true });
-
-    window.addEventListener("touchend", (e) => {
-      const t = e.changedTouches[0];
-      const dx = t.clientX - x0;
-      const dy = t.clientY - y0;
-      const dist = Math.hypot(dx, dy);
-
-      if (dist > 34) {
-        feed(
-          Math.abs(dx) > Math.abs(dy)
-            ? (dx > 0 ? "ArrowRight" : "ArrowLeft")
-            : (dy > 0 ? "ArrowDown" : "ArrowUp")
-        );
-      } else if (Date.now() - t0 < 280 && pos >= 8) {
-        // Toque corto tras los 8 swipes: cuenta como B y luego A
-        feed(SEQ[pos]);
+    const seaText = document.querySelector(".footer__sea");
+    if (!seaText) return;
+    let taps = 0;
+    let last = 0;
+    seaText.addEventListener("click", () => {
+      const now = Date.now();
+      taps = now - last < 800 ? taps + 1 : 1;
+      last = now;
+      if (taps >= 3) {
+        taps = 0;
+        if (!running) storm();
       }
-    }, { passive: true });
+    });
   })();
 })();

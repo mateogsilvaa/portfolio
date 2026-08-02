@@ -12,7 +12,8 @@ HTML, CSS y JavaScript puro, sin dependencias ni build. Todo son tres archivos.
 
 - `index.html` — estructura y contenido
 - `styles.css` — diseño (tema oscuro, acento cian `#00A5CF`, tipografía Anton)
-- `script.js` — animaciones: fondo de olas interactivo, reveals, escamas y el easter egg
+- `script.js` — animaciones: fondo de olas interactivo, reveals y la preview
+  en vivo que se despliega al pasar por encima de cada proyecto
 
 ## Desarrollo
 
@@ -27,10 +28,10 @@ npx serve .
 Los logotipos (marca «M.» y logotipo «MATEO.») están en `assets/brand/` en
 varias versiones para redes sociales.
 
-## Easter egg
-
-La web esconde un secreto. Pista: *el mar guarda secretos.* 🌊
-(en escritorio, teclado; en móvil, deslizando)
+Los logos de las certificaciones viven en `assets/certs/` y son los oficiales
+de cada marca: Anthropic y Claude Code vía [@lobehub/icons](https://lobehub.com/icons),
+Cisco desde [brand-assets.security.cisco.com](https://brand-assets.security.cisco.com/)
+y la membrana de MATLAB desde mathworks.com.
 
 ---
 

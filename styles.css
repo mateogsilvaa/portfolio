@@ -57,16 +57,6 @@ a { color: inherit; text-decoration: none; }
 }
 main, .nav, .footer { position: relative; z-index: 1; }
 
-/* Ola de primer plano (easter egg): por encima del contenido */
-#tide {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 6000;
-  pointer-events: none;
-}
-
 /* ============ Grain ============ */
 .grain {
   position: fixed;
@@ -277,10 +267,10 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
   gap: 1.3rem;
   border-radius: 16px;
   padding: 1.15rem 1.5rem;
-  overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.proj:hover { transform: scale(1.008); }
+/* Al abrirse la preview, la fila pasa por delante de las de abajo */
+.proj:hover { transform: scale(1.008); z-index: 5; }
 
 /* Mundo Atletismo: crema + naranja */
 .proj--ma {
@@ -304,16 +294,37 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 .proj--ld .proj__arrow { color: var(--ld-ink); }
 .proj--ld:hover { box-shadow: 0 10px 34px rgba(159, 232, 141, 0.12); }
 
-/* Secreto: oscuro con cascada */
-.proj--secret {
-  background: #0b0e10;
+/* Fantasy Atletismo: aún en obras, así que se queda en oscuro */
+.proj--fa {
+  background: var(--card);
   border: 1px dashed var(--line);
   color: var(--ink);
 }
-.proj--secret .proj__num { color: var(--cyan); }
-.proj--secret .proj__desc,
-.proj--secret .proj__url { color: var(--dim); }
-.proj--secret .proj__arrow { color: var(--cyan); }
+.proj--fa .proj__num { color: var(--cyan); }
+.proj--fa .proj__desc,
+.proj--fa .proj__url { color: var(--dim); }
+.proj--fa:hover { box-shadow: 0 10px 34px rgba(0, 165, 207, 0.1); }
+
+/* Sello de "en obras" en lugar de la flecha de enlace */
+.proj__wip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  color: var(--cyan);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+}
+.proj__wip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cyan);
+  animation: ping 2s ease-out infinite;
+}
 
 .proj__logo {
   width: 56px;
@@ -359,57 +370,87 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 }
 .proj:hover .proj__arrow { transform: translate(3px, -3px); }
 
-/* Escamas triangulares (hover, color por marca) */
-.proj__scales {
+/* ============ Preview: la pantalla que se despliega ============
+   Cuelga del borde inferior de la fila y baja girando sobre su
+   bisagra, como una pantalla de proyección. Va por encima del
+   resto para no empujar el contenido al abrirse. */
+.proj__screen {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: calc(100% - 10px);
+  left: 0;
+  right: 0;
+  z-index: 4;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0b0e10;
+  border: 1px solid var(--line);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
+  transform-origin: top center;
+  transform: perspective(1400px) rotateX(-92deg);
+  opacity: 0;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.45s ease;
-  z-index: 0;
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
 }
-.proj:hover .proj__scales { opacity: 1; }
-.proj__scales polygon {
-  opacity: 0;
-  animation: scaleShimmer 2.6s ease-in-out infinite;
-}
-@keyframes scaleShimmer {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.16; }
+.proj:hover .proj__screen {
+  transform: perspective(1400px) rotateX(0deg);
+  opacity: 1;
 }
 
-/* Cascada + ojo (secreto) */
-.proj__rain {
+/* Barra de navegador: los tres puntos y la URL */
+.proj__screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.8rem;
+  background: #12171b;
+  border-bottom: 1px solid var(--line);
+}
+.proj__screen-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2a343c;
+  flex-shrink: 0;
+}
+.proj__screen-url {
+  margin-left: 0.5rem;
+  color: var(--dim);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+}
+
+/* Ventana recortada donde vive el iframe a escala */
+.proj__screen-view {
+  position: relative;
+  width: 100%;
+  height: clamp(180px, 26vh, 280px);
+  overflow: hidden;
+  background: #0b0e10;
+}
+.proj__screen-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  transform-origin: top left;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.proj__screen.is-ready .proj__screen-frame { opacity: 1; }
+.proj__screen.is-ready .proj__screen-load { opacity: 0; }
+
+.proj__screen-load {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-.proj__hidden {
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-  width: 56px;
-  height: 56px;
   display: grid;
   place-items: center;
-}
-.proj__eye {
-  width: 34px;
-  height: 34px;
-  color: var(--ink);
-  opacity: 0.85;
-  cursor: pointer;
-  pointer-events: auto;
-  filter: drop-shadow(0 0 14px rgba(0, 165, 207, 0.35));
-  animation: eyePulse 3.2s ease-in-out infinite;
-}
-@keyframes eyePulse {
-  0%, 100% { opacity: 0.85; }
-  50% { opacity: 0.5; }
+  color: var(--dim);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  transition: opacity 0.4s ease;
 }
 
 /* ============ Certificaciones ============ */
@@ -442,17 +483,19 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
   color: var(--dim);
   font-size: 1.1rem;
 }
-.cert__badge svg { width: 26px; height: auto; }
-.cert__badge--anthropic {
-  background: #CC785C;
-  color: #191919;
-  border-color: transparent;
+.cert__badge img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
-.cert__badge--cisco {
-  background: #ffffff;
-  color: #049fd9;
-  border-color: transparent;
-}
+/* Colores oficiales de cada marca */
+.cert__badge--anthropic { background: #CC785C; border-color: transparent; }
+.cert__badge--claudecode { background: #191919; border-color: transparent; }
+.cert__badge--cisco { background: #ffffff; border-color: transparent; }
+.cert__badge--mathworks { background: #ffffff; border-color: transparent; }
+/* El de Cisco es un lockup apaisado: necesita más ancho */
+.cert__badge--cisco img { width: 36px; height: auto; }
+.cert__badge--mathworks img { width: 30px; height: 30px; }
 
 .cert__name { font-size: 0.92rem; font-weight: 700; line-height: 1.2; }
 .cert__issuer { color: var(--dim); font-size: 0.76rem; margin-top: 0.12rem; }
@@ -581,87 +624,6 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
   letter-spacing: 0.1em;
 }
 
-/* El footer guarda el secreto: solo el tooltip sabe la respuesta */
-.footer__sea { cursor: help; transition: color 0.3s; }
-.footer__sea:hover { color: var(--cyan); }
-
-/* Proyecto X: glitch + cursor parpadeante */
-.proj__glitch { color: var(--cyan); }
-.proj__cursor {
-  color: var(--cyan);
-  animation: blink 1.1s steps(1) infinite;
-}
-@keyframes blink { 50% { opacity: 0; } }
-
-/* ============ Easter egg: tormenta ============ */
-.storm-dark {
-  position: fixed;
-  inset: 0;
-  background: #010407;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 8000;
-  transition: opacity 1.8s ease;
-}
-.storm-dark.on { opacity: 0.5; }
-
-.lightning {
-  position: fixed;
-  inset: 0;
-  background: #dff3fb;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 8001;
-}
-.lightning.flash { animation: lightningFlash 0.5s ease-out; }
-@keyframes lightningFlash {
-  0% { opacity: 0; }
-  8% { opacity: 0.55; }
-  16% { opacity: 0.08; }
-  26% { opacity: 0.38; }
-  100% { opacity: 0; }
-}
-
-/* Tarjetas arrastradas por la ola: se hunden mientras están cubiertas */
-.swept {
-  transform: translateY(60vh) rotate(var(--swept-rot, 8deg)) scale(0.8) !important;
-  opacity: 0 !important;
-  transition:
-    transform 1s cubic-bezier(0.55, 0, 0.85, 0.4),
-    opacity 0.9s ease !important;
-}
-
-/* ============ Easter egg: toast ============ */
-.egg-toast {
-  position: fixed;
-  bottom: 1.6rem;
-  left: 50%;
-  transform: translate(-50%, 200%);
-  z-index: 9500;
-  background: var(--cyan);
-  color: #0a0c0e;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 0.8rem 1.5rem;
-  border-radius: 999px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-  white-space: nowrap;
-}
-.egg-toast.show { transform: translate(-50%, 0); }
-
-/* Sacudida al activar el huevo */
-@keyframes eggShake {
-  0%, 100% { transform: translate(0, 0); }
-  20% { transform: translate(-6px, 2px); }
-  40% { transform: translate(5px, -3px); }
-  60% { transform: translate(-4px, -2px); }
-  80% { transform: translate(3px, 2px); }
-}
-body.egg-shake main { animation: eggShake 0.4s ease; }
-
 /* ============ Reveal ============ */
 [data-reveal] {
   opacity: 0;
@@ -695,6 +657,11 @@ body.egg-shake main { animation: eggShake 0.4s ease; }
   .links { grid-template-columns: 1fr; }
 }
 
+/* La preview solo tiene sentido con puntero: en táctil no hay hover */
+@media (hover: none), (pointer: coarse), (max-width: 640px) {
+  .proj__screen { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -702,4 +669,5 @@ body.egg-shake main { animation: eggShake 0.4s ease; }
   }
   [data-reveal] { opacity: 1; transform: none; }
   #sea { display: none; }
+  .proj__screen { display: none; }
 }

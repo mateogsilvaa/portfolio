@@ -493,6 +493,26 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
   transition: border-color 0.3s, background 0.3s;
 }
 .cert:hover { border-color: var(--cyan); background: var(--cyan-soft); }
+.cert__info { flex: 1; min-width: 0; }
+
+/* Las que se pueden verificar llevan su "VER ↗" a la derecha */
+.cert__verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  color: var(--dim);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  transition: color 0.25s;
+}
+.cert__verify svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.25s;
+}
+.cert--link:hover .cert__verify { color: var(--cyan); }
+.cert--link:hover .cert__verify svg { transform: translate(2px, -2px); }
 
 .cert__badge {
   flex-shrink: 0;

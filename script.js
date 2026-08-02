@@ -1,6 +1,10 @@
 // ===== Un logo que falte no deja el icono de imagen rota =====
+// Puede haber fallado ya antes de llegar aquí, así que además del
+// listener hay que mirar las que vienen rotas de fábrica.
 document.querySelectorAll(".proj__logo").forEach((img) => {
-  img.addEventListener("error", () => img.remove());
+  const drop = () => img.remove();
+  img.addEventListener("error", drop);
+  if (img.complete && img.naturalWidth === 0) drop();
 });
 
 // ===== Loader + animación del hero =====
@@ -38,17 +42,20 @@ document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
 // ============================================================
 // Preview en vivo: al pasar por encima de un proyecto se
-// despliega una pantalla con la web tal y como está ahora.
-// El iframe se crea en el primer hover (no al cargar) y se
-// escala para que quepa entero dentro del marco.
+// despliega un monitor con la web tal y como está ahora.
+// El marco tiene la proporción de una pantalla de escritorio
+// (16:10), así que se ve lo mismo que vería un usuario, sin
+// recortes. El iframe se crea en el primer hover, no al cargar.
 // ============================================================
 (() => {
   // El puntero fino es el que puede "pasar por encima"; en táctil
   // el hover no existe y el iframe solo estorbaría.
   if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
-  const FRAME_W = 1440; // ancho de escritorio que simulamos
-  const FRAME_H = 1080;
+  // Ventana de escritorio que simulamos: 16:10, la misma
+  // proporción que le damos al marco en el CSS.
+  const FRAME_W = 1440;
+  const FRAME_H = 900;
   const OPEN_DELAY = 260; // ms de gracia: pasar de largo no carga nada
 
   document.querySelectorAll("[data-preview]").forEach((row) => {
@@ -57,22 +64,24 @@ document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
     const screen = document.createElement("div");
     screen.className = "proj__screen";
     screen.innerHTML = `
-      <div class="proj__screen-bar">
-        <span class="proj__screen-dot"></span>
-        <span class="proj__screen-dot"></span>
-        <span class="proj__screen-dot"></span>
-        <span class="proj__screen-url mono">${url}</span>
-      </div>
-      <div class="proj__screen-view"><div class="proj__screen-load mono">cargando…</div></div>`;
+      <div class="proj__screen-win">
+        <div class="proj__screen-bar">
+          <span class="proj__screen-dot"></span>
+          <span class="proj__screen-dot"></span>
+          <span class="proj__screen-dot"></span>
+          <span class="proj__screen-url mono">${url}</span>
+        </div>
+        <div class="proj__screen-view"><div class="proj__screen-load mono">cargando…</div></div>
+      </div>`;
     row.appendChild(screen);
 
     const view = screen.querySelector(".proj__screen-view");
     let frame = null;
     let openTimer;
 
-    // El iframe se dibuja a tamaño de escritorio y se encoge hasta
-    // el ancho del marco; la altura la recorta el marco, así que se
-    // ve la parte de arriba de la web como en un monitor pequeño.
+    // El iframe se dibuja a 1440x900 y se encoge hasta el ancho del
+    // marco. Como el marco tiene esa misma proporción, entra entero:
+    // es la pantalla de un usuario, en pequeño.
     function fit() {
       if (!frame) return;
       frame.style.transform = `scale(${view.clientWidth / FRAME_W})`;
@@ -89,6 +98,8 @@ document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
       frame.setAttribute("referrerpolicy", "no-referrer");
       frame.width = FRAME_W;
       frame.height = FRAME_H;
+      frame.style.width = FRAME_W + "px";
+      frame.style.height = FRAME_H + "px";
       frame.addEventListener("load", () => screen.classList.add("is-ready"));
       frame.src = url;
       view.appendChild(frame);

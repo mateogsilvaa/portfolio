@@ -18,6 +18,9 @@
   --ma-accent: #e84a1f;
   --ld-bg: #9FE88D;
   --ld-ink: #0D2A14;
+  --fa-bg: #D68DE8;
+  --fa-ink: #2A0D23;
+  --fa-accent: #FF5C38;
 }
 
 
@@ -294,16 +297,17 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 .proj--ld .proj__arrow { color: var(--ld-ink); }
 .proj--ld:hover { box-shadow: 0 10px 34px rgba(159, 232, 141, 0.12); }
 
-/* Fantasy Atletismo: aún en obras, así que se queda en oscuro */
+/* Fantasy Atletismo: lila de marca. El borde discontinuo es lo que
+   sigue contando que está en obras, no el color. */
 .proj--fa {
-  background: var(--card);
-  border: 1px dashed var(--line);
-  color: var(--ink);
+  background: var(--fa-bg);
+  color: var(--fa-ink);
+  border: 1px dashed rgba(42, 13, 35, 0.45);
 }
-.proj--fa .proj__num { color: var(--cyan); }
+.proj--fa .proj__num { color: var(--fa-accent); }
 .proj--fa .proj__desc,
-.proj--fa .proj__url { color: var(--dim); }
-.proj--fa:hover { box-shadow: 0 10px 34px rgba(0, 165, 207, 0.1); }
+.proj--fa .proj__url { color: rgba(42, 13, 35, 0.62); }
+.proj--fa:hover { box-shadow: 0 10px 34px rgba(214, 141, 232, 0.14); }
 
 /* Sello de "en obras" en lugar de la flecha de enlace */
 .proj__wip {
@@ -311,10 +315,10 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
   align-items: center;
   gap: 0.45rem;
   flex-shrink: 0;
-  border: 1px solid var(--cyan);
+  border: 1px solid var(--fa-ink);
   border-radius: 999px;
   padding: 0.3rem 0.7rem;
-  color: var(--cyan);
+  color: var(--fa-ink);
   font-size: 0.6rem;
   letter-spacing: 0.12em;
 }
@@ -322,8 +326,13 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--cyan);
-  animation: ping 2s ease-out infinite;
+  background: var(--fa-accent);
+  animation: pingFa 2s ease-out infinite;
+}
+@keyframes pingFa {
+  0% { box-shadow: 0 0 0 0 rgba(255, 92, 56, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(255, 92, 56, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 92, 56, 0); }
 }
 
 .proj__logo {
@@ -374,27 +383,37 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
    Cuelga del borde inferior de la fila y baja girando sobre su
    bisagra, como una pantalla de proyección. Va por encima del
    resto para no empujar el contenido al abrirse. */
+/* Carril transparente que centra el monitor bajo la fila */
 .proj__screen {
   position: absolute;
   top: calc(100% - 10px);
   left: 0;
   right: 0;
   z-index: 4;
+  display: flex;
+  justify-content: center;
+  perspective: 1600px;
+  pointer-events: none;
+}
+
+/* El monitor: proporción de pantalla, no una franja apaisada */
+.proj__screen-win {
+  width: clamp(300px, 44vw, 560px);
+  max-width: 100%;
   border-radius: 14px;
   overflow: hidden;
   background: #0b0e10;
   border: 1px solid var(--line);
   box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
   transform-origin: top center;
-  transform: perspective(1400px) rotateX(-92deg);
+  transform: rotateX(-92deg);
   opacity: 0;
-  pointer-events: none;
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.3s ease;
 }
-.proj:hover .proj__screen {
-  transform: perspective(1400px) rotateX(0deg);
+.proj:hover .proj__screen-win {
+  transform: rotateX(0deg);
   opacity: 1;
 }
 
@@ -422,10 +441,12 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 }
 
 /* Ventana recortada donde vive el iframe a escala */
+/* 16:10 — lo mismo que mide el iframe que va dentro, así que la
+   web entra entera y se ve como en un monitor de escritorio */
 .proj__screen-view {
   position: relative;
   width: 100%;
-  height: clamp(180px, 26vh, 280px);
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: #0b0e10;
 }
@@ -441,6 +462,7 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 }
 .proj__screen.is-ready .proj__screen-frame { opacity: 1; }
 .proj__screen.is-ready .proj__screen-load { opacity: 0; }
+
 
 .proj__screen-load {
   position: absolute;
@@ -490,7 +512,6 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 }
 /* Colores oficiales de cada marca */
 .cert__badge--anthropic { background: #CC785C; border-color: transparent; }
-.cert__badge--claudecode { background: #191919; border-color: transparent; }
 .cert__badge--cisco { background: #ffffff; border-color: transparent; }
 .cert__badge--mathworks { background: #ffffff; border-color: transparent; }
 /* El de Cisco es un lockup apaisado: necesita más ancho */

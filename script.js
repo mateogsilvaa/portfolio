@@ -41,54 +41,34 @@ const io = new IntersectionObserver(
 document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
 // ============================================================
-// Preview en vivo: al pasar por encima de un proyecto se
-// despliega un monitor con la web tal y como está ahora.
-// El marco tiene la proporción de una pantalla de escritorio
-// (16:10), así que se ve lo mismo que vería un usuario, sin
-// recortes. El iframe se crea en el primer hover, no al cargar.
+// Proyectos: "más info" abre un panel con el contexto y la
+// preview en vivo de la web. Solo uno abierto a la vez, y el
+// iframe no se carga hasta que ese panel se abre por primera
+// vez: entrar en la página no dispara ninguna carga externa.
 // ============================================================
 (() => {
-  // El puntero fino es el que puede "pasar por encima"; en táctil
-  // el hover no existe y el iframe solo estorbaría.
-  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-
   // Ventana de escritorio que simulamos: 16:10, la misma
   // proporción que le damos al marco en el CSS.
   const FRAME_W = 1440;
   const FRAME_H = 900;
-  const OPEN_DELAY = 260; // ms de gracia: pasar de largo no carga nada
 
-  document.querySelectorAll("[data-preview]").forEach((row) => {
-    const url = row.dataset.preview;
+  // Cada preview sabe cargarse y escalarse sola
+  const previews = new Map();
 
-    const screen = document.createElement("div");
-    screen.className = "proj__screen";
-    screen.innerHTML = `
-      <div class="proj__screen-win">
-        <div class="proj__screen-bar">
-          <span class="proj__screen-dot"></span>
-          <span class="proj__screen-dot"></span>
-          <span class="proj__screen-dot"></span>
-          <span class="proj__screen-url mono">${url}</span>
-        </div>
-        <div class="proj__screen-view"><div class="proj__screen-load mono">cargando…</div></div>
-      </div>`;
-    row.appendChild(screen);
-
+  document.querySelectorAll("[data-preview]").forEach((screen) => {
+    const url = screen.dataset.preview;
     const view = screen.querySelector(".proj__screen-view");
     let frame = null;
-    let openTimer;
 
     // El iframe se dibuja a 1440x900 y se encoge hasta el ancho del
     // marco. Como el marco tiene esa misma proporción, entra entero:
     // es la pantalla de un usuario, en pequeño.
-    function fit() {
-      if (!frame) return;
-      frame.style.transform = `scale(${view.clientWidth / FRAME_W})`;
-    }
+    const fit = () => {
+      if (frame) frame.style.transform = `scale(${view.clientWidth / FRAME_W})`;
+    };
 
-    function load() {
-      if (frame) return;
+    previews.set(screen.closest(".proj-detail"), () => {
+      if (frame) return fit();
       frame = document.createElement("iframe");
       frame.className = "proj__screen-frame";
       frame.setAttribute("loading", "lazy");
@@ -104,14 +84,33 @@ document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
       frame.src = url;
       view.appendChild(frame);
       fit();
-      window.addEventListener("resize", fit);
-    }
-
-    row.addEventListener("mouseenter", () => {
-      openTimer = setTimeout(load, OPEN_DELAY);
-      fit();
     });
-    row.addEventListener("mouseleave", () => clearTimeout(openTimer));
+
+    window.addEventListener("resize", fit);
+  });
+
+  const toggles = [...document.querySelectorAll(".proj__more")];
+
+  function setOpen(btn, open) {
+    const panel = document.getElementById(btn.getAttribute("aria-controls"));
+    btn.setAttribute("aria-expanded", String(open));
+    panel.classList.toggle("is-open", open);
+    btn.querySelector(".proj__more-label").textContent = open ? "CERRAR" : "MÁS INFO";
+    if (open) previews.get(panel)?.();
+  }
+
+  toggles.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const open = btn.getAttribute("aria-expanded") === "true";
+      // Acordeón: abrir uno cierra el que estuviera abierto
+      toggles.forEach((other) => other !== btn && setOpen(other, false));
+      setOpen(btn, !open);
+    });
+
+    // Pinchar en cualquier parte de la fila hace lo mismo que el botón
+    btn.closest(".proj").addEventListener("click", (e) => {
+      if (!e.target.closest(".proj__more")) btn.click();
+    });
   });
 })();
 

@@ -61,53 +61,135 @@
 
       <div class="projects">
         <!-- Mundo Atletismo: fila con identidad propia -->
-        <a class="proj proj--ma" href="https://mundoatletismo.es" target="_blank" rel="noopener" data-reveal data-preview="https://mundoatletismo.es">
-          <img src="assets/mundoatletismo.png" alt="Logo de Mundo Atletismo" class="proj__logo" />
-          <div class="proj__main">
-            <div class="proj__top">
-              <span class="proj__num mono">01</span>
-              <h3 class="proj__name">MUNDO ATLETISMO</h3>
+        <div class="proj-block" data-reveal>
+          <div class="proj proj--ma">
+            <img src="assets/mundoatletismo.png" alt="Logo de Mundo Atletismo" class="proj__logo" />
+            <div class="proj__main">
+              <div class="proj__top">
+                <span class="proj__num mono">01</span>
+                <h3 class="proj__name">MUNDO ATLETISMO</h3>
+              </div>
+              <p class="proj__desc">Medio digital de atletismo · web, contenidos y producto</p>
             </div>
-            <p class="proj__desc">Medio digital de atletismo · web, contenidos y producto</p>
+            <div class="proj__side">
+              <button class="proj__more mono" type="button" aria-expanded="false" aria-controls="det-ma">
+                <span class="proj__more-label">MÁS INFO</span>
+                <span class="proj__more-icon" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-          <div class="proj__side">
-            <span class="proj__url mono">mundoatletismo.es</span>
-            <svg class="proj__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+
+          <div class="proj-detail" id="det-ma">
+            <div class="proj-detail__inner">
+              <div class="proj-detail__text">
+                <p class="proj-detail__desc">
+                  Medio digital del atletismo español: ranking nacional, campeonatos,
+                  mínimas internacionales, pistas, atletas, clubes e insights. Llevo la
+                  web, los contenidos y el producto de punta a punta.
+                </p>
+                <ul class="proj-detail__tags mono">
+                  <li>React</li><li>Vite</li><li>Firebase</li><li>PWA</li><li>Analytics</li>
+                </ul>
+              </div>
+              <a class="proj-detail__screen" href="https://mundoatletismo.es" target="_blank" rel="noopener" data-preview="https://mundoatletismo.es">
+                <span class="proj__screen-bar">
+                  <span class="proj__screen-dot"></span>
+                  <span class="proj__screen-dot"></span>
+                  <span class="proj__screen-dot"></span>
+                  <span class="proj__screen-url mono">mundoatletismo.es</span>
+                </span>
+                <span class="proj__screen-view"><span class="proj__screen-load mono">cargando…</span></span>
+                <span class="proj-detail__open mono">ABRIR LA WEB ↗</span>
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
         <!-- Lanedata: fila con identidad propia -->
-        <a class="proj proj--ld" href="https://lanedata.es" target="_blank" rel="noopener" data-reveal data-preview="https://lanedata.es">
-          <img src="assets/lanedata.svg" alt="Logo de Lanedata" class="proj__logo" />
-          <div class="proj__main">
-            <div class="proj__top">
-              <span class="proj__num mono">02</span>
-              <h3 class="proj__name">LANEDATA</h3>
+        <div class="proj-block" data-reveal>
+          <div class="proj proj--ld">
+            <img src="assets/lanedata.svg" alt="Logo de Lanedata" class="proj__logo" />
+            <div class="proj__main">
+              <div class="proj__top">
+                <span class="proj__num mono">02</span>
+                <h3 class="proj__name">LANEDATA</h3>
+              </div>
+              <p class="proj__desc">Datos y análisis aplicados al deporte, en visual</p>
             </div>
-            <p class="proj__desc">Datos y análisis aplicados al deporte, en visual</p>
+            <div class="proj__side">
+              <button class="proj__more mono" type="button" aria-expanded="false" aria-controls="det-ld">
+                <span class="proj__more-label">MÁS INFO</span>
+                <span class="proj__more-icon" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-          <div class="proj__side">
-            <span class="proj__url mono">lanedata.es</span>
-            <svg class="proj__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+
+          <div class="proj-detail" id="det-ld">
+            <div class="proj-detail__inner">
+              <div class="proj-detail__text">
+                <p class="proj-detail__desc">
+                  El atletismo español contado con datos: análisis, estadísticas y
+                  calculadoras de puntos World Athletics, ritmo y predicción de marcas.
+                </p>
+                <ul class="proj-detail__tags mono">
+                  <li>Next.js</li><li>React</li><li>Supabase</li><li>GitHub Pages</li>
+                </ul>
+              </div>
+              <a class="proj-detail__screen" href="https://lanedata.es" target="_blank" rel="noopener" data-preview="https://lanedata.es">
+                <span class="proj__screen-bar">
+                  <span class="proj__screen-dot"></span>
+                  <span class="proj__screen-dot"></span>
+                  <span class="proj__screen-dot"></span>
+                  <span class="proj__screen-url mono">lanedata.es</span>
+                </span>
+                <span class="proj__screen-view"><span class="proj__screen-load mono">cargando…</span></span>
+                <span class="proj-detail__open mono">ABRIR LA WEB ↗</span>
+              </a>
+            </div>
           </div>
-        </a>
+        </div>
 
         <!-- En construcción: aún no tiene web a la que enlazar -->
-        <div class="proj proj--fa" data-reveal>
-          <img src="assets/fantasyatletismo.png" alt="Logo de Fantasy Atletismo" class="proj__logo" />
-          <div class="proj__main">
-            <div class="proj__top">
-              <span class="proj__num mono">03</span>
-              <h3 class="proj__name">FANTASY ATLETISMO</h3>
+        <div class="proj-block" data-reveal>
+          <div class="proj proj--fa">
+            <img src="assets/fantasyatletismo.png" alt="Logo de Fantasy Atletismo" class="proj__logo" />
+            <div class="proj__main">
+              <div class="proj__top">
+                <span class="proj__num mono">03</span>
+                <h3 class="proj__name">FANTASY ATLETISMO</h3>
+              </div>
+              <p class="proj__desc">Liga fantasy de atletismo · en construcción</p>
             </div>
-            <p class="proj__desc">Liga fantasy de atletismo · en construcción</p>
+            <div class="proj__side">
+              <span class="proj__wip mono" aria-hidden="true">
+                <span class="proj__wip-dot"></span>
+                EN OBRAS
+              </span>
+              <button class="proj__more mono" type="button" aria-expanded="false" aria-controls="det-fa">
+                <span class="proj__more-label">MÁS INFO</span>
+                <span class="proj__more-icon" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-          <div class="proj__side">
-            <span class="proj__url mono">próximamente</span>
-            <span class="proj__wip mono" aria-hidden="true">
-              <span class="proj__wip-dot"></span>
-              EN OBRAS
-            </span>
+
+          <div class="proj-detail" id="det-fa">
+            <div class="proj-detail__inner">
+              <div class="proj-detail__text">
+                <p class="proj-detail__desc">
+                  Liga fantasy de atletismo: montas tu equipo con atletas reales y
+                  puntúas con lo que hacen de verdad en competición. En construcción.
+                </p>
+                <ul class="proj-detail__tags mono">
+                  <li>Stack por definir</li>
+                </ul>
+              </div>
+              <div class="proj-detail__screen proj-detail__screen--soon">
+                <span class="proj-detail__soon mono">
+                  <span class="proj__wip-dot"></span>
+                  AÚN NO HAY NADA QUE ENSEÑAR
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -189,11 +271,23 @@
         <div class="xp__col" data-reveal>
           <h3 class="xp__label mono">// experiencia</h3>
           <div class="xp__list">
-            <div class="xp__item">
+            <div class="xp__item" tabindex="0">
               <span class="xp__dot xp__dot--pulse" aria-hidden="true"></span>
               <span class="xp__year">2026 — HOY</span>
               <h4>MUNDOATLETISMO + LANEDATA</h4>
               <p class="xp__where mono">Web de atletismo · Datos deportivos · en activo</p>
+              <div class="xp__more">
+                <div class="xp__more-inner">
+                  <p>
+                    Dos proyectos propios que llevo de punta a punta: producto, diseño,
+                    front, datos y contenidos. Uno cuenta el atletismo español y el otro
+                    lo explica con números.
+                  </p>
+                  <ul class="xp__tags mono">
+                    <li>React</li><li>Next.js</li><li>Firebase</li><li>Supabase</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -202,11 +296,22 @@
         <div class="xp__col" data-reveal>
           <h3 class="xp__label mono">// educación</h3>
           <div class="xp__list">
-            <div class="xp__item">
+            <div class="xp__item" tabindex="0">
               <span class="xp__dot" aria-hidden="true"></span>
               <span class="xp__year">2025 — 2029</span>
               <h4>GRADO EN ING. INFORMÁTICA + IA APLICADA A LA ROBÓTICA</h4>
               <p class="xp__where mono">UFV · Bilingüe · en curso</p>
+              <div class="xp__more">
+                <div class="xp__more-inner">
+                  <p>
+                    Grado bilingüe de cuatro años en la Universidad Francisco de Vitoria,
+                    con la mención en inteligencia artificial aplicada a la robótica.
+                  </p>
+                  <ul class="xp__tags mono">
+                    <li>Ing. del software</li><li>IA</li><li>Robótica</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </div>

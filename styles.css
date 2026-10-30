@@ -633,6 +633,13 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 /* El de Cisco es un lockup apaisado: necesita más ancho */
 .cert__badge--cisco img { width: 36px; height: auto; }
 .cert__badge--mathworks img { width: 30px; height: 30px; }
+.cert__badge--cambridge {
+  background: #b5121b;
+  border-color: transparent;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
 
 .cert__name { font-size: 0.92rem; font-weight: 700; line-height: 1.2; }
 .cert__issuer { color: var(--dim); font-size: 0.76rem; margin-top: 0.12rem; }
@@ -647,8 +654,8 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 /* ============ Educación y experiencia (dos ejes paralelos) ============ */
 .xp {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.2rem;
 }
 
 .xp__label {
@@ -816,12 +823,62 @@ body.scrolled .hero__cue { opacity: 0; pointer-events: none; }
 }
 [data-reveal].in { opacity: 1; transform: none; }
 
+/* ============ Datos del hero ============ */
+.hero__facts {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--dim);
+  text-transform: uppercase;
+}
+.hero__facts b {
+  display: block;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.9rem;
+  letter-spacing: 0.01em;
+  color: var(--cyan);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+/* ============ Stack e idiomas ============ */
+.skills {
+  margin-top: 2.6rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 1rem;
+}
+.skills__row { display: flex; gap: 1.2rem; align-items: baseline; flex-wrap: wrap; }
+.skills__label {
+  color: var(--cyan);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  min-width: 7rem;
+}
+.skills__list { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.skills__list li {
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.32rem 0.75rem;
+  transition: border-color 0.25s, color 0.25s;
+}
+.skills__list li:hover { border-color: var(--cyan); color: var(--cyan); }
+
 /* ============ Responsive ============ */
 @media (max-width: 960px) {
   .certs { grid-template-columns: 1fr; }
   .links { grid-template-columns: 1fr 1fr; }
   /* Educación y experiencia en una sola columna */
   .xp { grid-template-columns: 1fr; gap: 2.2rem; }
+  .hero__facts { gap: 1.2rem; }
 }
 
 @media (max-width: 640px) {

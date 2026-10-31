@@ -1,5 +1,5 @@
 // ===== Un logo que falte no deja el icono de imagen rota =====
-document.querySelectorAll(".card__logo").forEach((img) => {
+document.querySelectorAll("img.item__icon").forEach((img) => {
   const drop = () => img.remove();
   img.addEventListener("error", drop);
   if (img.complete && img.naturalWidth === 0) drop();

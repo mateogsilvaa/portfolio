@@ -3,311 +3,252 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mateogsilvaa</title>
-  <meta name="description" content="Mateo González Silva. Construyo cosas en la web. mundoatletismo.es · lanedata.es" />
-  <meta name="theme-color" content="#06080a" />
+  <title>Mateo González Silva</title>
+  <meta name="description" content="Mateo González Silva. Ingeniería Informática e IA. Mundo Atletismo, Lanedata y Tripfinder." />
+  <meta name="theme-color" content="#0b0b0c" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Fondo interactivo: malla de puntos que se aparta del cursor y ondea al hacer clic -->
+  <!-- Fondo: cuadrícula casi invisible que una luz suave revela bajo el cursor -->
   <canvas id="field" aria-hidden="true"></canvas>
-  <div class="vignette" aria-hidden="true"></div>
 
-  <!-- ===== NAV ===== -->
   <header class="nav">
-    <a href="#hero" class="nav__logo" aria-label="Inicio">M.</a>
-    <nav class="nav__menu">
-      <a href="#proyectos">Proyectos</a>
-      <a href="#trayectoria">Trayectoria</a>
-      <a href="#certificaciones">Certs</a>
-    </nav>
-    <a href="#contacto" class="nav__cta">Contacto</a>
+    <div class="nav__inner">
+      <a href="#top" class="nav__name">Mateo González</a>
+      <nav class="nav__links">
+        <a href="#proyectos">Proyectos</a>
+        <a href="#trayectoria">Trayectoria</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <!-- ===== HERO ===== -->
-    <section class="hero" id="hero">
-      <p class="hero__status mono"><span class="live"></span> Abierto a prácticas y proyectos</p>
-      <h1 class="hero__title">
-        <span class="hero__line"><span data-line>MATEO</span></span>
-        <span class="hero__line"><span data-line class="outline">GONZÁLEZ</span></span>
-        <span class="hero__line"><span data-line>SILVA<em>.</em></span></span>
-      </h1>
+  <main class="wrap" id="top">
 
-      <div class="hero__grid">
-        <div class="hero__pitch">
-          <p class="hero__lead">Estudio Ingeniería Informática e IA y ya tengo <b>tres webs en producción</b> que usa gente real.</p>
-          <p class="hero__desc">Detecto un problema, lo convierto en producto y lo saco adelante, solo o en equipo.</p>
-          <div class="hero__ctas">
-            <a class="btn btn--lg" href="mailto:mateogonsilva@gmail.com">Hablemos</a>
-            <a class="btn btn--ghost btn--lg" href="#proyectos">Ver proyectos</a>
-          </div>
-        </div>
-        <ul class="hero__facts">
-          <li><b>03</b><span class="mono">webs publicadas</span></li>
-          <li><b>05</b><span class="mono">certificaciones</span></li>
-          <li><b>90h+</b><span class="mono">de voluntariado</span></li>
-        </ul>
-      </div>
-
-    </section>
-
-    <!-- ===== POR QUÉ YO ===== -->
-    <section class="section" id="porque">
-      <header class="section__head" data-reveal>
-        <span class="section__idx mono">01</span>
-        <h2 class="section__title">LO QUE APORTO</h2>
-      </header>
-      <div class="why">
-        <div class="card why__item" data-reveal>
-          <span class="why__num">01</span>
-          <h3>Termino lo que empiezo</h3>
-          <p>Mundo Atletismo, Lanedata y Tripfinder están publicadas y funcionando, no se quedaron en idea.</p>
-        </div>
-        <div class="card why__item" data-reveal>
-          <span class="why__num">02</span>
-          <h3>Iniciativa propia</h3>
-          <p>He fundado un proyecto y cofundado otro. Sé moverme sin que nadie me diga el siguiente paso.</p>
-        </div>
-        <div class="card why__item" data-reveal>
-          <span class="why__num">03</span>
-          <h3>Aprendo rápido</h3>
-          <p>Del frontend al scraping con Python o el backend con Firebase y Supabase. Y certificado en IA por Anthropic.</p>
-        </div>
-        <div class="card why__item" data-reveal>
-          <span class="why__num">04</span>
-          <h3>Trabajo con personas</h3>
-          <p>Voluntario en hospitales con la Fundación Talento MCR y 90 h dando clase a niños en Nepal. Inglés B2.</p>
-        </div>
+    <!-- ===== Intro ===== -->
+    <section class="intro" data-reveal>
+      <img class="intro__mark" src="assets/brand/icon-rounded-dark.png" alt="" />
+      <h1>Mateo González Silva</h1>
+      <p class="intro__role">Ingeniería Informática e IA aplicada a la Robótica · UFV</p>
+      <p class="intro__text">
+        Diseño y desarrollo productos web. He lanzado Mundo Atletismo, Lanedata y
+        Tripfinder, y ahora estoy construyendo Fantasy Atletismo.
+      </p>
+      <div class="intro__links">
+        <a class="pill pill--solid" href="mailto:mateogonsilva@gmail.com">Contactar</a>
+        <a class="pill" href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="pill" href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub</a>
       </div>
     </section>
 
-    <!-- ===== PROYECTOS ===== -->
-    <section class="section" id="proyectos">
-      <header class="section__head" data-reveal>
-        <span class="section__idx mono">02</span>
-        <h2 class="section__title">PROYECTOS</h2>
-      </header>
-
-      <div class="bento">
-        <article class="card card--proj card--ma card--wide" data-reveal>
-          <div class="card__top">
-            <img src="assets/mundoatletismo.png" alt="" class="card__logo" />
-            <span class="badge mono">Cofundador</span>
+    <!-- ===== Proyectos ===== -->
+    <section class="block" id="proyectos" data-reveal>
+      <h2 class="block__title">Proyectos</h2>
+      <ul class="list">
+        <li>
+          <button class="item item--btn" type="button" data-preview="https://mundoatletismo.es">
+            <img class="item__icon" src="assets/mundoatletismo.png" alt="" />
+            <span class="item__main">
+              <span class="item__title">Mundo Atletismo</span>
+              <span class="item__sub">Medio digital sobre atletismo español · React, Vite, Firebase</span>
+            </span>
+            <span class="item__meta">Cofundador</span>
+            <span class="item__chev" aria-hidden="true">›</span>
+          </button>
+        </li>
+        <li>
+          <button class="item item--btn" type="button" data-preview="https://lanedata.es">
+            <img class="item__icon" src="assets/lanedata.svg" alt="" />
+            <span class="item__main">
+              <span class="item__title">Lanedata</span>
+              <span class="item__sub">Estadísticas y calculadoras de atletismo · Next.js, Supabase</span>
+            </span>
+            <span class="item__meta">Fundador</span>
+            <span class="item__chev" aria-hidden="true">›</span>
+          </button>
+        </li>
+        <li>
+          <button class="item item--btn" type="button" data-preview="https://tripfinder.es">
+            <img class="item__icon" src="assets/tripfinder.png" alt="" />
+            <span class="item__main">
+              <span class="item__title">Tripfinder</span>
+              <span class="item__sub">Rastrea vuelos y ofertas baratas · JavaScript, Python, Firebase</span>
+            </span>
+            <span class="item__meta">Creador</span>
+            <span class="item__chev" aria-hidden="true">›</span>
+          </button>
+        </li>
+        <li>
+          <div class="item">
+            <img class="item__icon" src="assets/fantasyatletismo.png" alt="" />
+            <span class="item__main">
+              <span class="item__title">Fantasy Atletismo</span>
+              <span class="item__sub">Liga fantasy con atletas reales</span>
+            </span>
+            <span class="item__meta item__meta--soon">En desarrollo</span>
           </div>
-          <h3 class="card__title">MUNDO<br>ATLETISMO</h3>
-          <p class="card__text">
-            Medio digital sobre atletismo español: ranking nacional, campeonatos,
-            mínimas, pistas, atletas y clubes. Proyecto en equipo.
-          </p>
-          <p class="card__role mono"><b>Mi papel</b> cofundador · desarrollo web, contenidos y producto</p>
-          <ul class="tags mono"><li>React</li><li>Vite</li><li>Firebase</li><li>PWA</li><li>Analytics</li></ul>
-          <div class="card__actions">
-            <button class="btn btn--ghost mono" type="button" data-preview="https://mundoatletismo.es">Vista previa</button>
-            <a class="btn mono" href="https://mundoatletismo.es" target="_blank" rel="noopener">mundoatletismo.es ↗</a>
-          </div>
-        </article>
-
-        <article class="card card--proj card--ld" data-reveal>
-          <div class="card__top">
-            <img src="assets/lanedata.svg" alt="" class="card__logo" />
-            <span class="badge mono">Fundador</span>
-          </div>
-          <h3 class="card__title">LANEDATA</h3>
-          <p class="card__text">
-            Estadísticas de atletismo español y calculadoras de puntos World
-            Athletics, ritmo y predicción de marcas.
-          </p>
-          <p class="card__role mono"><b>Mi papel</b> fundador · diseño, desarrollo y datos</p>
-          <ul class="tags mono"><li>Next.js</li><li>React</li><li>Supabase</li></ul>
-          <div class="card__actions">
-            <button class="btn btn--ghost mono" type="button" data-preview="https://lanedata.es">Vista previa</button>
-            <a class="btn mono" href="https://lanedata.es" target="_blank" rel="noopener">lanedata.es ↗</a>
-          </div>
-        </article>
-
-        <article class="card card--proj card--tf" data-reveal>
-          <div class="card__top">
-            <span class="card__mono mono">TF</span>
-          </div>
-          <h3 class="card__title">TRIPFINDER</h3>
-          <p class="card__text">
-            Web que rastrea vuelos y ofertas de viaje para encontrar los precios
-            más baratos.
-          </p>
-          <p class="card__role mono"><b>Mi papel</b> creador · scraping, backend y web</p>
-          <ul class="tags mono"><li>JavaScript</li><li>Python</li><li>Firebase</li><li>Scraping</li></ul>
-          <div class="card__actions">
-            <button class="btn btn--ghost mono" type="button" data-preview="https://tripfinder.es">Vista previa</button>
-            <a class="btn mono" href="https://tripfinder.es" target="_blank" rel="noopener">tripfinder.es ↗</a>
-          </div>
-        </article>
-
-        <article class="card card--proj card--fa" data-reveal>
-          <div class="card__top">
-            <img src="assets/fantasyatletismo.png" alt="" class="card__logo" />
-            <span class="badge badge--wip mono"><span class="live live--warn"></span>En obras</span>
-          </div>
-          <h3 class="card__title">FANTASY<br>ATLETISMO</h3>
-          <p class="card__text">
-            Liga fantasy de atletismo con atletas reales. En desarrollo.
-          </p>
-          <ul class="tags mono"><li>Próximamente</li></ul>
-        </article>
-      </div>
+        </li>
+      </ul>
+      <p class="block__note">Toca un proyecto para abrir una vista previa en vivo.</p>
     </section>
 
-    <!-- ===== TRAYECTORIA ===== -->
-    <section class="section" id="trayectoria">
-      <header class="section__head" data-reveal>
-        <span class="section__idx mono">03</span>
-        <h2 class="section__title">TRAYECTORIA</h2>
-      </header>
-
-      <div class="filters mono" data-reveal>
-        <button class="filter is-active" data-filter="all" type="button">Todo</button>
-        <button class="filter" data-filter="exp" type="button">Experiencia</button>
-        <button class="filter" data-filter="vol" type="button">Voluntariado</button>
-        <button class="filter" data-filter="edu" type="button">Educación</button>
-      </div>
-
-      <ol class="timeline">
-        <li class="row" data-kind="exp" data-reveal>
-          <span class="row__when mono"><span class="live"></span>2026 — hoy</span>
-          <div class="row__body">
-            <h3>Fundador de Lanedata</h3>
-            <p class="row__where mono">lanedata.es</p>
-            <p>Desarrollo de la web con Next.js, React y Supabase.</p>
-          </div>
-          <span class="row__kind mono">experiencia</span>
+    <!-- ===== Trayectoria ===== -->
+    <section class="block" id="trayectoria" data-reveal>
+      <h2 class="block__title">Experiencia</h2>
+      <ul class="list">
+        <li class="item">
+          <span class="item__main">
+            <span class="item__title">Fundador · Lanedata</span>
+            <span class="item__sub">Diseño, desarrollo y datos de la plataforma</span>
+          </span>
+          <span class="item__meta">2026 — hoy</span>
         </li>
-        <li class="row" data-kind="exp" data-reveal>
-          <span class="row__when mono"><span class="live"></span>2026 — hoy</span>
-          <div class="row__body">
-            <h3>Cofundador de Mundo Atletismo</h3>
-            <p class="row__where mono">mundoatletismo.es</p>
-            <p>Medio digital sobre atletismo, desarrollado en equipo con React, Vite y Firebase.</p>
-          </div>
-          <span class="row__kind mono">experiencia</span>
+        <li class="item">
+          <span class="item__main">
+            <span class="item__title">Cofundador · Mundo Atletismo</span>
+            <span class="item__sub">Web, contenidos y producto, en equipo</span>
+          </span>
+          <span class="item__meta">2026 — hoy</span>
         </li>
-        <li class="row" data-kind="vol" data-reveal>
-          <span class="row__when mono"><span class="live"></span>En activo</span>
-          <div class="row__body">
-            <h3>Acompañamiento infantil en hospitales</h3>
-            <p class="row__where mono">Fundación Talento MCR</p>
-            <p>Voluntariado de acompañamiento a niños hospitalizados.</p>
-          </div>
-          <span class="row__kind mono">voluntariado</span>
-        </li>
-        <li class="row" data-kind="edu" data-reveal>
-          <span class="row__when mono">2025 — 2029</span>
-          <div class="row__body">
-            <h3>Ing. Informática + IA aplicada a la Robótica</h3>
-            <p class="row__where mono">Universidad Francisco de Vitoria · bilingüe</p>
-            <p>Grado en curso.</p>
-          </div>
-          <span class="row__kind mono">educación</span>
-        </li>
-        <li class="row" data-kind="edu" data-reveal>
-          <span class="row__when mono">— 2025</span>
-          <div class="row__body">
-            <h3>Bachillerato Tecnológico</h3>
-            <p class="row__where mono">IES Cervantes</p>
-            <p>Miembro del consejo escolar durante 4 años.</p>
-          </div>
-          <span class="row__kind mono">educación</span>
-        </li>
-        <li class="row" data-kind="vol" data-reveal>
-          <span class="row__when mono">Verano 2024</span>
-          <div class="row__body">
-            <h3>Voluntariado en Nepal · 90 h</h3>
-            <p class="row__where mono">Voluntariado internacional</p>
-            <p>90 horas dando clases a niños en Nepal.</p>
-          </div>
-          <span class="row__kind mono">voluntariado</span>
-        </li>
-      </ol>
-
-      <div class="stack mono" data-reveal>
-        <span class="stack__label">stack</span>
-        <ul><li>React</li><li>Next.js</li><li>Vite</li><li>Supabase</li><li>Firebase</li><li>Python</li><li>JavaScript</li><li>GitHub</li><li>MATLAB</li></ul>
-        <span class="stack__label">idiomas</span>
-        <ul><li>Español · nativo</li><li>Inglés · B2</li></ul>
-      </div>
+      </ul>
     </section>
 
-    <!-- ===== CERTIFICACIONES ===== -->
-    <section class="section" id="certificaciones">
-      <header class="section__head" data-reveal>
-        <span class="section__idx mono">04</span>
-        <h2 class="section__title">CERTIFICACIONES</h2>
-      </header>
-
-      <div class="certs">
-        <div class="card cert" data-reveal>
-          <span class="cert__badge cert__badge--anthropic"><img src="assets/certs/anthropic.svg" alt="" /></span>
-          <div><h3>AI Fluency for Builders</h3><p class="mono">Anthropic · ago 2026</p></div>
-        </div>
-        <a class="card cert" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener" data-reveal>
-          <span class="cert__badge cert__badge--anthropic"><img src="assets/certs/anthropic.svg" alt="" /></span>
-          <div><h3>Claude Code in Action</h3><p class="mono">Anthropic · jul 2026</p></div>
-          <span class="cert__go" aria-hidden="true">↗</span>
-        </a>
-        <a class="card cert" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener" data-reveal>
-          <span class="cert__badge cert__badge--cisco"><img src="assets/certs/cisco.svg" alt="" /></span>
-          <div><h3>Introduction to Cybersecurity</h3><p class="mono">Cisco · jul 2026</p></div>
-          <span class="cert__go" aria-hidden="true">↗</span>
-        </a>
-        <a class="card cert" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener" data-reveal>
-          <span class="cert__badge cert__badge--mathworks"><img src="assets/certs/mathworks.png" alt="" /></span>
-          <div><h3>MATLAB Onramp</h3><p class="mono">MathWorks · sept 2025</p></div>
-          <span class="cert__go" aria-hidden="true">↗</span>
-        </a>
-        <div class="card cert" data-reveal>
-          <span class="cert__badge cert__badge--cambridge mono">B2</span>
-          <div><h3>Cambridge B2 First</h3><p class="mono">Cambridge · jun 2023 · 176</p></div>
-        </div>
-      </div>
+    <section class="block" data-reveal>
+      <h2 class="block__title">Voluntariado</h2>
+      <ul class="list">
+        <li class="item">
+          <span class="item__main">
+            <span class="item__title">Acompañamiento infantil en hospitales</span>
+            <span class="item__sub">Fundación Talento MCR</span>
+          </span>
+          <span class="item__meta"><span class="dot"></span>En activo</span>
+        </li>
+        <li class="item">
+          <span class="item__main">
+            <span class="item__title">Clases a niños en Nepal</span>
+            <span class="item__sub">90 horas de voluntariado internacional</span>
+          </span>
+          <span class="item__meta">Verano 2024</span>
+        </li>
+      </ul>
     </section>
 
-    <!-- ===== CONTACTO ===== -->
-    <section class="section contact" id="contacto">
-      <p class="mono contact__kicker" data-reveal>05 — ¿Una vacante, unas prácticas o un proyecto?</p>
-      <a class="contact__mail" href="mailto:mateogonsilva@gmail.com" data-reveal>mateogonsilva@gmail.com <span class="contact__arrow">↗</span></a>
-      <div class="socials" data-reveal>
-        <a class="social" href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.6" cy="6.4" r="1.2" fill="currentColor" stroke="none"/></svg>
-          Instagram
-        </a>
-        <a class="social" href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.49 2.49 0 1 1 5 8.48a2.49 2.49 0 0 1-.02-4.98zM3 9.75h4v10.75H3zM9.5 9.75h3.8v1.47h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.6 4.78 5.98v6.25h-4v-5.54c0-1.32-.03-3.02-1.88-3.02-1.88 0-2.17 1.44-2.17 2.93v5.63h-4z"/></svg>
-          LinkedIn
-        </a>
-        <a class="social" href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.5A10.5 10.5 0 0 0 8.68 21.96c.53.1.72-.23.72-.5v-1.98c-2.92.64-3.54-1.24-3.54-1.24-.48-1.21-1.17-1.54-1.17-1.54-.95-.65.07-.64.07-.64 1.06.08 1.61 1.08 1.61 1.08.94 1.6 2.46 1.14 3.06.87.1-.68.37-1.14.66-1.4-2.33-.27-4.78-1.17-4.78-5.2 0-1.14.41-2.08 1.08-2.81-.11-.27-.47-1.34.1-2.79 0 0 .88-.28 2.89 1.08a10 10 0 0 1 5.26 0c2-1.36 2.88-1.08 2.88-1.08.58 1.45.22 2.52.11 2.79.67.73 1.08 1.67 1.08 2.81 0 4.04-2.46 4.92-4.8 5.18.38.33.71.96.71 1.95v2.89c0 .28.19.61.73.5A10.5 10.5 0 0 0 12 1.5z"/></svg>
-          GitHub
-        </a>
+    <section class="block" data-reveal>
+      <h2 class="block__title">Educación</h2>
+      <ul class="list">
+        <li class="item">
+          <span class="item__main">
+            <span class="item__title">Ing. Informática + IA aplicada a la Robótica</span>
+            <span class="item__sub">Universidad Francisco de Vitoria · bilingüe</span>
+          </span>
+          <span class="item__meta">2025 — 2029</span>
+        </li>
+        <li class="item">
+          <span class="item__main">
+            <span class="item__title">Bachillerato Tecnológico</span>
+            <span class="item__sub">IES Cervantes · 4 años en el consejo escolar</span>
+          </span>
+          <span class="item__meta">— 2025</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block" data-reveal>
+      <h2 class="block__title">Certificaciones</h2>
+      <ul class="list">
+        <li>
+          <div class="item">
+            <span class="item__icon item__icon--logo" style="background:#d97757"><img src="assets/certs/anthropic.svg" alt="" /></span>
+            <span class="item__main">
+              <span class="item__title">AI Fluency for Builders</span>
+              <span class="item__sub">Anthropic</span>
+            </span>
+            <span class="item__meta">ago 2026</span>
+          </div>
+        </li>
+        <li>
+          <a class="item" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener">
+            <span class="item__icon item__icon--logo" style="background:#d97757"><img src="assets/certs/anthropic.svg" alt="" /></span>
+            <span class="item__main">
+              <span class="item__title">Claude Code in Action</span>
+              <span class="item__sub">Anthropic</span>
+            </span>
+            <span class="item__meta">jul 2026</span>
+            <span class="item__chev" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="item" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener">
+            <span class="item__icon item__icon--logo" style="background:#fff"><img src="assets/certs/cisco.svg" alt="" /></span>
+            <span class="item__main">
+              <span class="item__title">Introduction to Cybersecurity</span>
+              <span class="item__sub">Cisco Networking Academy</span>
+            </span>
+            <span class="item__meta">jul 2026</span>
+            <span class="item__chev" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <a class="item" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener">
+            <span class="item__icon item__icon--logo" style="background:#fff"><img src="assets/certs/mathworks.png" alt="" /></span>
+            <span class="item__main">
+              <span class="item__title">MATLAB Onramp</span>
+              <span class="item__sub">MathWorks</span>
+            </span>
+            <span class="item__meta">sept 2025</span>
+            <span class="item__chev" aria-hidden="true">↗</span>
+          </a>
+        </li>
+        <li>
+          <div class="item">
+            <span class="item__icon item__icon--logo" style="background:#fff"><img src="assets/certs/cambridge.png" alt="" /></span>
+            <span class="item__main">
+              <span class="item__title">B2 First · 176</span>
+              <span class="item__sub">Cambridge English</span>
+            </span>
+            <span class="item__meta">jun 2023</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="block" data-reveal>
+      <h2 class="block__title">Herramientas e idiomas</h2>
+      <p class="chips">
+        <span>React</span><span>Next.js</span><span>Vite</span><span>JavaScript</span><span>Python</span>
+        <span>Supabase</span><span>Firebase</span><span>GitHub</span><span>MATLAB</span>
+        <span class="chips__sep"></span>
+        <span>Español nativo</span><span>Inglés B2</span>
+      </p>
+    </section>
+
+    <!-- ===== Contacto ===== -->
+    <section class="contact" id="contacto" data-reveal>
+      <h2>¿Trabajamos juntos?</h2>
+      <p>Abierto a prácticas, colaboraciones y proyectos.</p>
+      <a class="pill pill--solid pill--lg" href="mailto:mateogonsilva@gmail.com">mateogonsilva@gmail.com</a>
+      <div class="intro__links">
+        <a class="pill" href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="pill" href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub</a>
+        <a class="pill" href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram</a>
       </div>
     </section>
   </main>
 
-  <footer class="footer mono">
-    <span>© 2026 Mateo González Silva</span>
-    <a href="#hero">Volver arriba ↑</a>
-  </footer>
+  <footer class="footer">© 2026 Mateo González Silva</footer>
 
   <!-- Vista previa en vivo: ventana que se arrastra por la barra y se redimensiona por la esquina -->
   <div class="preview" id="preview" hidden>
-    <div class="preview__bar mono">
+    <div class="preview__bar">
       <span class="preview__dots"><button class="preview__close" type="button" aria-label="Cerrar"></button><i></i><i></i></span>
       <a class="preview__url" id="preview-url" target="_blank" rel="noopener"></a>
-      <span class="preview__dots preview__dots--ghost"></span>
+      <span class="preview__dots"></span>
     </div>
     <div class="preview__view" id="preview-view"></div>
   </div>

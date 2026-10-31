@@ -53,14 +53,16 @@ document.querySelectorAll(".card").forEach((card) => {
 })();
 
 // ============================================================
-// Vista previa en vivo: la web se pinta a 1440x900 dentro de
-// un iframe y se encoge hasta caber en el diálogo. No se carga
-// nada externo hasta que alguien pulsa "Vista previa".
+// Vista previa en vivo: una ventana flotante como la de un
+// escritorio. Se arrastra por la barra, se redimensiona por la
+// esquina y la web dentro (pintada a 1440x900) se escala sola.
+// No se carga nada externo hasta pulsar "Vista previa".
 // ============================================================
 (() => {
   const FRAME_W = 1440;
   const FRAME_H = 900;
-  const dialog = document.getElementById("preview");
+  const win = document.getElementById("preview");
+  const bar = win.querySelector(".preview__bar");
   const view = document.getElementById("preview-view");
   const urlEl = document.getElementById("preview-url");
   let frame = null;
@@ -68,12 +70,22 @@ document.querySelectorAll(".card").forEach((card) => {
   const fit = () => {
     if (frame) frame.style.transform = `scale(${view.clientWidth / FRAME_W})`;
   };
+  new ResizeObserver(fit).observe(view);
+
+  // Mantiene la ventana dentro de la pantalla
+  const place = (x, y) => {
+    const r = win.getBoundingClientRect();
+    x = Math.min(Math.max(x, 8 - r.width + 80), innerWidth - 80);
+    y = Math.min(Math.max(y, 8), innerHeight - 40);
+    win.style.left = x + "px";
+    win.style.top = y + "px";
+  };
 
   document.querySelectorAll("[data-preview]").forEach((btn) => {
     btn.addEventListener("click", () => {
       const url = btn.dataset.preview;
       urlEl.href = url;
-      urlEl.textContent = url.replace("https://", "") + " ↗";
+      urlEl.textContent = url.replace("https://", "");
       view.innerHTML = "";
       frame = document.createElement("iframe");
       frame.width = FRAME_W;
@@ -83,137 +95,106 @@ document.querySelectorAll(".card").forEach((card) => {
       frame.setAttribute("referrerpolicy", "no-referrer");
       frame.src = url;
       view.appendChild(frame);
-      dialog.showModal();
+      const wasHidden = win.hidden;
+      win.hidden = false;
+      if (wasHidden) {
+        const r = win.getBoundingClientRect();
+        place((innerWidth - r.width) / 2, Math.max(70, (innerHeight - r.height) / 2));
+      }
       fit();
     });
   });
 
-  const close = () => { dialog.close(); view.innerHTML = ""; frame = null; };
-  dialog.querySelector(".preview__close").addEventListener("click", close);
-  dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
-  window.addEventListener("resize", fit);
+  // Arrastre por la barra (ratón y dedo)
+  bar.addEventListener("pointerdown", (e) => {
+    if (e.target.closest("a, button")) return;
+    const r = win.getBoundingClientRect();
+    const dx = e.clientX - r.left, dy = e.clientY - r.top;
+    win.classList.add("is-dragging");
+    bar.setPointerCapture(e.pointerId);
+    const move = (ev) => place(ev.clientX - dx, ev.clientY - dy);
+    const up = () => {
+      win.classList.remove("is-dragging");
+      bar.removeEventListener("pointermove", move);
+      bar.removeEventListener("pointerup", up);
+    };
+    bar.addEventListener("pointermove", move);
+    bar.addEventListener("pointerup", up);
+  });
+
+  const close = () => { win.hidden = true; view.innerHTML = ""; frame = null; };
+  win.querySelector(".preview__close").addEventListener("click", close);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !win.hidden) close(); });
 })();
 
 // ============================================================
-// Fondo interactivo: malla de puntos con física de muelle.
-// - El cursor (o el dedo) aparta los puntos y los ilumina.
-// - Un clic/toque en cualquier hueco lanza una onda expansiva.
-// - Sin interacción, una ola lenta recorre la malla.
+// Fondo: una cuadrícula de plano casi invisible. Una luz suave
+// la revela allí donde está el cursor (con inercia) y los
+// cruces cercanos se encienden. Sin cursor, la luz deriva sola.
 // ============================================================
 (() => {
   const canvas = document.getElementById("field");
   const ctx = canvas.getContext("2d");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const GAP = 30;          // separación de la malla (px CSS)
-  const RADIUS = 160;      // alcance del cursor
-  const FORCE = 26;        // cuánto empuja el cursor
-  let W, H, dpr, pts = [];
+  const GAP = 44;
+  const RADIUS = 260;
+  let W, H, dpr;
 
-  const pointer = { x: -9999, y: -9999, active: false };
-  const waves = [];        // ondas de clic: {x, y, r, life}
-
-  function build() {
+  function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = innerWidth; H = innerHeight;
     canvas.width = W * dpr; canvas.height = H * dpr;
     canvas.style.width = W + "px"; canvas.style.height = H + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    pts = [];
-    const cols = Math.ceil(W / GAP) + 1;
-    const rows = Math.ceil(H / GAP) + 1;
-    const ox = (W - (cols - 1) * GAP) / 2;
-    const oy = (H - (rows - 1) * GAP) / 2;
-    for (let j = 0; j < rows; j++) {
-      for (let i = 0; i < cols; i++) {
-        const x = ox + i * GAP, y = oy + j * GAP;
-        pts.push({ bx: x, by: y, x, y, vx: 0, vy: 0 });
-      }
-    }
   }
-  build();
-  let rt;
-  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(build, 120); });
+  resize();
+  window.addEventListener("resize", resize);
 
-  const move = (x, y) => { pointer.x = x; pointer.y = y; pointer.active = true; };
+  const target = { x: innerWidth * 0.7, y: innerHeight * 0.4 };
+  const light = { ...target };
+  let lastMove = -1e9;
+
+  const move = (x, y) => { target.x = x; target.y = y; lastMove = performance.now(); };
   window.addEventListener("pointermove", (e) => move(e.clientX, e.clientY), { passive: true });
-  window.addEventListener("touchmove", (e) => {
-    const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
-  }, { passive: true });
-  document.addEventListener("pointerleave", () => { pointer.active = false; });
-  window.addEventListener("touchend", () => { pointer.active = false; });
-
-  // Onda al hacer clic en un hueco (no en botones, enlaces o cards)
-  window.addEventListener("pointerdown", (e) => {
-    if (e.target.closest("a, button, .card, .filter, .row, dialog, .nav")) return;
-    waves.push({ x: e.clientX, y: e.clientY, r: 0, life: 1 });
-    if (waves.length > 6) waves.shift();
-  });
 
   let t = 0;
-  function frame() {
-    t += 0.012;
+  function frame(now = 0) {
+    t += 0.004;
+
+    // Sin cursor durante un rato: la luz pasea despacio
+    if (now - lastMove > 3000) {
+      target.x = W * (0.5 + 0.3 * Math.sin(t * 0.9));
+      target.y = H * (0.45 + 0.25 * Math.sin(t * 1.3 + 1));
+    }
+    light.x += (target.x - light.x) * 0.06;
+    light.y += (target.y - light.y) * 0.06;
+
     ctx.clearRect(0, 0, W, H);
 
-    waves.forEach((w) => { w.r += 9; w.life -= 0.012; });
-    while (waves.length && waves[0].life <= 0) waves.shift();
+    // La cuadrícula se mueve un poco con el scroll (parallax)
+    const oy = -(scrollY * 0.15) % GAP;
 
-    for (const p of pts) {
-      let fx = 0, fy = 0, glow = 0;
+    const grad = ctx.createRadialGradient(light.x, light.y, 0, light.x, light.y, RADIUS);
+    grad.addColorStop(0, "rgba(0, 165, 207, 0.22)");
+    grad.addColorStop(1, "rgba(255, 255, 255, 0.025)");
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = (W % GAP) / 2; x <= W; x += GAP) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); }
+    for (let y = oy; y <= H; y += GAP) { ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); }
+    ctx.stroke();
 
-      // Cursor: repulsión suave
-      if (pointer.active) {
-        const dx = p.x - pointer.x, dy = p.y - pointer.y;
-        const d = Math.hypot(dx, dy);
-        if (d < RADIUS && d > 0.01) {
-          const k = 1 - d / RADIUS;
-          const s = k * k * FORCE;
-          fx += (dx / d) * s * 0.12; fy += (dy / d) * s * 0.12;
-          glow = Math.max(glow, k);
-        }
+    // Cruces cercanos a la luz
+    for (let x = (W % GAP) / 2; x <= W; x += GAP) {
+      if (Math.abs(x - light.x) > RADIUS) continue;
+      for (let y = oy; y <= H; y += GAP) {
+        const d = Math.hypot(x - light.x, y - light.y);
+        if (d > RADIUS) continue;
+        const k = 1 - d / RADIUS;
+        ctx.fillStyle = `rgba(0, 165, 207, ${k * 0.7})`;
+        ctx.fillRect(x - 1, y - 1, 2 + k, 2 + k);
       }
-
-      // Ondas de clic: anillo que empuja hacia fuera
-      for (const w of waves) {
-        const dx = p.bx - w.x, dy = p.by - w.y;
-        const d = Math.hypot(dx, dy) || 1;
-        const band = 1 - Math.abs(d - w.r) / 60;
-        if (band > 0) {
-          const s = band * w.life * 6;
-          fx += (dx / d) * s; fy += (dy / d) * s;
-          glow = Math.max(glow, band * w.life);
-        }
-      }
-
-      // Ola de fondo cuando no hay nada más
-      const idle = Math.sin(p.bx * 0.008 + p.by * 0.006 + t * 1.4) * 0.5 + 0.5;
-
-      // Muelle de vuelta a su sitio + rozamiento
-      p.vx += fx + (p.bx - p.x) * 0.06;
-      p.vy += fy + (p.by - p.y) * 0.06;
-      p.vx *= 0.82; p.vy *= 0.82;
-      p.x += p.vx; p.y += p.vy;
-
-      const disp = Math.min(1, Math.hypot(p.x - p.bx, p.y - p.by) / 30);
-      const g = Math.max(glow, disp);
-      const size = 1 + idle * 0.5 + g * 2.2;
-      const alpha = 0.1 + idle * 0.1 + g * 0.8;
-
-      ctx.fillStyle = g > 0.05
-        ? `rgba(${Math.round(120 - g * 120)}, ${Math.round(190 - g * 25)}, ${Math.round(210 + g * 7)}, ${alpha})`
-        : `rgba(150, 175, 185, ${alpha})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    // Halo suave bajo el cursor
-    if (pointer.active) {
-      const grad = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, RADIUS * 1.6);
-      grad.addColorStop(0, "rgba(0, 165, 207, 0.10)");
-      grad.addColorStop(1, "rgba(0, 165, 207, 0)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(pointer.x - RADIUS * 1.6, pointer.y - RADIUS * 1.6, RADIUS * 3.2, RADIUS * 3.2);
     }
 
     if (!reduced) requestAnimationFrame(frame);

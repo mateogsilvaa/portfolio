@@ -1,29 +1,16 @@
 // ===== Un logo que falte no deja el icono de imagen rota =====
-// Puede haber fallado ya antes de llegar aquí, así que además del
-// listener hay que mirar las que vienen rotas de fábrica.
-document.querySelectorAll(".proj__logo").forEach((img) => {
+document.querySelectorAll(".card__logo").forEach((img) => {
   const drop = () => img.remove();
   img.addEventListener("error", drop);
   if (img.complete && img.naturalWidth === 0) drop();
 });
 
-// ===== Loader + animación del hero =====
+// ===== Entrada del hero =====
 window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-  setTimeout(() => {
-    loader.classList.add("is-done");
-    document.querySelectorAll("[data-line]").forEach((el, i) => {
-      setTimeout(() => el.classList.add("in"), 150 + i * 140);
-    });
-  }, 650);
+  document.querySelectorAll("[data-line]").forEach((el, i) => {
+    setTimeout(() => el.classList.add("in"), 120 + i * 130);
+  });
 });
-
-// ===== Primer scroll: se retira la pista y se descubre la web =====
-window.addEventListener(
-  "scroll",
-  () => { if (window.scrollY > 30) document.body.classList.add("scrolled"); },
-  { passive: true }
-);
 
 // ===== Reveal on scroll =====
 const io = new IntersectionObserver(
@@ -35,179 +22,201 @@ const io = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.15 }
+  { threshold: 0.12 }
 );
-
 document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
-// ============================================================
-// Proyectos: "más info" abre un panel con el contexto y la
-// preview en vivo de la web. Solo uno abierto a la vez, y el
-// iframe no se carga hasta que ese panel se abre por primera
-// vez: entrar en la página no dispara ninguna carga externa.
-// ============================================================
-(() => {
-  // Ventana de escritorio que simulamos: 16:10, la misma
-  // proporción que le damos al marco en el CSS.
-  const FRAME_W = 1440;
-  const FRAME_H = 900;
-
-  // Cada preview sabe cargarse y escalarse sola
-  const previews = new Map();
-
-  document.querySelectorAll("[data-preview]").forEach((screen) => {
-    const url = screen.dataset.preview;
-    const view = screen.querySelector(".proj__screen-view");
-    let frame = null;
-
-    // El iframe se dibuja a 1440x900 y se encoge hasta el ancho del
-    // marco. Como el marco tiene esa misma proporción, entra entero:
-    // es la pantalla de un usuario, en pequeño.
-    const fit = () => {
-      if (frame) frame.style.transform = `scale(${view.clientWidth / FRAME_W})`;
-    };
-
-    previews.set(screen.closest(".proj-detail"), () => {
-      if (frame) return fit();
-      frame = document.createElement("iframe");
-      frame.className = "proj__screen-frame";
-      frame.setAttribute("loading", "lazy");
-      frame.setAttribute("tabindex", "-1");
-      frame.setAttribute("aria-hidden", "true");
-      frame.setAttribute("scrolling", "no");
-      frame.setAttribute("referrerpolicy", "no-referrer");
-      frame.width = FRAME_W;
-      frame.height = FRAME_H;
-      frame.style.width = FRAME_W + "px";
-      frame.style.height = FRAME_H + "px";
-      frame.addEventListener("load", () => screen.classList.add("is-ready"));
-      frame.src = url;
-      view.appendChild(frame);
-      fit();
-    });
-
-    window.addEventListener("resize", fit);
+// ===== Foco de luz que sigue al cursor dentro de cada card =====
+document.querySelectorAll(".card").forEach((card) => {
+  card.addEventListener("pointermove", (e) => {
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    card.style.setProperty("--my", `${e.clientY - r.top}px`);
   });
+});
 
-  const toggles = [...document.querySelectorAll(".proj__more")];
-
-  function setOpen(btn, open) {
-    const panel = document.getElementById(btn.getAttribute("aria-controls"));
-    btn.setAttribute("aria-expanded", String(open));
-    panel.classList.toggle("is-open", open);
-    btn.querySelector(".proj__more-label").textContent = open ? "CERRAR" : "MÁS INFO";
-    if (open) previews.get(panel)?.();
-  }
-
-  toggles.forEach((btn) => {
+// ===== Trayectoria: filtros por tipo =====
+(() => {
+  const filters = document.querySelectorAll(".filter");
+  const rows = document.querySelectorAll(".row");
+  filters.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const open = btn.getAttribute("aria-expanded") === "true";
-      // Acordeón: abrir uno cierra el que estuviera abierto
-      toggles.forEach((other) => other !== btn && setOpen(other, false));
-      setOpen(btn, !open);
-    });
-
-    // Pinchar en cualquier parte de la fila hace lo mismo que el botón
-    btn.closest(".proj").addEventListener("click", (e) => {
-      if (!e.target.closest(".proj__more")) btn.click();
+      filters.forEach((b) => b.classList.toggle("is-active", b === btn));
+      const kind = btn.dataset.filter;
+      rows.forEach((row) => {
+        const show = kind === "all" || row.dataset.kind === kind;
+        row.classList.toggle("is-hidden", !show);
+        if (show) row.classList.add("in");
+      });
     });
   });
 })();
 
 // ============================================================
-// Fondo interactivo: olas de mar muy sutiles. El cursor (con
-// mucha inercia) hincha suavemente la superficie cercana.
+// Vista previa en vivo: la web se pinta a 1440x900 dentro de
+// un iframe y se encoge hasta caber en el diálogo. No se carga
+// nada externo hasta que alguien pulsa "Vista previa".
 // ============================================================
 (() => {
-  const canvas = document.getElementById("sea");
-  if (!canvas) return;
+  const FRAME_W = 1440;
+  const FRAME_H = 900;
+  const dialog = document.getElementById("preview");
+  const view = document.getElementById("preview-view");
+  const urlEl = document.getElementById("preview-url");
+  let frame = null;
 
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduced) return;
+  const fit = () => {
+    if (frame) frame.style.transform = `scale(${view.clientWidth / FRAME_W})`;
+  };
 
+  document.querySelectorAll("[data-preview]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const url = btn.dataset.preview;
+      urlEl.href = url;
+      urlEl.textContent = url.replace("https://", "") + " ↗";
+      view.innerHTML = "";
+      frame = document.createElement("iframe");
+      frame.width = FRAME_W;
+      frame.height = FRAME_H;
+      frame.style.width = FRAME_W + "px";
+      frame.style.height = FRAME_H + "px";
+      frame.setAttribute("referrerpolicy", "no-referrer");
+      frame.src = url;
+      view.appendChild(frame);
+      dialog.showModal();
+      fit();
+    });
+  });
+
+  const close = () => { dialog.close(); view.innerHTML = ""; frame = null; };
+  dialog.querySelector(".preview__close").addEventListener("click", close);
+  dialog.addEventListener("click", (e) => { if (e.target === dialog) close(); });
+  window.addEventListener("resize", fit);
+})();
+
+// ============================================================
+// Fondo interactivo: malla de puntos con física de muelle.
+// - El cursor (o el dedo) aparta los puntos y los ilumina.
+// - Un clic/toque en cualquier hueco lanza una onda expansiva.
+// - Sin interacción, una ola lenta recorre la malla.
+// ============================================================
+(() => {
+  const canvas = document.getElementById("field");
   const ctx = canvas.getContext("2d");
-  let w, h, dpr;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function resize() {
+  const GAP = 30;          // separación de la malla (px CSS)
+  const RADIUS = 160;      // alcance del cursor
+  const FORCE = 26;        // cuánto empuja el cursor
+  let W, H, dpr, pts = [];
+
+  const pointer = { x: -9999, y: -9999, active: false };
+  const waves = [];        // ondas de clic: {x, y, r, life}
+
+  function build() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = canvas.width = innerWidth * dpr;
-    h = canvas.height = innerHeight * dpr;
-    canvas.style.width = innerWidth + "px";
-    canvas.style.height = innerHeight + "px";
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    pts = [];
+    const cols = Math.ceil(W / GAP) + 1;
+    const rows = Math.ceil(H / GAP) + 1;
+    const ox = (W - (cols - 1) * GAP) / 2;
+    const oy = (H - (rows - 1) * GAP) / 2;
+    for (let j = 0; j < rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        const x = ox + i * GAP, y = oy + j * GAP;
+        pts.push({ bx: x, by: y, x, y, vx: 0, vy: 0 });
+      }
+    }
   }
-  resize();
-  window.addEventListener("resize", resize);
+  build();
+  let rt;
+  window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(build, 120); });
 
-  let tx = innerWidth * 0.7;
-  let ty = innerHeight * 0.35;
-  let x = tx, y = ty;
+  const move = (x, y) => { pointer.x = x; pointer.y = y; pointer.active = true; };
+  window.addEventListener("pointermove", (e) => move(e.clientX, e.clientY), { passive: true });
+  window.addEventListener("touchmove", (e) => {
+    const t = e.touches[0]; if (t) move(t.clientX, t.clientY);
+  }, { passive: true });
+  document.addEventListener("pointerleave", () => { pointer.active = false; });
+  window.addEventListener("touchend", () => { pointer.active = false; });
 
-  if (window.matchMedia("(pointer: fine)").matches) {
-    window.addEventListener("mousemove", (e) => {
-      tx = e.clientX;
-      ty = e.clientY;
-    }, { passive: true });
-  }
-
-  const WAVES = [
-    { base: 0.30, amp: 26, freq: 0.0035, speed: 0.6, alpha: 0.020 },
-    { base: 0.55, amp: 34, freq: 0.0026, speed: 0.42, alpha: 0.026 },
-    { base: 0.78, amp: 22, freq: 0.0042, speed: 0.8, alpha: 0.018 },
-  ];
+  // Onda al hacer clic en un hueco (no en botones, enlaces o cards)
+  window.addEventListener("pointerdown", (e) => {
+    if (e.target.closest("a, button, .card, .filter, .row, dialog, .nav")) return;
+    waves.push({ x: e.clientX, y: e.clientY, r: 0, life: 1 });
+    if (waves.length > 6) waves.shift();
+  });
 
   let t = 0;
+  function frame() {
+    t += 0.012;
+    ctx.clearRect(0, 0, W, H);
 
-  // Altura de la superficie de una ola en un punto (px en canvas)
-  function surfaceY(wv, i, px) {
-    const baseY = h * wv.base + Math.sin(t * wv.speed + i * 2) * 18 * dpr;
-    return (
-      baseY +
-      Math.sin(px * wv.freq / dpr + t * (1.5 + i * 0.4)) * wv.amp * dpr +
-      Math.sin(px * wv.freq * 0.5 / dpr - t) * wv.amp * 0.5 * dpr
-    );
-  }
+    waves.forEach((w) => { w.r += 9; w.life -= 0.012; });
+    while (waves.length && waves[0].life <= 0) waves.shift();
 
-  function draw() {
-    t += 0.0028;
+    for (const p of pts) {
+      let fx = 0, fy = 0, glow = 0;
 
-    x += (tx - x) * 0.012;
-    y += (ty - y) * 0.012;
-
-    ctx.clearRect(0, 0, w, h);
-
-    const mx = x * dpr;
-    const my = y * dpr;
-    const REACH = Math.min(w, h) * 0.45;
-    const LIFT = 42 * dpr;
-
-    WAVES.forEach((wv, i) => {
-      ctx.beginPath();
-      ctx.moveTo(0, h);
-      const baseY = h * wv.base + Math.sin(t * wv.speed + i * 2) * 18 * dpr;
-      const vClose = Math.max(0, 1 - Math.abs(baseY - my) / (h * 0.45));
-
-      for (let px = 0; px <= w; px += 8 * dpr) {
-        const dx = Math.abs(px - mx);
-        let swell = 0;
-        if (dx < REACH && vClose > 0) {
-          const k = 1 - dx / REACH;
-          const ease = k * k * (3 - 2 * k);
-          swell = ease * vClose * LIFT;
+      // Cursor: repulsión suave
+      if (pointer.active) {
+        const dx = p.x - pointer.x, dy = p.y - pointer.y;
+        const d = Math.hypot(dx, dy);
+        if (d < RADIUS && d > 0.01) {
+          const k = 1 - d / RADIUS;
+          const s = k * k * FORCE;
+          fx += (dx / d) * s * 0.12; fy += (dy / d) * s * 0.12;
+          glow = Math.max(glow, k);
         }
-        ctx.lineTo(px, surfaceY(wv, i, px) - swell);
       }
-      ctx.lineTo(w, h);
-      ctx.closePath();
 
-      const glow = wv.alpha * (1 + vClose * 0.5);
-      const grad = ctx.createLinearGradient(0, baseY - 60 * dpr, 0, baseY + h * 0.3);
-      grad.addColorStop(0, `rgba(0, 165, 207, ${Math.min(glow, 0.14)})`);
+      // Ondas de clic: anillo que empuja hacia fuera
+      for (const w of waves) {
+        const dx = p.bx - w.x, dy = p.by - w.y;
+        const d = Math.hypot(dx, dy) || 1;
+        const band = 1 - Math.abs(d - w.r) / 60;
+        if (band > 0) {
+          const s = band * w.life * 6;
+          fx += (dx / d) * s; fy += (dy / d) * s;
+          glow = Math.max(glow, band * w.life);
+        }
+      }
+
+      // Ola de fondo cuando no hay nada más
+      const idle = Math.sin(p.bx * 0.008 + p.by * 0.006 + t * 1.4) * 0.5 + 0.5;
+
+      // Muelle de vuelta a su sitio + rozamiento
+      p.vx += fx + (p.bx - p.x) * 0.06;
+      p.vy += fy + (p.by - p.y) * 0.06;
+      p.vx *= 0.82; p.vy *= 0.82;
+      p.x += p.vx; p.y += p.vy;
+
+      const disp = Math.min(1, Math.hypot(p.x - p.bx, p.y - p.by) / 30);
+      const g = Math.max(glow, disp);
+      const size = 1 + idle * 0.5 + g * 2.2;
+      const alpha = 0.1 + idle * 0.1 + g * 0.8;
+
+      ctx.fillStyle = g > 0.05
+        ? `rgba(${Math.round(120 - g * 120)}, ${Math.round(190 - g * 25)}, ${Math.round(210 + g * 7)}, ${alpha})`
+        : `rgba(150, 175, 185, ${alpha})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Halo suave bajo el cursor
+    if (pointer.active) {
+      const grad = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, RADIUS * 1.6);
+      grad.addColorStop(0, "rgba(0, 165, 207, 0.10)");
       grad.addColorStop(1, "rgba(0, 165, 207, 0)");
       ctx.fillStyle = grad;
-      ctx.fill();
-    });
+      ctx.fillRect(pointer.x - RADIUS * 1.6, pointer.y - RADIUS * 1.6, RADIUS * 3.2, RADIUS * 3.2);
+    }
 
-    requestAnimationFrame(draw);
+    if (!reduced) requestAnimationFrame(frame);
   }
-  draw();
+  frame();
 })();

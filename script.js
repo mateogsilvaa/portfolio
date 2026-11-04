@@ -267,15 +267,6 @@ const PROJECTS = {
       ["k", "Demo"],
     ],
   },
-  fa: {
-    file: "fantasy-atletismo.md",
-    text: [
-      ["h", "Fantasy Atletismo"],
-      ["", ""],
-      ["", "Lanzamiento previsto en diciembre."],
-      ["d", "Todavía no se puede dar mucha información."],
-    ],
-  },
 };
 
 (() => {

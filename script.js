@@ -35,6 +35,22 @@ document.querySelectorAll("[data-reveal]").forEach((el) => {
   io.observe(el);
 });
 
+// ===== Proyecto sin anunciar: el nombre son letras al azar que no paran =====
+(() => {
+  const el = document.getElementById("scramble");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const chars = [...el.textContent];
+  setInterval(() => {
+    // Solo cambian unas pocas letras por paso: parece que busca algo
+    for (let n = 0; n < 4; n++) {
+      const i = Math.floor(Math.random() * chars.length);
+      if (chars[i] !== " ") chars[i] = ABC[Math.floor(Math.random() * ABC.length)];
+    }
+    el.textContent = chars.join("");
+  }, 90);
+})();
+
 // ===== Contador: el scroll son los 400 m de la vuelta =====
 (() => {
   const out = document.getElementById("meter");

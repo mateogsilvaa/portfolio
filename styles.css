@@ -58,9 +58,7 @@ main { position: relative; z-index: 1; }
 .row img { flex: none; width: 40px; height: 40px; object-fit: cover; border-radius: 9px; transition: transform 0.4s var(--ease); }
 .row__main { flex: 1; min-width: 0; display: flex; flex-direction: column; transition: transform 0.4s var(--ease); }
 .row__title { font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 500; line-height: 1.2; }
-.secret { flex: none; width: 40px; height: 40px; border-radius: 9px; background: var(--fg); opacity: 0.6; filter: blur(6px); }
-.row__title--blur { filter: blur(9px); user-select: none; }
-@media (min-width: 900px) { .row--proj .secret { width: 64px; height: 64px; border-radius: 14px; } }
+.row__title--scramble { font-variant-numeric: tabular-nums; user-select: none; }
 .row__tag { font-size: clamp(0.98rem, 1.4vw, 1.1rem); margin-top: 0.15rem; }
 .row__sub { overflow-wrap: anywhere; font-size: 0.9rem; color: var(--soft); margin-top: 0.15rem; }
 .row__meta { flex: none; font-size: 0.9rem; color: var(--soft); }

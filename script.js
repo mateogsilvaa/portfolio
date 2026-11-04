@@ -18,9 +18,10 @@
 })();
 
 // ============================================================
-// Enanos: "Silva" sigue en planos y tres enanos la están acabando.
-// Te ven, se quedan helados, terminan a toda prisa, saludan y se
-// van. Uno se deja el martillo y vuelve a por él.
+// Enanos: la portada aún se está montando. Uno empuja el apellido,
+// otro baja el acento de González con una grúa y otro empuja la
+// carrera. Te ven, se quedan helados, acaban a toda prisa, saludan
+// y se van. Uno pierde el gorro y vuelve a por él.
 // ============================================================
 (() => {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -28,8 +29,18 @@
 
   const stage = document.querySelector(".start");
   const h1 = stage.querySelector("h1");
-  const letters = [...h1.querySelectorAll(".ch")].slice(-5);
-  letters.forEach((l) => l.classList.add("plan"));
+  const career = stage.querySelector(".start__text");
+  const chars = [...h1.querySelectorAll(".ch")];
+  const silva = chars.slice(-5);
+  const accented = chars.find((c) => c.textContent === "á");
+  const after = chars[chars.indexOf(accented) + 2]; // la "e", donde se apoya la grúa
+  const zed = chars[chars.indexOf(accented) + 3];
+  accented.firstChild.textContent = "a";
+
+  // Marca invisible para saber dónde está la línea base del texto
+  const probe = document.createElement("span");
+  probe.style.cssText = "display:inline-block;width:0;height:0";
+  accented.appendChild(probe);
 
   const canvas = document.createElement("canvas");
   canvas.className = "crew";
@@ -37,149 +48,318 @@
   stage.appendChild(canvas);
   const ctx = canvas.getContext("2d");
 
-  let W, H, ground, size, slots;
+  const FG = "#fff8ef";
+  const INK = "#0b1426";
+  let W = 0, H = 0, fs, size, ground, base, xh, top, aLeft, aMid, craneX, zMid, zRight, rowTop;
+  let sRight, tEdge, tFloor, dir, sShift, tShift;
+  let pS = 0, pT = 0, pA = 0, mast = 0;
+
   const measure = () => {
     const box = stage.getBoundingClientRect();
-    const fs = parseFloat(getComputedStyle(h1).fontSize);
-    size = Math.min(Math.max(fs * 0.26, 30), 60);
-    ground = letters[0].getBoundingClientRect().bottom - box.top - fs * 0.07;
-    slots = letters.map((l) => {
-      const r = l.getBoundingClientRect();
-      return r.left - box.left + r.width / 2;
-    });
+    const rel = (el) => {
+      const r = el.getBoundingClientRect();
+      return { l: r.left - box.left, r: r.right - box.left, t: r.top - box.top, b: r.bottom - box.top };
+    };
+    fs = parseFloat(getComputedStyle(h1).fontSize);
+    size = Math.min(Math.max(fs * 0.34, 38), 72);
+    ctx.font = `${fs}px Anton, Impact, sans-serif`;
+    const m = ctx.measureText("a");
+    xh = m.actualBoundingBoxAscent;
+    top = ctx.measureText("á").actualBoundingBoxAscent;
+
+    const a = rel(accented), e = rel(after), z = rel(zed);
+    base = rel(probe).b;
+    aLeft = a.l; aMid = (a.l + a.r) / 2;
+    craneX = (e.l + e.r) / 2;
+    zMid = (z.l + z.r) / 2; zRight = z.r;
+    rowTop = a.t;
+
+    const row = getComputedStyle(stage).flexDirection === "row";
+    dir = row ? 1 : -1; // en escritorio empuja hacia la derecha; en móvil, a la izquierda
+    sShift = fs * 0.62;
+    tShift = row ? Math.min(150, box.width * 0.15) : Math.min(46, box.width * 0.12);
+
+    const last = rel(silva[4]);
+    ground = last.b - fs * 0.07;
+    sRight = last.r;
+
+    const range = document.createRange();
+    range.selectNodeContents(career);
+    const t = range.getBoundingClientRect();
+    tEdge = (dir > 0 ? t.left : t.right) - box.left;
+    tFloor = t.bottom - box.top + 2;
+
     if (W === box.width && H === box.height) return;
     W = box.width; H = box.height;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
+
+  const shove = () => {
+    const off = sShift * (1 - pS);
+    silva.forEach((l) => { l.style.translate = `${off}px 0`; });
+    career.style.translate = `${-dir * tShift * (1 - pT)}px 0`;
+  };
+  measure();
+  shove();
   measure();
 
-  const dwarf = (slot, face, hat) => ({
-    x: slots[slot] - face * size * 0.55, tx: null, speed: 0, face, hat,
-    mode: "work", phase: slot, rate: 7, step: 0, hop: 0, vy: 0, front: false, shock: 0, hammer: true,
+  // ---------- Personajes ----------
+  const dwarf = (x, face, coat, coatDark, hat, hatDark, floor) => ({
+    x, y: 0, vy: 0, face, coat, coatDark, hat, hatDark, floor,
+    tx: null, speed: 0, then: null, pose: "idle", step: 0, turn: 0, wantTurn: 0, lean: 0, shock: 0, hatOn: true,
   });
-  const crew = [dwarf(0, 1, "#ff6b5e"), dwarf(2, -1, "#f2b84b"), dwarf(4, -1, "#7ee787")];
+  const a = dwarf(0, -1, "#3f8f83", "#2f7168", "#e0614f", "#b84638", () => ground);
+  const b = dwarf(0, -1, "#b9743c", "#94592b", "#3f6fb5", "#2e5490", () => (b.x < zRight + size * 0.1 ? base - xh : ground));
+  const c = dwarf(0, 1, "#8a5aa8", "#6d4387", "#e8b04a", "#c28d31", () => tFloor);
+  c.face = dir;
+  const crew = [a, b, c];
+  a.pose = c.pose = "push";
+  b.pose = "lever";
+  crew.forEach((d) => { d.y = d.floor(); });
 
-  // Los ojos siguen al cursor una vez que te han visto
+  const glue = () => {
+    if (a.tx === null && a.pose === "push") a.x = sRight + size * 0.36;
+    if (c.tx === null && c.pose === "push") c.x = tEdge - dir * size * 0.36;
+    if (b.tx === null && b.pose === "lever") b.x = zMid;
+  };
+
   let eye = 0;
   window.addEventListener("pointermove", (e) => {
     eye = Math.max(-1, Math.min(1, (e.clientX - innerWidth / 2) / (innerWidth / 2)));
   }, { passive: true });
 
-  const sparks = [];
-  const burst = (x, n = 5) => {
+  const dust = [];
+  const puff = (x, y, n = 8) => {
     for (let i = 0; i < n; i++) {
-      sparks.push({ x, y: ground - size * 0.2, vx: (Math.random() - 0.5) * 170, vy: -60 - Math.random() * 130, life: 0.45 });
+      dust.push({ x, y, vx: (Math.random() - 0.5) * 150, vy: -20 - Math.random() * 70, r: 2 + Math.random() * 4, life: 0.5, max: 0.5 });
     }
   };
-  const place = (i) => {
-    const l = letters[i];
-    if (l.classList.contains("done")) return;
-    l.classList.remove("plan");
-    l.classList.add("done");
-    burst(slots[i], 9);
+
+  const bean = (x, y, rx, ry) => { ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, 7); ctx.fill(); };
+  const limb = (x1, y1, x2, y2, w, color) => {
+    ctx.strokeStyle = color; ctx.lineWidth = w; ctx.lineCap = "round";
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
   };
 
-  const notice = (d) => { d.mode = "idle"; d.front = true; d.shock = 0.75; d.vy = 150; };
-  const dash = (d, i) => {
-    d.front = false; d.mode = "idle";
-    d.tx = slots[i] - size * 0.55; d.speed = size * 16;
-    d.then = () => { d.face = 1; d.mode = "work"; d.rate = 24; };
+  const hatShape = (d, sway) => {
+    ctx.fillStyle = d.hat;
+    ctx.beginPath();
+    ctx.moveTo(-19, -72);
+    ctx.bezierCurveTo(-16, -96, -6, -112, -24 - sway, -118);
+    ctx.bezierCurveTo(-2, -122, 16, -100, 20, -72);
+    ctx.quadraticCurveTo(0, -80, -19, -72);
+    ctx.fill();
+    ctx.fillStyle = d.hatDark;
+    ctx.beginPath();
+    ctx.moveTo(-20, -72); ctx.quadraticCurveTo(0, -81, 21, -72);
+    ctx.lineTo(21, -66); ctx.quadraticCurveTo(0, -75, -20, -66);
+    ctx.fill();
   };
-  const leave = (d) => {
-    d.front = false; d.mode = "idle";
-    d.tx = W + size * 2; d.speed = Math.max(W / 1.5, size * 14);
-    d.then = null;
-  };
-
-  const [a, b, c] = crew;
-  let dropped = null;
-  const story = [
-    [1.9, () => place(0)],
-    [2.7, () => notice(b)],
-    [3.0, () => notice(c)],
-    [3.2, () => notice(a)],
-    [4.0, () => { dash(a, 1); dash(b, 2); dash(c, 4); }],
-    [4.35, () => place(2)],
-    [4.5, () => place(4)],
-    [4.6, () => place(1)],
-    [4.7, () => dash(b, 3)],
-    [5.05, () => place(3)],
-    [5.3, () => crew.forEach((d) => { d.mode = "wave"; d.front = true; d.vy = 110; })],
-    [6.1, () => leave(c)],
-    [6.25, () => leave(b)],
-    [6.4, () => { dropped = a.x + size * 0.5; a.hammer = false; leave(a); }],
-    [8.3, () => {
-      a.tx = dropped; a.speed = Math.max(W / 1.5, size * 14);
-      a.then = () => {
-        dropped = null; a.hammer = true; a.vy = 130;
-        setTimeout(() => leave(a), 220);
-      };
-    }],
-  ];
 
   const draw = (d) => {
     const u = size / 100;
-    const moving = d.tx !== null;
-    const lift = moving ? Math.sin(d.step) * 7 : 0;
-    let arm = 0.7;
-    if (d.mode === "work") arm = -1.1 + Math.abs(Math.sin(d.phase)) * 1.7;
-    else if (d.mode === "wave") arm = -1.7 + Math.sin(clock * 15) * 0.35;
-    else if (moving) arm = 0.4 + Math.sin(d.step) * 0.6;
-    else if (d.shock > 0) arm = -1.5;
+    const moving = d.tx !== null || d.pose === "push";
+    const swing = moving ? Math.sin(d.step) : 0;
+    const fx = (1 - d.turn) * 6; // la cara gira de perfil a de frente
 
     ctx.save();
-    ctx.translate(d.x, ground - d.hop);
+    ctx.translate(d.x, d.y);
     ctx.scale(u * d.face, u);
 
-    ctx.fillStyle = "#0b1426"; // botas
-    ctx.fillRect(-13, -14 - Math.max(lift, 0), 11, 14);
-    ctx.fillRect(2, -14 - Math.max(-lift, 0), 11, 14);
+    ctx.fillStyle = "rgba(4, 9, 20, 0.28)";
+    bean(0, 1, 22, 3.5);
 
-    ctx.fillStyle = "#6d93d6"; // cuerpo
-    ctx.beginPath(); ctx.roundRect(-17, -48, 34, 37, 10); ctx.fill();
+    ctx.rotate(d.lean);
 
-    ctx.save(); // brazo y martillo
-    ctx.translate(13, -38); ctx.rotate(arm);
-    ctx.fillStyle = "#6d93d6"; ctx.fillRect(0, -4, 20, 8);
-    if (d.hammer) {
-      ctx.fillStyle = "#c9a26b"; ctx.fillRect(18, -2.5, 20, 5);
-      ctx.fillStyle = "#dfe6f2"; ctx.fillRect(34, -10, 10, 20);
-    }
+    // Piernas y botas
+    const leg = (x, s) => {
+      const k = s * 7;
+      limb(x, -24, x + k, -9, 9, "#26324a");
+      ctx.fillStyle = "#5a3a26";
+      ctx.beginPath(); ctx.roundRect(x + k - 6, -11 - Math.max(0, -k) * 0.3, 15, 11, 5); ctx.fill();
+      ctx.fillStyle = "#2c1c13";
+      ctx.fillRect(x + k - 6, -2 - Math.max(0, -k) * 0.3, 15, 2);
+    };
+    leg(-8, -swing); leg(6, swing);
+
+    // Brazo de atrás
+    let far = [18, -30], near = [18, -46];
+    if (d.pose === "push") { far = [26, -46]; near = [26, -38]; }
+    else if (d.pose === "lever") { far = [22, -38 + Math.sin(clock * 5) * 4]; near = [24, -34 + Math.sin(clock * 5) * 4]; }
+    else if (d.pose === "wave") { far = [-14, -24]; near = [20, -72 + Math.sin(clock * 15) * 6]; }
+    else if (d.tx !== null) { far = [14 * swing, -28]; near = [-14 * swing, -28]; }
+    else if (d.shock > 0) { far = [-22, -60]; near = [22, -60]; }
+    else { far = [-12, -24]; near = [12, -24]; }
+
+    limb(-2, -48, far[0], far[1], 9, d.coatDark);
+    ctx.fillStyle = "#efbd9b"; bean(far[0], far[1], 5, 5);
+
+    // Túnica, sombra lateral y cinturón
+    ctx.fillStyle = d.coat;
+    ctx.beginPath();
+    ctx.moveTo(-14, -54);
+    ctx.bezierCurveTo(-23, -40, -22, -24, -17, -18);
+    ctx.quadraticCurveTo(0, -13, 17, -18);
+    ctx.bezierCurveTo(22, -24, 23, -40, 14, -54);
+    ctx.closePath(); ctx.fill();
+    ctx.save(); ctx.clip();
+    ctx.fillStyle = d.coatDark; ctx.fillRect(-24, -56, 11, 44);
+    ctx.fillStyle = "#3a2518"; ctx.fillRect(-24, -32, 48, 6);
+    ctx.fillStyle = "#e8c15e"; ctx.fillRect(-4 + fx, -33, 9, 8);
     ctx.restore();
 
-    ctx.fillStyle = "#f3c6a5"; // cara
-    ctx.beginPath(); ctx.arc(0, -58, 13, 0, 7); ctx.fill();
+    // Cabeza
+    ctx.fillStyle = "#f3c6a5"; bean(0, -62, 16, 15);
+    ctx.fillStyle = "rgba(226, 118, 96, 0.55)"; bean(-7 + fx, -58, 4, 3); bean(9 + fx, -58, 4, 3);
 
-    const look = d.front ? eye * d.face * 3 : 5;
-    const r = d.shock > 0 ? 3 : 1.9;
-    ctx.fillStyle = "#0b1426";
-    ctx.beginPath(); ctx.arc(-5 + look, -61, r, 0, 7); ctx.arc(5 + look, -61, r, 0, 7); ctx.fill();
+    // Barba con mechones
+    ctx.fillStyle = FG;
+    ctx.beginPath();
+    ctx.moveTo(-16, -60);
+    ctx.bezierCurveTo(-20, -40, -8, -30, 1 + fx * 0.5, -22);
+    ctx.bezierCurveTo(10, -30, 20, -40, 16, -60);
+    ctx.quadraticCurveTo(10 + fx, -50, 1 + fx, -53);
+    ctx.quadraticCurveTo(-8 + fx, -50, -16, -60);
+    ctx.fill();
+    ctx.strokeStyle = "#dccdb8"; ctx.lineWidth = 1.6; ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(-5 + fx * 0.6, -46); ctx.quadraticCurveTo(-5, -36, -1, -30);
+    ctx.moveTo(6 + fx * 0.6, -46); ctx.quadraticCurveTo(7, -38, 3, -31);
+    ctx.stroke();
 
-    ctx.fillStyle = "#fff8ef"; // barba
-    ctx.beginPath(); ctx.moveTo(-14, -56);
-    ctx.quadraticCurveTo(0, -50, 14, -56);
-    ctx.quadraticCurveTo(10, -36, 0, -28);
-    ctx.quadraticCurveTo(-10, -36, -14, -56); ctx.fill();
+    // Nariz, ojos y cejas
+    ctx.fillStyle = "#e8a988"; bean(1 + fx * 1.5, -57, 6, 5);
+    const look = d.turn * eye * d.face * 2.5;
+    const big = d.shock > 0 ? 3.2 : 2.1;
+    ctx.fillStyle = INK;
+    bean(-5 + fx + look, -65, big * 0.85, big);
+    bean(7 + fx + look, -65, big * 0.85, big);
+    const brow = d.shock > 0 ? -6 : 0;
+    limb(-9 + fx, -70 + brow, -2 + fx, -71 + brow, 2.6, FG);
+    limb(4 + fx, -71 + brow, 11 + fx, -70 + brow, 2.6, FG);
 
-    ctx.fillStyle = d.hat; // gorro
-    ctx.beginPath(); ctx.moveTo(-16, -65); ctx.lineTo(16, -65); ctx.lineTo(-3, -104); ctx.fill();
+    if (d.hatOn) hatShape(d, swing * 3 + Math.sin(clock * 2) * 1.5);
+    else { ctx.fillStyle = "#f3c6a5"; bean(0, -72, 14, 8); }
+
+    // Brazo de delante
+    limb(3, -48, near[0], near[1], 9, d.coat);
+    ctx.fillStyle = "#f3c6a5"; bean(near[0], near[1], 5.5, 5.5);
     ctx.restore();
 
     if (d.shock > 0) {
       ctx.fillStyle = "#ff6b5e";
-      ctx.font = `${size * 0.6}px Anton, Impact, sans-serif`;
+      ctx.font = `${size * 0.5}px Anton, Impact, sans-serif`;
       ctx.textAlign = "center";
-      ctx.fillText("!", d.x, ground - d.hop - size * 1.14);
+      ctx.fillText("!", d.x, d.y - size * 1.3);
     }
   };
 
-  const drawHammer = (x) => {
-    const u = size / 100;
-    ctx.fillStyle = "#c9a26b"; ctx.fillRect(x - 12 * u, ground - 6 * u, 24 * u, 5 * u);
-    ctx.fillStyle = "#dfe6f2"; ctx.fillRect(x + 10 * u, ground - 14 * u, 10 * u, 14 * u);
+  const drawCrane = () => {
+    if (mast <= 0) return;
+    const steel = "#e8b04a", shade = "#b98530";
+    const footY = base - xh;
+    const peak = footY - (footY - (rowTop - size * 0.25)) * mast;
+    const w = Math.max(size * 0.12, 6);
+
+    // Mástil de celosía
+    ctx.strokeStyle = steel; ctx.lineWidth = 1.6; ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(craneX - w, footY); ctx.lineTo(craneX - w, peak);
+    ctx.moveTo(craneX + w, footY); ctx.lineTo(craneX + w, peak);
+    let side = -1;
+    for (let y = footY; y > peak + w; y -= w * 1.6) {
+      ctx.moveTo(craneX + side * w, y);
+      ctx.lineTo(craneX - side * w, Math.max(peak, y - w * 1.6));
+      side = -side;
+    }
+    ctx.stroke();
+
+    ctx.fillStyle = shade; // base
+    ctx.beginPath(); ctx.roundRect(craneX - w * 2, footY - w * 0.7, w * 4, w * 0.8, 2); ctx.fill();
+
+    // Pluma hasta el acento y contrapeso detrás
+    const tip = craneX + (aMid - craneX - w) * mast;
+    const back = craneX + w * 4 * mast;
+    ctx.strokeStyle = steel; ctx.lineWidth = 2.4;
+    ctx.beginPath(); ctx.moveTo(tip, peak); ctx.lineTo(back, peak); ctx.stroke();
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(tip, peak); ctx.lineTo(craneX, peak - w * 2 * mast); ctx.lineTo(back, peak);
+    ctx.stroke();
+    ctx.fillStyle = "#3b4a68";
+    ctx.beginPath(); ctx.roundRect(back - w * 1.6, peak, w * 1.8, w * 1.5, 2); ctx.fill();
+    ctx.fillStyle = shade;
+    ctx.beginPath(); ctx.roundRect(craneX - w * 1.1, peak - w * 0.1, w * 2.2, w * 1.5, 2); ctx.fill();
+
+    if (pA >= 1) return;
+
+    // Acento: es el del propio tipo de letra, recortado del glifo "á"
+    const drop = (1 - pA) * (base - top - peak - size * 0.12);
+    const sway = Math.sin(clock * 3.2) * size * 0.07 * (1 - pA);
+    const hookY = base - top - drop;
+    ctx.strokeStyle = "rgba(255, 248, 239, 0.75)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(tip, peak); ctx.lineTo(aMid + sway, hookY); ctx.stroke();
+
+    ctx.save();
+    ctx.translate(sway, -drop);
+    ctx.beginPath();
+    ctx.rect(aLeft - fs, base - top - 2, fs * 3, top - xh - fs * 0.015);
+    ctx.clip();
+    ctx.fillStyle = FG;
+    ctx.font = `${fs}px Anton, Impact, sans-serif`;
+    ctx.textAlign = "left";
+    ctx.fillText("á", aLeft, base);
+    ctx.restore();
   };
+
+  // ---------- Guion ----------
+  const stopGo = (u) => u - Math.sin(u * Math.PI * 8) / (Math.PI * 8); // empuje a tirones
+  const push = (t, start) => {
+    if (t < start) return 0;
+    if (t < 2.7) return 0.55 * stopGo((t - start) / (2.7 - start));
+    if (t < 3.9) return 0.55;
+    if (t < 4.5) return 0.55 + 0.45 * ((t - 3.9) / 0.6) ** 2;
+    return 1;
+  };
+  const notice = (d) => { d.pose = "idle"; d.wantTurn = 1; d.lean = 0; d.shock = 0.8; d.vy = -190; };
+  const back = (d, pose) => { d.pose = pose; d.wantTurn = 0; };
+  const leave = (d) => {
+    d.pose = "idle"; d.wantTurn = 0; d.then = null;
+    d.tx = W + size * 2; d.speed = Math.max(W / 1.5, size * 11);
+  };
+
+  let hat = null;
+  const story = [
+    [2.7, () => notice(a)],
+    [2.95, () => notice(c)],
+    [3.15, () => notice(b)],
+    [3.9, () => { back(a, "push"); back(b, "lever"); back(c, "push"); }],
+    [4.5, () => {
+      silva.forEach((l) => l.classList.add("done"));
+      career.style.translate = "";
+      puff(sRight, ground, 12);
+      puff(tEdge, tFloor, 10);
+      accented.firstChild.textContent = "á";
+      accented.classList.add("done");
+      puff(aMid, base - xh, 8);
+      hat = { x: a.x + size * 0.1, y: ground - size * 0.8, vy: -240, vx: size * 1.6, spin: 0 };
+      a.hatOn = false;
+    }],
+    [5.1, () => crew.forEach((d) => { d.pose = "wave"; d.wantTurn = 1; d.vy = -150; })],
+    [5.95, () => leave(c)],
+    [6.1, () => leave(a)],
+    [6.6, () => leave(b)],
+    [8.2, () => {
+      a.tx = hat.x; a.speed = Math.max(W / 1.5, size * 11);
+      a.then = () => {
+        hat = null; a.hatOn = true; a.vy = -210;
+        a.wantTurn = 1;
+        setTimeout(() => leave(a), 330);
+      };
+    }],
+  ];
 
   let clock = 0;
   let last = performance.now();
@@ -188,56 +368,81 @@
   const finish = () => {
     if (over) return;
     over = true;
-    letters.forEach((l) => { l.classList.remove("plan"); l.classList.add("done"); });
+    accented.firstChild.textContent = "á";
+    probe.remove();
+    silva.forEach((l) => { l.style.translate = ""; });
+    career.style.translate = "";
     canvas.remove();
     window.removeEventListener("resize", measure);
   };
   window.addEventListener("resize", measure);
-  setTimeout(finish, 16000); // si la pestaña se queda dormida, el nombre no se queda a medias
+  setTimeout(finish, 16000); // si la pestaña se queda dormida, nada se queda a medias
 
   const tick = (now) => {
     if (over) return;
     const dt = Math.min((now - last) / 1000, 0.05);
     last = now;
     clock += dt;
+
+    const before = [pS, pT];
+    pS = push(clock, 1.1);
+    pT = push(clock, 1.3);
+    pA = push(clock, 1.5);
+    mast = clock < 6.3 ? Math.min(1, Math.max(0, (clock - 0.5) / 0.7)) : Math.max(0, 1 - (clock - 6.3) / 0.35);
+    if (clock < 4.5) shove();
+    else if (!a.settled) { a.settled = true; silva.forEach((l) => { l.style.translate = ""; }); }
     measure();
+    glue();
     while (story.length && story[0][0] <= clock) story.shift()[1]();
 
     ctx.clearRect(0, 0, W, H);
-    if (dropped !== null) drawHammer(dropped);
+    drawCrane();
 
-    crew.forEach((d) => {
+    if (hat) {
+      hat.vy += 900 * dt; hat.y += hat.vy * dt; hat.x += hat.vx * dt; hat.spin += dt * 9;
+      if (hat.y >= ground - size * 0.08) { hat.y = ground - size * 0.08; hat.vy = 0; hat.vx = 0; hat.spin = 0.25; }
+      const u = size / 100;
+      ctx.save();
+      ctx.translate(hat.x, hat.y); ctx.rotate(hat.spin); ctx.scale(u, u); ctx.translate(0, 72);
+      hatShape(a, 0);
+      ctx.restore();
+    }
+
+    crew.forEach((d, i) => {
       d.shock = Math.max(0, d.shock - dt);
-      d.vy -= 620 * dt;
-      d.hop = Math.max(0, d.hop + d.vy * dt);
-      if (d.hop === 0) d.vy = 0;
+      d.turn += (d.wantTurn - d.turn) * Math.min(1, dt * 14);
+      const moved = (i === 0 ? pS - before[0] : i === 2 ? pT - before[1] : 0);
+      if (d.pose === "push") {
+        d.step += dt * 6 + moved * 90;
+        d.lean += (0.3 - d.lean) * Math.min(1, dt * 10);
+      } else d.lean += (0 - d.lean) * Math.min(1, dt * 10);
 
-      if (d.mode === "work") {
-        const before = Math.floor(d.phase / Math.PI);
-        d.phase += d.rate * dt;
-        if (Math.floor(d.phase / Math.PI) !== before) burst(d.x + d.face * size * 0.5, 2);
-      }
       if (d.tx !== null) {
         const gap = d.tx - d.x;
         const move = d.speed * dt;
         d.face = gap < 0 ? -1 : 1;
-        d.step += dt * 26;
+        d.step += dt * 24;
         if (Math.abs(gap) <= move) {
           d.x = d.tx; d.tx = null;
           const next = d.then; d.then = null;
           next?.();
         } else d.x += Math.sign(gap) * move;
       }
+
+      d.vy += 900 * dt;
+      d.y += d.vy * dt;
+      const floor = d.floor();
+      if (d.y >= floor) { d.y = floor; d.vy = 0; }
       draw(d);
     });
 
-    ctx.fillStyle = "#fff8ef";
-    for (let i = sparks.length - 1; i >= 0; i--) {
-      const p = sparks[i];
+    for (let i = dust.length - 1; i >= 0; i--) {
+      const p = dust[i];
       p.life -= dt;
-      if (p.life <= 0) { sparks.splice(i, 1); continue; }
-      p.vy += 480 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
-      ctx.fillRect(p.x, p.y, 2.5, 2.5);
+      if (p.life <= 0) { dust.splice(i, 1); continue; }
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.96;
+      ctx.fillStyle = `rgba(255, 248, 239, ${(p.life / p.max) * 0.5})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (1.6 - p.life / p.max), 0, 7); ctx.fill();
     }
 
     if (!story.length && crew.every((d) => d.x > W + size)) return finish();

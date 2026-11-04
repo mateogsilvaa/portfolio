@@ -42,10 +42,9 @@ main { position: relative; z-index: 1; }
 @keyframes rise { to { transform: none; } }
 .ch:hover > i { translate: 0 -0.05em; }
 
-/* Enanos: las letras sin acabar son planos; al colocarlas, encajan de un golpe */
+/* Enanos: lo que colocan encaja de un golpe */
 .start { position: relative; }
 .crew { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
-.js .ch.plan > i { animation: none; transition: none; transform: none; color: transparent; -webkit-text-stroke: 1px var(--line); }
 .js .ch.done > i { transform: none; animation: thunk 0.32s var(--ease); }
 @keyframes thunk { from { transform: translateY(-9%) scaleY(1.05); } 55% { transform: translateY(1.5%) scaleY(0.97); } }
 
@@ -167,6 +166,7 @@ a.win__title:hover { color: #fff; }
 @media (max-width: 560px) {
   .row__sub, .row__meta { font-size: 0.82rem; }
   .row__go { display: none; }
+  .start__text { max-width: 24ch; } /* deja sitio al enano que la empuja */
   .term { font-size: 12.5px; padding: 12px; }
 }
 

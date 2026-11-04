@@ -135,6 +135,9 @@ a.win__title:hover { color: #fff; }
 .term .d { color: #7d8590; }
 .term a { color: #79c0ff; text-decoration: underline; }
 .term .cur { display: inline-block; width: 0.6em; height: 1.1em; vertical-align: text-bottom; background: #d7dae0; animation: blink 1.1s steps(1) infinite; }
+.term__more { font: inherit; color: #79c0ff; text-decoration: underline; }
+.term__media { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 8px; }
+.term__media img, .term__media video { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px; background: #000; }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* Escritorio: título a la izquierda, contenido a la derecha */

@@ -239,6 +239,17 @@ const PROJECTS = {
       ["", "Creador."],
     ],
   },
+  ufv: {
+    file: "ufv-racing.md",
+    media: ["coche.jpg", "simulador.jpg", "simulink.mp4", "modelo-3d.mp4"],
+    text: [
+      ["h", "UFV Racing Team"],
+      ["d", "Formula Student · departamento de Electrical · un año"],
+      ["", ""],
+      ["k", "Qué hice"],
+      ["", "Creé desde cero las simulaciones del coche, con MATLAB y Simulink."],
+    ],
+  },
   ac: {
     file: "aire-claro.md", repo: "https://airelimpio.netlify.app",
     text: [
@@ -332,6 +343,36 @@ const PROJECTS = {
       span("", "\n");
       put(a);
       span("", "\n");
+    }
+    if (p.media) {
+      // Material sin pulir: solo se carga si alguien lo pide
+      const more = document.createElement("button");
+      more.type = "button";
+      more.className = "term__more";
+      more.textContent = "ls media/";
+      span("", "\n");
+      put(more);
+      span("", "\n");
+      more.addEventListener("click", () => {
+        const grid = document.createElement("span");
+        grid.className = "term__media";
+        p.media.forEach((name) => {
+          const src = `assets/ufv/${name}`;
+          if (name.endsWith(".mp4")) {
+            const v = document.createElement("video");
+            v.src = src; v.controls = true; v.muted = true; v.playsInline = true; v.preload = "metadata";
+            grid.appendChild(v);
+          } else {
+            const a = document.createElement("a");
+            a.href = src; a.target = "_blank"; a.rel = "noopener";
+            const img = document.createElement("img");
+            img.src = src; img.alt = "";
+            a.appendChild(img);
+            grid.appendChild(a);
+          }
+        });
+        more.replaceWith(grid);
+      });
     }
     span("", "\n");
     span("p", "mateo@portfolio ~ % ");

@@ -1,18 +1,23 @@
-// ===== Un logo que falte no deja el icono de imagen rota =====
-document.querySelectorAll("img.item__icon").forEach((img) => {
-  const drop = () => img.remove();
-  img.addEventListener("error", drop);
-  if (img.complete && img.naturalWidth === 0) drop();
-});
-
-// ===== Entrada del hero =====
-window.addEventListener("load", () => {
-  document.querySelectorAll("[data-line]").forEach((el, i) => {
-    setTimeout(() => el.classList.add("in"), 120 + i * 130);
+// ===== Nombre: se parte en letras para que suban una a una =====
+(() => {
+  const h1 = document.querySelector("[data-split]");
+  h1.setAttribute("aria-label", h1.textContent);
+  let i = 0;
+  [...h1.childNodes].forEach((node) => {
+    if (node.nodeType !== 3) return;
+    const frag = document.createDocumentFragment();
+    [...node.textContent].forEach((c) => {
+      const ch = document.createElement("span");
+      ch.className = "ch";
+      ch.setAttribute("aria-hidden", "true");
+      ch.innerHTML = `<i style="--i:${i++}">${c}</i>`;
+      frag.appendChild(ch);
+    });
+    node.replaceWith(frag);
   });
-});
+})();
 
-// ===== Reveal on scroll =====
+// ===== Entrada al hacer scroll, escalonada dentro de cada lista =====
 const io = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
@@ -22,34 +27,25 @@ const io = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.12 }
+  { threshold: 0.1 }
 );
-document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
-
-// ===== Foco de luz que sigue al cursor dentro de cada card =====
-document.querySelectorAll(".card").forEach((card) => {
-  card.addEventListener("pointermove", (e) => {
-    const r = card.getBoundingClientRect();
-    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    card.style.setProperty("--my", `${e.clientY - r.top}px`);
-  });
+document.querySelectorAll("[data-reveal]").forEach((el) => {
+  const pos = [...el.parentElement.children].indexOf(el);
+  el.style.setProperty("--d", `${pos * 70}ms`);
+  io.observe(el);
 });
 
-// ===== Trayectoria: filtros por tipo =====
+// ===== Contador: el scroll son los 400 m de la vuelta =====
 (() => {
-  const filters = document.querySelectorAll(".filter");
-  const rows = document.querySelectorAll(".row");
-  filters.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filters.forEach((b) => b.classList.toggle("is-active", b === btn));
-      const kind = btn.dataset.filter;
-      rows.forEach((row) => {
-        const show = kind === "all" || row.dataset.kind === kind;
-        row.classList.toggle("is-hidden", !show);
-        if (show) row.classList.add("in");
-      });
-    });
-  });
+  const out = document.getElementById("meter");
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const m = max > 0 ? Math.round((scrollY / max) * 400) : 0;
+    out.textContent = String(Math.min(m, 400)).padStart(3, "0");
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 })();
 
 // ============================================================
@@ -122,23 +118,31 @@ document.querySelectorAll(".card").forEach((card) => {
     bar.addEventListener("pointerup", up);
   });
 
-  const close = () => { win.hidden = true; view.innerHTML = ""; frame = null; };
+  const close = () => {
+    win.classList.add("is-closing");
+    setTimeout(() => {
+      win.classList.remove("is-closing");
+      win.hidden = true;
+      view.innerHTML = "";
+      frame = null;
+    }, 180);
+  };
   win.querySelector(".preview__close").addEventListener("click", close);
   document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !win.hidden) close(); });
 })();
 
 // ============================================================
-// Fondo: una cuadrícula de plano casi invisible. Una luz suave
-// la revela allí donde está el cursor (con inercia) y los
-// cruces cercanos se encienden. Sin cursor, la luz deriva sola.
+// Fondo: calles de pista. Líneas finas que avanzan con el scroll
+// y ceden con inercia al paso del cursor.
 // ============================================================
 (() => {
-  const canvas = document.getElementById("field");
+  const canvas = document.getElementById("track");
   const ctx = canvas.getContext("2d");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  const GAP = 44;
-  const RADIUS = 260;
+  const STEP = 14;
+  const REACH = 170;
+  const PUSH = 34;
   let W, H, dpr;
 
   function resize() {
@@ -151,50 +155,37 @@ document.querySelectorAll(".card").forEach((card) => {
   resize();
   window.addEventListener("resize", resize);
 
-  const target = { x: innerWidth * 0.7, y: innerHeight * 0.4 };
-  const light = { ...target };
-  let lastMove = -1e9;
-
-  const move = (x, y) => { target.x = x; target.y = y; lastMove = performance.now(); };
-  window.addEventListener("pointermove", (e) => move(e.clientX, e.clientY), { passive: true });
+  const target = { x: -999, y: -999 };
+  const hand = { x: -999, y: -999 };
+  window.addEventListener("pointermove", (e) => { target.x = e.clientX; target.y = e.clientY; }, { passive: true });
 
   let t = 0;
-  function frame(now = 0) {
-    t += 0.004;
-
-    // Sin cursor durante un rato: la luz pasea despacio
-    if (now - lastMove > 3000) {
-      target.x = W * (0.5 + 0.3 * Math.sin(t * 0.9));
-      target.y = H * (0.45 + 0.25 * Math.sin(t * 1.3 + 1));
-    }
-    light.x += (target.x - light.x) * 0.06;
-    light.y += (target.y - light.y) * 0.06;
-
+  let smooth = scrollY;
+  function frame() {
+    t += 0.002;
+    smooth += (scrollY - smooth) * 0.08;
+    hand.x += (target.x - hand.x) * 0.1;
+    hand.y += (target.y - hand.y) * 0.1;
     ctx.clearRect(0, 0, W, H);
 
-    // La cuadrícula se mueve un poco con el scroll (parallax)
-    const oy = -(scrollY * 0.15) % GAP;
-
-    const grad = ctx.createRadialGradient(light.x, light.y, 0, light.x, light.y, RADIUS);
-    grad.addColorStop(0, "rgba(0, 165, 207, 0.22)");
-    grad.addColorStop(1, "rgba(255, 255, 255, 0.025)");
-    ctx.strokeStyle = grad;
+    const gap = 120;
+    const off = (smooth * 0.2) % gap;
+    ctx.strokeStyle = "rgba(255, 248, 239, 0.13)";
     ctx.lineWidth = 1;
-    ctx.beginPath();
-    for (let x = (W % GAP) / 2; x <= W; x += GAP) { ctx.moveTo(x + 0.5, 0); ctx.lineTo(x + 0.5, H); }
-    for (let y = oy; y <= H; y += GAP) { ctx.moveTo(0, y + 0.5); ctx.lineTo(W, y + 0.5); }
-    ctx.stroke();
 
-    // Cruces cercanos a la luz
-    for (let x = (W % GAP) / 2; x <= W; x += GAP) {
-      if (Math.abs(x - light.x) > RADIUS) continue;
-      for (let y = oy; y <= H; y += GAP) {
-        const d = Math.hypot(x - light.x, y - light.y);
-        if (d > RADIUS) continue;
-        const k = 1 - d / RADIUS;
-        ctx.fillStyle = `rgba(0, 165, 207, ${k * 0.7})`;
-        ctx.fillRect(x - 1, y - 1, 2 + k, 2 + k);
+    for (let base = -gap * 3; base < H + gap * 3; base += gap) {
+      ctx.beginPath();
+      for (let x = -STEP; x <= W + STEP; x += STEP) {
+        const u = x / W;
+        let y = base - off + Math.sin(u * 2.2 + t) * 70 - u * u * 90;
+        const d = Math.hypot(x - hand.x, y - hand.y);
+        if (d < REACH) {
+          const k = 1 - d / REACH;
+          y += (y >= hand.y ? 1 : -1) * k * k * PUSH;
+        }
+        if (x === -STEP) ctx.moveTo(x, y); else ctx.lineTo(x, y);
       }
+      ctx.stroke();
     }
 
     if (!reduced) requestAnimationFrame(frame);

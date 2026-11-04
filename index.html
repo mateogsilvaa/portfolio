@@ -4,244 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mateo González Silva</title>
-  <meta name="description" content="Mateo González Silva. Ingeniería Informática e IA. Mundo Atletismo, Lanedata y Tripfinder." />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="description" content="Mateo González Silva. Ingeniería Informática e IA. Ganador del San Esteban Tech Challenge 2026. Mundo Atletismo, Lanedata y Tripfinder." />
+  <meta name="theme-color" content="#b83a25" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
-  <!-- Fondo: cuadrícula casi invisible que una luz suave revela bajo el cursor -->
-  <canvas id="field" aria-hidden="true"></canvas>
+  <!-- Fondo: calles de pista, líneas finas que ceden al paso del cursor -->
+  <canvas id="track" aria-hidden="true"></canvas>
 
-  <header class="nav">
-    <div class="nav__inner">
-      <a href="#top" class="nav__name">Mateo González</a>
-      <nav class="nav__links">
-        <a href="#proyectos">Proyectos</a>
-        <a href="#trayectoria">Trayectoria</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
-    </div>
-  </header>
+  <!-- El scroll son los 400 m de una vuelta -->
+  <div class="meter" aria-hidden="true"><span id="meter">000</span> m</div>
 
-  <main class="wrap" id="top">
+  <main>
+    <section class="start">
+      <h1 data-split>Mateo<br>González<br>Silva</h1>
+      <p class="start__text" data-reveal>Ingeniería Informática e IA aplicada a la Robótica, UFV.</p>
+    </section>
 
-    <!-- ===== Intro ===== -->
-    <section class="intro" data-reveal>
-      <img class="intro__mark" src="assets/brand/icon-rounded-dark.png" alt="" />
-      <h1>Mateo González Silva</h1>
-      <p class="intro__role">Ingeniería Informática e IA aplicada a la Robótica · UFV</p>
-      <p class="intro__text">
-        Diseño y desarrollo productos web. He lanzado Mundo Atletismo, Lanedata y
-        Tripfinder, y ahora estoy construyendo Fantasy Atletismo.
+    <section class="sec">
+      <h2 data-reveal>Premios</h2>
+      <ul class="rows">
+        <li class="row" data-reveal>
+          <span class="row__main">
+            <span class="row__title">Ganador · San Esteban Tech Challenge 2026</span>
+            <span class="row__sub">Premio: full congress pass para el Smart City Expo 2026 de Barcelona</span>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2 data-reveal>Proyectos</h2>
+      <ul class="rows">
+        <li data-reveal><button class="row row--link" type="button" data-preview="https://mundoatletismo.es">
+          <img src="assets/mundoatletismo.png" alt="" />
+          <span class="row__main"><span class="row__title">Mundo Atletismo</span><span class="row__sub">Medio digital de atletismo · React, Vite, Firebase</span></span>
+          <span class="row__meta">Cofundador</span><span class="row__go" aria-hidden="true">→</span>
+        </button></li>
+        <li data-reveal><button class="row row--link" type="button" data-preview="https://lanedata.es">
+          <img src="assets/lanedata.svg" alt="" />
+          <span class="row__main"><span class="row__title">Lanedata</span><span class="row__sub">Estadísticas y calculadoras de atletismo · Next.js, Supabase</span></span>
+          <span class="row__meta">Fundador</span><span class="row__go" aria-hidden="true">→</span>
+        </button></li>
+        <li data-reveal><button class="row row--link" type="button" data-preview="https://tripfinder.es">
+          <img src="assets/tripfinder.png" alt="" />
+          <span class="row__main"><span class="row__title">Tripfinder</span><span class="row__sub">Scraping de vuelos y ofertas baratas · JavaScript, Python, Firebase</span></span>
+          <span class="row__meta">Creador</span><span class="row__go" aria-hidden="true">→</span>
+        </button></li>
+        <li class="row" data-reveal>
+          <img src="assets/fantasyatletismo.png" alt="" />
+          <span class="row__main"><span class="row__title">Fantasy Atletismo</span><span class="row__sub">Liga fantasy con atletas reales</span></span>
+          <span class="row__meta">En desarrollo</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2 data-reveal>Experiencia</h2>
+      <ul class="rows">
+        <li class="row" data-reveal><span class="row__main"><span class="row__title">Fundador, Lanedata</span></span><span class="row__meta">2026 — hoy</span></li>
+        <li class="row" data-reveal><span class="row__main"><span class="row__title">Cofundador, Mundo Atletismo</span></span><span class="row__meta">2026 — hoy</span></li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2 data-reveal>Voluntariado</h2>
+      <ul class="rows">
+        <li class="row" data-reveal><span class="row__main"><span class="row__title">Acompañamiento infantil en hospitales</span><span class="row__sub">Fundación Talento MCR</span></span><span class="row__meta">En activo</span></li>
+        <li class="row" data-reveal><span class="row__main"><span class="row__title">Clases a niños en Nepal</span><span class="row__sub">90 horas</span></span><span class="row__meta">Verano 2024</span></li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2 data-reveal>Educación</h2>
+      <ul class="rows">
+        <li class="row" data-reveal><span class="row__main"><span class="row__title">Ing. Informática + IA aplicada a la Robótica</span><span class="row__sub">Universidad Francisco de Vitoria</span></span><span class="row__meta">2025 — 2029</span></li>
+        <li class="row" data-reveal><span class="row__main"><span class="row__title">Bachillerato Tecnológico</span><span class="row__sub">IES Cervantes · consejo escolar 4 años</span></span><span class="row__meta">— 2025</span></li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2 data-reveal>Certificaciones</h2>
+      <ul class="rows">
+        <li class="row" data-reveal><span class="tile tile--a"><img src="assets/certs/anthropic.svg" alt="" /></span><span class="row__main"><span class="row__title">AI Fluency for Builders</span><span class="row__sub">Anthropic</span></span><span class="row__meta">2026</span></li>
+        <li data-reveal><a class="row row--link" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener"><span class="tile tile--a"><img src="assets/certs/anthropic.svg" alt="" /></span><span class="row__main"><span class="row__title">Claude Code in Action</span><span class="row__sub">Anthropic</span></span><span class="row__meta">2026</span><span class="row__go" aria-hidden="true">→</span></a></li>
+        <li data-reveal><a class="row row--link" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener"><span class="tile"><img src="assets/certs/cisco.svg" alt="" /></span><span class="row__main"><span class="row__title">Introduction to Cybersecurity</span><span class="row__sub">Cisco</span></span><span class="row__meta">2026</span><span class="row__go" aria-hidden="true">→</span></a></li>
+        <li data-reveal><a class="row row--link" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener"><span class="tile"><img src="assets/certs/mathworks.png" alt="" /></span><span class="row__main"><span class="row__title">MATLAB Onramp</span><span class="row__sub">MathWorks</span></span><span class="row__meta">2025</span><span class="row__go" aria-hidden="true">→</span></a></li>
+        <li class="row" data-reveal><span class="tile"><img src="assets/certs/cambridge.png" alt="" /></span><span class="row__main"><span class="row__title">B2 First · 176</span><span class="row__sub">Cambridge English</span></span><span class="row__meta">2023</span></li>
+      </ul>
+    </section>
+
+    <section class="end">
+      <a class="end__mail" href="mailto:mateogonsilva@gmail.com" data-reveal>mateogonsilva@gmail.com</a>
+      <p class="end__links" data-reveal>
+        <a href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram</a>
       </p>
-      <div class="intro__links">
-        <a class="pill pill--solid" href="mailto:mateogonsilva@gmail.com">Contactar</a>
-        <a class="pill" href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="pill" href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </section>
-
-    <!-- ===== Proyectos ===== -->
-    <section class="block" id="proyectos" data-reveal>
-      <h2 class="block__title">Proyectos</h2>
-      <ul class="list">
-        <li>
-          <button class="item item--btn" type="button" data-preview="https://mundoatletismo.es">
-            <img class="item__icon" src="assets/mundoatletismo.png" alt="" />
-            <span class="item__main">
-              <span class="item__title">Mundo Atletismo</span>
-              <span class="item__sub">Medio digital sobre atletismo español · React, Vite, Firebase</span>
-            </span>
-            <span class="item__meta">Cofundador</span>
-            <span class="item__chev" aria-hidden="true">›</span>
-          </button>
-        </li>
-        <li>
-          <button class="item item--btn" type="button" data-preview="https://lanedata.es">
-            <img class="item__icon" src="assets/lanedata.svg" alt="" />
-            <span class="item__main">
-              <span class="item__title">Lanedata</span>
-              <span class="item__sub">Estadísticas y calculadoras de atletismo · Next.js, Supabase</span>
-            </span>
-            <span class="item__meta">Fundador</span>
-            <span class="item__chev" aria-hidden="true">›</span>
-          </button>
-        </li>
-        <li>
-          <button class="item item--btn" type="button" data-preview="https://tripfinder.es">
-            <img class="item__icon" src="assets/tripfinder.png" alt="" />
-            <span class="item__main">
-              <span class="item__title">Tripfinder</span>
-              <span class="item__sub">Rastrea vuelos y ofertas baratas · JavaScript, Python, Firebase</span>
-            </span>
-            <span class="item__meta">Creador</span>
-            <span class="item__chev" aria-hidden="true">›</span>
-          </button>
-        </li>
-        <li>
-          <div class="item">
-            <img class="item__icon" src="assets/fantasyatletismo.png" alt="" />
-            <span class="item__main">
-              <span class="item__title">Fantasy Atletismo</span>
-              <span class="item__sub">Liga fantasy con atletas reales</span>
-            </span>
-            <span class="item__meta item__meta--soon">En desarrollo</span>
-          </div>
-        </li>
-      </ul>
-      <p class="block__note">Toca un proyecto para abrir una vista previa en vivo.</p>
-    </section>
-
-    <!-- ===== Trayectoria ===== -->
-    <section class="block" id="trayectoria" data-reveal>
-      <h2 class="block__title">Experiencia</h2>
-      <ul class="list">
-        <li class="item">
-          <span class="item__main">
-            <span class="item__title">Fundador · Lanedata</span>
-            <span class="item__sub">Diseño, desarrollo y datos de la plataforma</span>
-          </span>
-          <span class="item__meta">2026 — hoy</span>
-        </li>
-        <li class="item">
-          <span class="item__main">
-            <span class="item__title">Cofundador · Mundo Atletismo</span>
-            <span class="item__sub">Web, contenidos y producto, en equipo</span>
-          </span>
-          <span class="item__meta">2026 — hoy</span>
-        </li>
-      </ul>
-    </section>
-
-    <section class="block" data-reveal>
-      <h2 class="block__title">Voluntariado</h2>
-      <ul class="list">
-        <li class="item">
-          <span class="item__main">
-            <span class="item__title">Acompañamiento infantil en hospitales</span>
-            <span class="item__sub">Fundación Talento MCR</span>
-          </span>
-          <span class="item__meta"><span class="dot"></span>En activo</span>
-        </li>
-        <li class="item">
-          <span class="item__main">
-            <span class="item__title">Clases a niños en Nepal</span>
-            <span class="item__sub">90 horas de voluntariado internacional</span>
-          </span>
-          <span class="item__meta">Verano 2024</span>
-        </li>
-      </ul>
-    </section>
-
-    <section class="block" data-reveal>
-      <h2 class="block__title">Educación</h2>
-      <ul class="list">
-        <li class="item">
-          <span class="item__main">
-            <span class="item__title">Ing. Informática + IA aplicada a la Robótica</span>
-            <span class="item__sub">Universidad Francisco de Vitoria · bilingüe</span>
-          </span>
-          <span class="item__meta">2025 — 2029</span>
-        </li>
-        <li class="item">
-          <span class="item__main">
-            <span class="item__title">Bachillerato Tecnológico</span>
-            <span class="item__sub">IES Cervantes · 4 años en el consejo escolar</span>
-          </span>
-          <span class="item__meta">— 2025</span>
-        </li>
-      </ul>
-    </section>
-
-    <section class="block" data-reveal>
-      <h2 class="block__title">Certificaciones</h2>
-      <ul class="list">
-        <li>
-          <div class="item">
-            <span class="item__icon item__icon--logo" style="background:#d97757"><img src="assets/certs/anthropic.svg" alt="" /></span>
-            <span class="item__main">
-              <span class="item__title">AI Fluency for Builders</span>
-              <span class="item__sub">Anthropic</span>
-            </span>
-            <span class="item__meta">ago 2026</span>
-          </div>
-        </li>
-        <li>
-          <a class="item" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener">
-            <span class="item__icon item__icon--logo" style="background:#d97757"><img src="assets/certs/anthropic.svg" alt="" /></span>
-            <span class="item__main">
-              <span class="item__title">Claude Code in Action</span>
-              <span class="item__sub">Anthropic</span>
-            </span>
-            <span class="item__meta">jul 2026</span>
-            <span class="item__chev" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="item" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener">
-            <span class="item__icon item__icon--logo" style="background:#fff"><img src="assets/certs/cisco.svg" alt="" /></span>
-            <span class="item__main">
-              <span class="item__title">Introduction to Cybersecurity</span>
-              <span class="item__sub">Cisco Networking Academy</span>
-            </span>
-            <span class="item__meta">jul 2026</span>
-            <span class="item__chev" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <a class="item" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener">
-            <span class="item__icon item__icon--logo" style="background:#fff"><img src="assets/certs/mathworks.png" alt="" /></span>
-            <span class="item__main">
-              <span class="item__title">MATLAB Onramp</span>
-              <span class="item__sub">MathWorks</span>
-            </span>
-            <span class="item__meta">sept 2025</span>
-            <span class="item__chev" aria-hidden="true">↗</span>
-          </a>
-        </li>
-        <li>
-          <div class="item">
-            <span class="item__icon item__icon--logo" style="background:#fff"><img src="assets/certs/cambridge.png" alt="" /></span>
-            <span class="item__main">
-              <span class="item__title">B2 First · 176</span>
-              <span class="item__sub">Cambridge English</span>
-            </span>
-            <span class="item__meta">jun 2023</span>
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <section class="block" data-reveal>
-      <h2 class="block__title">Herramientas e idiomas</h2>
-      <p class="chips">
-        <span>React</span><span>Next.js</span><span>Vite</span><span>JavaScript</span><span>Python</span>
-        <span>Supabase</span><span>Firebase</span><span>GitHub</span><span>MATLAB</span>
-        <span class="chips__sep"></span>
-        <span>Español nativo</span><span>Inglés B2</span>
-      </p>
-    </section>
-
-    <!-- ===== Contacto ===== -->
-    <section class="contact" id="contacto" data-reveal>
-      <h2>¿Trabajamos juntos?</h2>
-      <p>Abierto a prácticas, colaboraciones y proyectos.</p>
-      <a class="pill pill--solid pill--lg" href="mailto:mateogonsilva@gmail.com">mateogonsilva@gmail.com</a>
-      <div class="intro__links">
-        <a class="pill" href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="pill" href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub</a>
-        <a class="pill" href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram</a>
-      </div>
     </section>
   </main>
-
-  <footer class="footer">© 2026 Mateo González Silva</footer>
 
   <!-- Vista previa en vivo: ventana que se arrastra por la barra y se redimensiona por la esquina -->
   <div class="preview" id="preview" hidden>

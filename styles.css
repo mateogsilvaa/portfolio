@@ -133,6 +133,8 @@ a.win__title:hover { color: #fff; }
   flex: 1; min-height: 0; overflow: auto; padding: 16px 18px; background: #0f1012; color: #d7dae0; outline: 0;
   border-radius: 0 0 12px 12px; font: 13.5px/1.6 ui-monospace, "SF Mono", Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere;
 }
+.term { scrollbar-width: none; }
+.term::-webkit-scrollbar { display: none; }
 .term .p { color: #7ee787; }
 .term .h { color: #fff; font-weight: 700; }
 .term .k { color: #79c0ff; }

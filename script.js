@@ -450,7 +450,7 @@ const PROJECTS = {
       view.innerHTML = "";
       frame = document.createElement("iframe");
       frame.width = FRAME_W;
-      frame.style.width = FRAME_W + "px";
+      frame.style.width = FRAME_W + 20 + "px"; // la barra de la web queda fuera, recortada
       frame.setAttribute("referrerpolicy", "no-referrer");
       frame.src = p.url;
       view.appendChild(frame);

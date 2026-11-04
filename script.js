@@ -204,13 +204,12 @@ const PROJECTS = {
       ["d", "El atletismo español, contado con datos."],
       ["", ""],
       ["k", "Qué es"],
-      ["", "Web editorial de análisis, estadísticas y contexto, con calendario, fichajes, archivo y calculadoras."],
+      ["", "Web editorial de análisis, estadísticas y contexto, con fichajes, archivo y calculadoras."],
       ["", ""],
       ["k", "Cómo está hecho"],
       ["", "· Next.js 15 + TypeScript + Tailwind CSS"],
       ["", "· Supabase: autenticación, base de datos y almacenamiento"],
       ["", "· Panel de administración propio para publicar artículos"],
-      ["", "· Scrapers en Python para el calendario de competiciones"],
       ["", "· Despliegue automático con GitHub Actions"],
       ["", ""],
       ["k", "Mi papel"],
@@ -238,6 +237,23 @@ const PROJECTS = {
       ["", ""],
       ["k", "Mi papel"],
       ["", "Creador."],
+    ],
+  },
+  ac: {
+    file: "aire-claro.md", repo: "https://airelimpio.netlify.app",
+    text: [
+      ["h", "Aire Claro"],
+      ["d", "San Esteban Tech Challenge 2026 · equipo Absolute Lockin"],
+      ["", ""],
+      ["k", "El reto"],
+      ["", "Dar a San Esteban de Gormaz una forma clara de comprobar que la futura planta de biometano cumple su compromiso."],
+      ["", ""],
+      ["k", "La propuesta"],
+      ["", "· Cinco estaciones con sensores de H₂S y amoniaco y veleta"],
+      ["", "· Avisos anónimos de vecinos y una web pública"],
+      ["", "· Los mismos datos para vecinos, Ayuntamiento y empresa"],
+      ["", ""],
+      ["k", "Demo"],
     ],
   },
   fa: {
@@ -329,7 +345,7 @@ const PROJECTS = {
       const webH = Math.round(w * 0.625) + 40;
       return hasWeb
         ? { web: [8, 8, w, webH], term: [8, webH + 16, w, Math.max(MIN_H, H - webH - 24)] }
-        : { term: [8, 60, w, Math.min(320, H - 120)] };
+        : { term: [8, 60, w, Math.min(420, H - 120)] };
     }
     const w = Math.min(920, W * 0.6);
     const h = Math.min(Math.round(w * 0.625) + 40, H - 120);
@@ -339,7 +355,7 @@ const PROJECTS = {
     const th = Math.min(H - y - 72, 600);
     return hasWeb
       ? { web: [x, y, w, h], term: [Math.max(16, x - tw * 0.72), y + 56, tw, th] }
-      : { term: [Math.round((W - tw) / 2), Math.round((H - 320) / 2), tw, 320] };
+      : { term: [Math.round((W - tw) / 2), Math.round((H - 420) / 2), tw, 420] };
   }
 
   document.querySelectorAll("[data-project]").forEach((btn) => {

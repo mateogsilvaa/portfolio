@@ -58,7 +58,10 @@ main { position: relative; z-index: 1; }
 .row img { flex: none; width: 40px; height: 40px; object-fit: cover; border-radius: 9px; transition: transform 0.4s var(--ease); }
 .row__main { flex: 1; min-width: 0; display: flex; flex-direction: column; transition: transform 0.4s var(--ease); }
 .row__title { font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 500; line-height: 1.2; }
-.row__title--scramble { font-variant-numeric: tabular-nums; user-select: none; }
+.row__title--scramble { display: block; white-space: nowrap; overflow: hidden; user-select: none; }
+.scramble__loose { opacity: 0.35; }
+.row__title--scramble.is-wrong { color: #ff6b5e; animation: nope 0.35s ease; }
+@keyframes nope { 25% { transform: translateX(-5px); } 50% { transform: translateX(4px); } 75% { transform: translateX(-2px); } }
 .row__tag { font-size: clamp(0.98rem, 1.4vw, 1.1rem); margin-top: 0.15rem; }
 .row__sub { overflow-wrap: anywhere; font-size: 0.9rem; color: var(--soft); margin-top: 0.15rem; }
 .row__meta { flex: none; font-size: 0.9rem; color: var(--soft); }

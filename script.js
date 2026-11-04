@@ -35,20 +35,45 @@ document.querySelectorAll("[data-reveal]").forEach((el) => {
   io.observe(el);
 });
 
-// ===== Proyecto sin anunciar: el nombre son letras al azar que no paran =====
+// ===== Proyecto sin anunciar: alguien intenta adivinar el nombre y falla =====
+// Cada intento va fijando letras (inventadas) y, cuando parece que lo
+// tiene, falla y vuelve a empezar. El nombre real no está en el código.
 (() => {
   const el = document.getElementById("scramble");
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const chars = [...el.textContent];
+  const pick = () => ABC[Math.floor(Math.random() * ABC.length)];
+  const shape = [...el.textContent];
+  const held = document.createElement("span");
+  const loose = document.createElement("span");
+  loose.className = "scramble__loose";
+  el.textContent = "";
+  el.append(held, loose);
+
+  const noise = (from) => shape.slice(from).map((c) => (c === " " ? " " : pick())).join("");
+  let locked = "";
+  let stop = 0;
+  let tick = 0;
+
+  const attempt = () => {
+    locked = "";
+    // Se queda a dos o tres letras, o a veces mucho antes
+    stop = shape.length - 2 - Math.floor(Math.random() * 7);
+    el.classList.remove("is-wrong");
+  };
+  attempt();
+
   setInterval(() => {
-    // Solo cambian unas pocas letras por paso: parece que busca algo
-    for (let n = 0; n < 4; n++) {
-      const i = Math.floor(Math.random() * chars.length);
-      if (chars[i] !== " ") chars[i] = ABC[Math.floor(Math.random() * ABC.length)];
+    if (el.classList.contains("is-wrong")) return;
+    tick++;
+    if (tick % 3 === 0) locked += shape[locked.length] === " " ? " " : pick();
+    held.textContent = locked;
+    loose.textContent = noise(locked.length);
+    if (locked.length >= stop) {
+      el.classList.add("is-wrong");
+      setTimeout(attempt, 750);
     }
-    el.textContent = chars.join("");
-  }, 90);
+  }, 70);
 })();
 
 // ===== Contador: el scroll son los 400 m de la vuelta =====

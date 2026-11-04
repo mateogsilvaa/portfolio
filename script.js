@@ -17,6 +17,235 @@
   });
 })();
 
+// ============================================================
+// Enanos: "Silva" sigue en planos y tres enanos la están acabando.
+// Te ven, se quedan helados, terminan a toda prisa, saludan y se
+// van. Uno se deja el martillo y vuelve a por él.
+// ============================================================
+(() => {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (scrollY > innerHeight / 2) return;
+
+  const stage = document.querySelector(".start");
+  const h1 = stage.querySelector("h1");
+  const letters = [...h1.querySelectorAll(".ch")].slice(-5);
+  letters.forEach((l) => l.classList.add("plan"));
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "crew";
+  canvas.setAttribute("aria-hidden", "true");
+  stage.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  let W, H, ground, size, slots;
+  const measure = () => {
+    const box = stage.getBoundingClientRect();
+    const fs = parseFloat(getComputedStyle(h1).fontSize);
+    size = Math.min(Math.max(fs * 0.26, 30), 60);
+    ground = letters[0].getBoundingClientRect().bottom - box.top - fs * 0.07;
+    slots = letters.map((l) => {
+      const r = l.getBoundingClientRect();
+      return r.left - box.left + r.width / 2;
+    });
+    if (W === box.width && H === box.height) return;
+    W = box.width; H = box.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+  measure();
+
+  const dwarf = (slot, face, hat) => ({
+    x: slots[slot] - face * size * 0.55, tx: null, speed: 0, face, hat,
+    mode: "work", phase: slot, rate: 7, step: 0, hop: 0, vy: 0, front: false, shock: 0, hammer: true,
+  });
+  const crew = [dwarf(0, 1, "#ff6b5e"), dwarf(2, -1, "#f2b84b"), dwarf(4, -1, "#7ee787")];
+
+  // Los ojos siguen al cursor una vez que te han visto
+  let eye = 0;
+  window.addEventListener("pointermove", (e) => {
+    eye = Math.max(-1, Math.min(1, (e.clientX - innerWidth / 2) / (innerWidth / 2)));
+  }, { passive: true });
+
+  const sparks = [];
+  const burst = (x, n = 5) => {
+    for (let i = 0; i < n; i++) {
+      sparks.push({ x, y: ground - size * 0.2, vx: (Math.random() - 0.5) * 170, vy: -60 - Math.random() * 130, life: 0.45 });
+    }
+  };
+  const place = (i) => {
+    const l = letters[i];
+    if (l.classList.contains("done")) return;
+    l.classList.remove("plan");
+    l.classList.add("done");
+    burst(slots[i], 9);
+  };
+
+  const notice = (d) => { d.mode = "idle"; d.front = true; d.shock = 0.75; d.vy = 150; };
+  const dash = (d, i) => {
+    d.front = false; d.mode = "idle";
+    d.tx = slots[i] - size * 0.55; d.speed = size * 16;
+    d.then = () => { d.face = 1; d.mode = "work"; d.rate = 24; };
+  };
+  const leave = (d) => {
+    d.front = false; d.mode = "idle";
+    d.tx = W + size * 2; d.speed = Math.max(W / 1.5, size * 14);
+    d.then = null;
+  };
+
+  const [a, b, c] = crew;
+  let dropped = null;
+  const story = [
+    [1.9, () => place(0)],
+    [2.7, () => notice(b)],
+    [3.0, () => notice(c)],
+    [3.2, () => notice(a)],
+    [4.0, () => { dash(a, 1); dash(b, 2); dash(c, 4); }],
+    [4.35, () => place(2)],
+    [4.5, () => place(4)],
+    [4.6, () => place(1)],
+    [4.7, () => dash(b, 3)],
+    [5.05, () => place(3)],
+    [5.3, () => crew.forEach((d) => { d.mode = "wave"; d.front = true; d.vy = 110; })],
+    [6.1, () => leave(c)],
+    [6.25, () => leave(b)],
+    [6.4, () => { dropped = a.x + size * 0.5; a.hammer = false; leave(a); }],
+    [8.3, () => {
+      a.tx = dropped; a.speed = Math.max(W / 1.5, size * 14);
+      a.then = () => {
+        dropped = null; a.hammer = true; a.vy = 130;
+        setTimeout(() => leave(a), 220);
+      };
+    }],
+  ];
+
+  const draw = (d) => {
+    const u = size / 100;
+    const moving = d.tx !== null;
+    const lift = moving ? Math.sin(d.step) * 7 : 0;
+    let arm = 0.7;
+    if (d.mode === "work") arm = -1.1 + Math.abs(Math.sin(d.phase)) * 1.7;
+    else if (d.mode === "wave") arm = -1.7 + Math.sin(clock * 15) * 0.35;
+    else if (moving) arm = 0.4 + Math.sin(d.step) * 0.6;
+    else if (d.shock > 0) arm = -1.5;
+
+    ctx.save();
+    ctx.translate(d.x, ground - d.hop);
+    ctx.scale(u * d.face, u);
+
+    ctx.fillStyle = "#0b1426"; // botas
+    ctx.fillRect(-13, -14 - Math.max(lift, 0), 11, 14);
+    ctx.fillRect(2, -14 - Math.max(-lift, 0), 11, 14);
+
+    ctx.fillStyle = "#6d93d6"; // cuerpo
+    ctx.beginPath(); ctx.roundRect(-17, -48, 34, 37, 10); ctx.fill();
+
+    ctx.save(); // brazo y martillo
+    ctx.translate(13, -38); ctx.rotate(arm);
+    ctx.fillStyle = "#6d93d6"; ctx.fillRect(0, -4, 20, 8);
+    if (d.hammer) {
+      ctx.fillStyle = "#c9a26b"; ctx.fillRect(18, -2.5, 20, 5);
+      ctx.fillStyle = "#dfe6f2"; ctx.fillRect(34, -10, 10, 20);
+    }
+    ctx.restore();
+
+    ctx.fillStyle = "#f3c6a5"; // cara
+    ctx.beginPath(); ctx.arc(0, -58, 13, 0, 7); ctx.fill();
+
+    const look = d.front ? eye * d.face * 3 : 5;
+    const r = d.shock > 0 ? 3 : 1.9;
+    ctx.fillStyle = "#0b1426";
+    ctx.beginPath(); ctx.arc(-5 + look, -61, r, 0, 7); ctx.arc(5 + look, -61, r, 0, 7); ctx.fill();
+
+    ctx.fillStyle = "#fff8ef"; // barba
+    ctx.beginPath(); ctx.moveTo(-14, -56);
+    ctx.quadraticCurveTo(0, -50, 14, -56);
+    ctx.quadraticCurveTo(10, -36, 0, -28);
+    ctx.quadraticCurveTo(-10, -36, -14, -56); ctx.fill();
+
+    ctx.fillStyle = d.hat; // gorro
+    ctx.beginPath(); ctx.moveTo(-16, -65); ctx.lineTo(16, -65); ctx.lineTo(-3, -104); ctx.fill();
+    ctx.restore();
+
+    if (d.shock > 0) {
+      ctx.fillStyle = "#ff6b5e";
+      ctx.font = `${size * 0.6}px Anton, Impact, sans-serif`;
+      ctx.textAlign = "center";
+      ctx.fillText("!", d.x, ground - d.hop - size * 1.14);
+    }
+  };
+
+  const drawHammer = (x) => {
+    const u = size / 100;
+    ctx.fillStyle = "#c9a26b"; ctx.fillRect(x - 12 * u, ground - 6 * u, 24 * u, 5 * u);
+    ctx.fillStyle = "#dfe6f2"; ctx.fillRect(x + 10 * u, ground - 14 * u, 10 * u, 14 * u);
+  };
+
+  let clock = 0;
+  let last = performance.now();
+  let over = false;
+
+  const finish = () => {
+    if (over) return;
+    over = true;
+    letters.forEach((l) => { l.classList.remove("plan"); l.classList.add("done"); });
+    canvas.remove();
+    window.removeEventListener("resize", measure);
+  };
+  window.addEventListener("resize", measure);
+  setTimeout(finish, 16000); // si la pestaña se queda dormida, el nombre no se queda a medias
+
+  const tick = (now) => {
+    if (over) return;
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    clock += dt;
+    measure();
+    while (story.length && story[0][0] <= clock) story.shift()[1]();
+
+    ctx.clearRect(0, 0, W, H);
+    if (dropped !== null) drawHammer(dropped);
+
+    crew.forEach((d) => {
+      d.shock = Math.max(0, d.shock - dt);
+      d.vy -= 620 * dt;
+      d.hop = Math.max(0, d.hop + d.vy * dt);
+      if (d.hop === 0) d.vy = 0;
+
+      if (d.mode === "work") {
+        const before = Math.floor(d.phase / Math.PI);
+        d.phase += d.rate * dt;
+        if (Math.floor(d.phase / Math.PI) !== before) burst(d.x + d.face * size * 0.5, 2);
+      }
+      if (d.tx !== null) {
+        const gap = d.tx - d.x;
+        const move = d.speed * dt;
+        d.face = gap < 0 ? -1 : 1;
+        d.step += dt * 26;
+        if (Math.abs(gap) <= move) {
+          d.x = d.tx; d.tx = null;
+          const next = d.then; d.then = null;
+          next?.();
+        } else d.x += Math.sign(gap) * move;
+      }
+      draw(d);
+    });
+
+    ctx.fillStyle = "#fff8ef";
+    for (let i = sparks.length - 1; i >= 0; i--) {
+      const p = sparks[i];
+      p.life -= dt;
+      if (p.life <= 0) { sparks.splice(i, 1); continue; }
+      p.vy += 480 * dt; p.x += p.vx * dt; p.y += p.vy * dt;
+      ctx.fillRect(p.x, p.y, 2.5, 2.5);
+    }
+
+    if (!story.length && crew.every((d) => d.x > W + size)) return finish();
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+})();
+
 // ===== Entrada al hacer scroll, escalonada dentro de cada lista =====
 const io = new IntersectionObserver(
   (entries) => {

@@ -211,6 +211,32 @@ img { display: block; max-width: 100%; }
 .cols .more > button { grid-template-columns: 1fr auto; }
 .cols .more > button span:not(.mono) { grid-column: 1 / -1; order: 3; }
 @media (max-width: 760px) { .more > button { grid-template-columns: 1fr auto; } .more > button span:not(.mono) { grid-column: 1 / -1; order: 3; } .x > div { padding-left: 0; } }
+
+/* Proyectos en horizontal */
+.hs { position: relative; margin: 0 calc(var(--pad) * -1); }
+.hs__pin { display: flex; flex-direction: column; }
+.hs__track { display: flex; gap: clamp(16px, 4vw, 72px); padding: 0 var(--pad); }
+.hs .proj, .hs .proj:nth-of-type(even) { flex: none; width: min(1180px, 84vw); grid-template-columns: 5fr 7fr; border: 0; padding: 0; align-items: center; }
+.hs .proj:nth-of-type(even) .proj__text { order: 0; }
+.hs .soon { flex: none; width: min(560px, 70vw); flex-direction: column; justify-content: center; align-items: flex-start; border: 1px dashed var(--line); border-radius: 6px; padding: 40px; }
+.hs__foot { display: flex; align-items: center; gap: 18px; padding: 28px var(--pad) 0; color: var(--mute); }
+.hs__bar { flex: 1; height: 1px; background: var(--line); position: relative; }
+.hs__bar i { position: absolute; inset: 0; background: var(--hot); transform-origin: 0 50%; transform: scaleX(.04); }
+.hs.pinned .hs__pin { position: sticky; top: 0; height: 100vh; justify-content: center; overflow: hidden; }
+.hs.pinned .hs__track { width: max-content; will-change: transform; }
+.hs.pinned .hs__hint { display: none; }
+@media (max-width: 860px) {
+  .hs__track { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); -webkit-overflow-scrolling: touch; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .hs__track::-webkit-scrollbar { display: none; }
+  .hs .proj, .hs .proj:nth-of-type(even) { width: 86vw; grid-template-columns: 1fr; scroll-snap-align: start; align-items: start; }
+  .hs .proj .live { order: -1; }
+  .hs .soon { width: 70vw; scroll-snap-align: start; }
+  .hs .proj p { font-size: 16px; }
+}
+.sub { border-left: 2px solid var(--hot); padding: 4px 0 4px 16px; margin: 0 0 26px; display: flex; flex-direction: column; gap: 6px; }
+.sub .mono { color: var(--mute); font-size: 11px; }
+.sub b { font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+.more .x .sub p { font-size: 15px; }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -249,11 +275,9 @@ img { display: block; max-width: 100%; }
 
 <section class="sec">
   <div class="sec__head" data-in><h2>Proyectos</h2><span class="mono">02 — 05</span></div>
-<div class="belt" aria-hidden="true">
-  <div class="belt__row" data-belt="1">Lanedata <em>●</em> <b>Mundo Atletismo</b> · Tripfinder <em>●</em> <b>Bicifastness</b> · Aire Claro <em>●</em> <b>Lanedata</b> · Mundo Atletismo ·</div>
-</div>
 
 
+<div class="hs"><div class="hs__pin"><div class="hs__track">
   <article class="proj" data-in>
     <div class="proj__text">
       <span class="mono proj__n">02 · Cofundador</span>
@@ -298,6 +322,9 @@ img { display: block; max-width: 100%; }
     <a class="live" href="https://bicifastness.es" target="_blank" rel="noopener" data-src="https://bicifastness.es" style="background:url(../assets/bicifastness.jpg) 0 0/cover" aria-label="Abrir Bicifastness"></a>
   </article>
   <div class="soon" data-in><h3 aria-hidden="true">Proyecto nuevo</h3><p>Algo nuevo, muy pronto.</p></div>
+</div>
+  <div class="hs__foot mono"><span class="hs__count">01 / 05</span><span class="hs__bar"><i></i></span><span class="hs__hint">Desliza →</span></div>
+</div></div>
 </section>
 
 <section class="sec" id="trayectoria">
@@ -316,8 +343,7 @@ img { display: block; max-width: 100%; }
       <div class="sec__head" data-in><h2>Educación</h2><span class="mono">07</span></div>
       <ul class="list" data-in>
         <li><b>Ing. Informática + IA</b><span>UFV · delegado de clase</span><span class="mono">2025 — 29</span></li>
-        <li class="more"><button type="button" aria-expanded="false"><b>IES Cervantes</b><span>Bachillerato · consejero escolar 4 años</span><span class="mono">— 2025 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Cuatro años en el consejo escolar del instituto, además de delegado, subdelegado y otros cargos de representación de los alumnos.</p><div class="facts"><div><span class="mono">Consejo escolar</span>4 años</div><div><span class="mono">Otros cargos</span>Delegado, subdelegado</div></div></div></div></li>
-        <li class="more"><button type="button" aria-expanded="false"><b>Global Classrooms</b><span>Modelo de Naciones Unidas</span><span class="mono">2021 — 22 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Defensa de una propuesta social a favor de los derechos de la tercera edad. Representé a Etiopía en las fases previas y a Japón en las rondas clasificatorias para la conferencia final de Madrid.</p><div class="facts"><div><span class="mono">Delegaciones</span>Etiopía → Japón</div><div><span class="mono">Fechas</span>nov 2021 — mar 2022</div></div></div></div></li>
+        <li class="more"><button type="button" aria-expanded="false"><b>IES Cervantes</b><span>Bachillerato · consejero escolar 4 años</span><span class="mono">— 2025 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Cuatro años en el consejo escolar del instituto, además de delegado, subdelegado y otros cargos de representación de los alumnos.</p><div class="facts"><div><span class="mono">Consejo escolar</span>4 años</div><div><span class="mono">Otros cargos</span>Delegado, subdelegado</div></div><div class="sub"><span class="mono">Dentro del instituto · nov 2021 — mar 2022</span><b>Global Classrooms</b><p>Modelo de Naciones Unidas: defensa de una propuesta social a favor de los derechos de la tercera edad. Represent&eacute; a Etiop&iacute;a en las fases previas y a Jap&oacute;n en las rondas clasificatorias para la conferencia final de Madrid.</p></div></div></div></li>
       </ul>
     </div>
     <div>
@@ -394,9 +420,23 @@ document.querySelectorAll(".live").forEach((l) => {
   l.classList.add("loading");
   new MutationObserver(() => { const f = l.querySelector("iframe"); if (f && !f.dataset.w) { f.dataset.w = 1; const done = () => { f.classList.add("on"); l.classList.remove("loading"); l.classList.add("shine"); }; f.addEventListener("load", done); setTimeout(done, 5000); } }).observe(l, { childList: true });
 });
+
+// Proyectos en horizontal: fijados en escritorio, deslizables en móvil
+const hs = document.querySelector(".hs"), track = hs.querySelector(".hs__track"), cards = track.children.length;
+const hsBar = hs.querySelector(".hs__bar i"), hsCount = hs.querySelector(".hs__count");
+let pinned = false, dist = 0;
+const hsProg = (k) => { hsBar.style.transform = `scaleX(${Math.max(.04, k)})`; hsCount.textContent = String(Math.min(cards, 1 + Math.round(k * (cards - 1)))).padStart(2, "0") + " / " + String(cards).padStart(2, "0"); };
+const hsLayout = () => {
+  pinned = innerWidth > 860 && !reduce;
+  hs.classList.toggle("pinned", pinned);
+  if (pinned) { dist = Math.max(0, track.scrollWidth - track.parentNode.clientWidth); hs.style.height = innerHeight + dist + "px"; }
+  else { hs.style.height = ""; track.style.transform = ""; }
+};
+track.addEventListener("scroll", () => { if (!pinned) hsProg(track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth)); }, { passive: true });
+hsLayout(); hsProg(0); addEventListener("resize", hsLayout);
 // Todo lo que depende del scroll, en un solo frame
 const prog = document.querySelector(".prog"), lines = [...document.querySelectorAll(".hero__name span i")];
-const belts = [...document.querySelectorAll("[data-belt]")], award = document.querySelector(".award"), lives = [...document.querySelectorAll(".live")];
+const award = document.querySelector(".award"), lives = [...document.querySelectorAll(".live")];
 const links = [...document.querySelectorAll(".top nav a")], targets = links.map((a) => document.querySelector(a.getAttribute("href")));
 let ticking = false, introDone = false;
 setTimeout(() => { introDone = true; frame(); }, 1300);
@@ -407,9 +447,9 @@ const frame = () => {
   up.classList.toggle("show", y > H * .8); up.style.setProperty("--p", p.toFixed(3));
   if (!reduce) {
     if (introDone && y < H * 1.3) lines.forEach((l, i) => { l.style.animation = "none"; l.style.transform = `translate3d(${y * (i - 1) * -.12}px, ${y * i * .05}px, 0)`; });
-    belts.forEach((b) => { const r = b.parentNode.getBoundingClientRect(); if (r.bottom > -300 && r.top < H + 300) { const dir = +b.dataset.belt; b.style.transform = `translate3d(${(dir > 0 ? -innerWidth * .9 : 0) + (H - r.top) * .4 * dir}px,0,0)`; } });
     if (award) { const r = award.getBoundingClientRect(); const k = Math.min(1, Math.max(0, (H - r.top) / (H * .75))); award.style.clipPath = `inset(0 ${((1 - k) * Math.min(innerWidth * .07, 110)).toFixed(1)}px round ${((1 - k) * 28).toFixed(1)}px)`; }
   }
+  if (pinned) { const r = hs.getBoundingClientRect(), k = Math.min(1, Math.max(0, -r.top / dist)); track.style.transform = `translate3d(${-k * dist}px,0,0)`; hsProg(k); }
   let cur = -1; targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top < H * .4) cur = i; });
   links.forEach((a, i) => a.classList.toggle("on", i === cur));
 };

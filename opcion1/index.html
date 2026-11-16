@@ -186,6 +186,31 @@ img { display: block; max-width: 100%; }
 @media (max-width: 640px) { .up { right: 12px; bottom: 12px; width: 40px; height: 40px; font-size: 15px; } .up svg { width: 48px; height: 48px; } }
 @media (hover: hover) { .up:hover { transform: translateY(-3px); } }
 @media (prefers-reduced-motion: reduce) { .sec__head h2 span, .hero__meta div { transform: none !important; opacity: 1 !important; } .hero__meta::before, .list li::after { transform: none !important; } }
+
+/* Filas que se despliegan */
+.list li.more { display: block; padding: 0; }
+.list li.more:hover { padding-left: 0; }
+.more > button { all: unset; box-sizing: border-box; width: 100%; cursor: pointer; display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 20px; padding: 22px 0; align-items: baseline; transition: padding .35s var(--ease); -webkit-tap-highlight-color: transparent; }
+.more > button:hover, .more.open > button { padding-left: 14px; }
+.more > button:focus-visible { outline: 2px solid var(--hot); outline-offset: 2px; }
+.more .mono { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
+.pm { position: relative; width: 11px; height: 11px; flex: none; }
+.pm::before, .pm::after { content: ""; position: absolute; left: 0; top: 5px; width: 11px; height: 1.5px; background: currentColor; transition: transform .4s var(--ease); }
+.pm::after { transform: rotate(90deg); }
+.more.open .pm::after { transform: rotate(0); }
+.more.open .pm { color: var(--hot); }
+.x { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
+.x > div { overflow: hidden; padding-left: 14px; }
+.more.open .x { grid-template-rows: 1fr; }
+.x p { max-width: 62ch; font-size: 16px; line-height: 1.5; padding-top: 2px; opacity: 0; transform: translateY(-6px); transition: opacity .4s, transform .5s var(--ease); }
+.more.open .x p { opacity: 1; transform: none; transition-delay: .12s; }
+.facts { display: flex; flex-wrap: wrap; gap: 14px 40px; padding: 18px 0 26px; font-size: 14px; }
+.facts div { display: flex; flex-direction: column; gap: 4px; }
+.facts .mono { justify-content: flex-start; color: var(--mute); font-size: 11px; }
+.list .more::before { display: none; }
+.cols .more > button { grid-template-columns: 1fr auto; }
+.cols .more > button span:not(.mono) { grid-column: 1 / -1; order: 3; }
+@media (max-width: 760px) { .more > button { grid-template-columns: 1fr auto; } .more > button span:not(.mono) { grid-column: 1 / -1; order: 3; } .x > div { padding-left: 0; } }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -270,7 +295,7 @@ img { display: block; max-width: 100%; }
       <dl><dt>Lema</dt><dd>Madrid es el circuito</dd><dt>Desde</dt><dd>2026</dd></dl>
       <div class="proj__links"><a href="https://bicifastness.es" target="_blank" rel="noopener">bicifastness.es ↗</a></div>
     </div>
-    <a class="live" href="https://bicifastness.es" target="_blank" rel="noopener" data-src="https://bicifastness.es" aria-label="Abrir Bicifastness"></a>
+    <a class="live" href="https://bicifastness.es" target="_blank" rel="noopener" data-src="https://bicifastness.es" style="background:url(../assets/bicifastness.jpg) 0 0/cover" aria-label="Abrir Bicifastness"></a>
   </article>
   <div class="soon" data-in><h3 aria-hidden="true">Proyecto nuevo</h3><p>Algo nuevo, muy pronto.</p></div>
 </section>
@@ -278,10 +303,10 @@ img { display: block; max-width: 100%; }
 <section class="sec" id="trayectoria">
   <div class="sec__head" data-in><h2>Experiencia</h2><span class="mono">06</span></div>
   <ul class="list" data-in>
-    <li><b>RFEA · Programa Talento IA</b><span>Beca de la Real Federación Española de Atletismo para jóvenes deportistas en tecnología, con mentoría del Director Deportivo</span><span class="mono">2026 — 27</span></li>
-    <li><b>Lanedata</b><span>Fundador</span><span class="mono">2026 — hoy</span></li>
-    <li><b>Mundo Atletismo</b><span>Cofundador</span><span class="mono">2026 — hoy</span></li>
-    <li><b>UFV Racing Team</b><span>Electrical · simulaciones del coche con MATLAB y Simulink</span><span class="mono">2025 — 2026</span></li>
+    <li class="more"><button type="button" aria-expanded="false"><b>RFEA · Talento IA</b><span>Beca de IA y analítica de rendimiento · Dirección Deportiva</span><span class="mono">2026 — 27 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Seleccionado por la Real Federación Española de Atletismo para su programa de talento en inteligencia artificial: un itinerario de formación en IA y analítica aplicada al alto rendimiento, con mentoría de la Dirección Deportiva.</p><div class="facts"><div><span class="mono">Organización</span>Real Federación Española de Atletismo</div><div><span class="mono">Área</span>Dirección Deportiva</div><div><span class="mono">Foco</span>IA, datos y rendimiento</div></div></div></div></li>
+    <li class="more"><button type="button" aria-expanded="false"><b>Lanedata</b><span>Fundador</span><span class="mono">2026 — hoy <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Medio de datos sobre atletismo español: lo diseño, lo programo y lo publico. Análisis, estadísticas, fichajes y calculadoras, con un panel de edición propio.</p><div class="facts"><div><span class="mono">Stack</span>Next.js, TypeScript, Supabase</div><div><span class="mono">Web</span>lanedata.es</div></div></div></div></li>
+    <li class="more"><button type="button" aria-expanded="false"><b>Mundo Atletismo</b><span>Cofundador</span><span class="mono">2026 — hoy <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>La plataforma que reúne el atletismo español: rankings, campeonatos, récords, predictor de marcas y resultados en directo.</p><div class="facts"><div><span class="mono">Stack</span>React, TypeScript, Firebase</div><div><span class="mono">Web</span>mundoatletismo.es</div></div></div></div></li>
+    <li class="more"><button type="button" aria-expanded="false"><b>UFV Racing Team</b><span>Electrical · simulaciones con MATLAB y Simulink</span><span class="mono">2025 — 26 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Equipo de Formula Student de la universidad. En el departamento eléctrico, modelado y simulación del comportamiento del coche.</p><div class="facts"><div><span class="mono">Herramientas</span>MATLAB, Simulink</div><div><span class="mono">Equipo</span>Electrical</div></div></div></div></li>
   </ul>
 </section>
 
@@ -291,14 +316,15 @@ img { display: block; max-width: 100%; }
       <div class="sec__head" data-in><h2>Educación</h2><span class="mono">07</span></div>
       <ul class="list" data-in>
         <li><b>Ing. Informática + IA</b><span>UFV · delegado de clase</span><span class="mono">2025 — 29</span></li>
-        <li><b>Bachillerato</b><span>IES Cervantes · consejo escolar</span><span class="mono">— 2025</span></li>
+        <li class="more"><button type="button" aria-expanded="false"><b>IES Cervantes</b><span>Bachillerato · consejero escolar 4 años</span><span class="mono">— 2025 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Cuatro años en el consejo escolar del instituto, además de delegado, subdelegado y otros cargos de representación de los alumnos.</p><div class="facts"><div><span class="mono">Consejo escolar</span>4 años</div><div><span class="mono">Otros cargos</span>Delegado, subdelegado</div></div></div></div></li>
+        <li class="more"><button type="button" aria-expanded="false"><b>Global Classrooms</b><span>Modelo de Naciones Unidas</span><span class="mono">2021 — 22 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Defensa de una propuesta social a favor de los derechos de la tercera edad. Representé a Etiopía en las fases previas y a Japón en las rondas clasificatorias para la conferencia final de Madrid.</p><div class="facts"><div><span class="mono">Delegaciones</span>Etiopía → Japón</div><div><span class="mono">Fechas</span>nov 2021 — mar 2022</div></div></div></div></li>
       </ul>
     </div>
     <div>
       <div class="sec__head" data-in><h2>Voluntariado</h2><span class="mono">08</span></div>
       <ul class="list" data-in>
-        <li><b>Hospitales</b><span>Fundación Talento MCR</span><span class="mono">En activo</span></li>
-        <li><b>Nepal</b><span>AIPC Pandora · 90 h</span><span class="mono">2024</span></li>
+        <li class="more"><button type="button" aria-expanded="false"><b>Hospitales</b><span>Fundación Talento MCR</span><span class="mono">En activo <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Acompañamiento a niños hospitalizados en el Hospital 12 de Octubre y en el Hospital Niño Jesús de Madrid.</p><div class="facts"><div><span class="mono">Hospitales</span>12 de Octubre, Niño Jesús</div><div><span class="mono">Con</span>Menores hospitalizados</div></div></div></div></li>
+        <li class="more"><button type="button" aria-expanded="false"><b>Nepal</b><span>AIPC Pandora · voluntariado internacional</span><span class="mono">2024 <i class="pm" aria-hidden="true"></i></span></button><div class="x"><div><p>Tres semanas de inmersión cultural y voluntariado en Nepal, colaborando en proyectos para mejorar las condiciones de vida de la comunidad local.</p><div class="facts"><div><span class="mono">Fecha</span>Julio 2024</div><div><span class="mono">Horas</span>16 h de formación + 90 h en terreno</div></div></div></div></li>
       </ul>
     </div>
   </div>
@@ -344,6 +370,11 @@ const lazy = new IntersectionObserver((es) => es.forEach((e) => {
 }), { rootMargin: "400px" });
 document.querySelectorAll(".live[data-src]").forEach((el) => { lazy.observe(el); new ResizeObserver(() => fit(el)).observe(el); });
 
+
+document.querySelectorAll(".more > button").forEach((b) => b.addEventListener("click", () => {
+  const li = b.parentNode, open = !li.classList.contains("open");
+  li.classList.toggle("open", open); b.setAttribute("aria-expanded", open);
+}));
 // ===== Detalles =====
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.querySelectorAll(".sec__head h2").forEach((h) => h.innerHTML = `<span>${h.innerHTML}</span>`);

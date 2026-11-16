@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-:root { --bg: #f3f1ec; --ink: #0e0e0e; --mute: #6b6862; --line: #d6d2c9; --hot: #ff4a1c; --pad: clamp(18px, 4vw, 56px); --ease: cubic-bezier(.2,.8,.2,1); }
+:root { --bg: #f3f1ec; --ink: #0e0e0e; --mute: #6b6862; --line: #d6d2c9; --hot: #2b45ff; --pad: clamp(18px, 4vw, 56px); --ease: cubic-bezier(.2,.8,.2,1); }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { background: var(--bg); color: var(--ink); font-family: "Inter Tight", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
@@ -116,7 +116,6 @@ img { display: block; max-width: 100%; }
 .top nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--ease); }
 .top nav a:hover::after, .top nav a.on::after { transform: scaleX(1); transform-origin: left; }
 .hero__name span i { will-change: transform; }
-.hero__name .dot { display: inline-block; animation: beat 2.4s var(--ease) 1.4s infinite; transform-origin: 50% 80%; }
 @keyframes beat { 0%, 70%, 100% { transform: none; } 78% { transform: scale(1.35); } 86% { transform: scale(.92); } }
 .hero__meta div { opacity: 0; transform: translateY(10px); animation: up2 .9s var(--ease) forwards; }
 .hero__meta div:nth-child(1) { animation-delay: .55s; } .hero__meta div:nth-child(2) { animation-delay: .62s; }
@@ -136,6 +135,7 @@ img { display: block; max-width: 100%; }
 .belt { overflow: hidden; padding: 70px 0 0; white-space: nowrap; user-select: none; }
 .belt__row { display: inline-block; font-weight: 900; letter-spacing: -.045em; line-height: 1; font-size: clamp(44px, 8vw, 128px); will-change: transform; }
 .belt__row + .belt__row { display: block; }
+.sec .belt { margin: -10px calc(var(--pad) * -1) 30px; padding: 0; }
 .belt__row b { color: transparent; -webkit-text-stroke: 1.5px var(--ink); font-weight: 900; }
 .belt__row em { font-style: normal; color: var(--hot); }
 
@@ -144,8 +144,6 @@ img { display: block; max-width: 100%; }
 .award h3 em { display: inline-block; }
 
 /* Webs que crecen al entrar */
-.live { transform: scale(var(--s, 1)); transition: transform .15s linear, box-shadow .4s; }
-.live:hover { box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 40px 80px -30px rgba(0,0,0,.45); }
 .live::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.35) 50%, transparent 65%) -150% 0 / 220% 100% no-repeat; pointer-events: none; }
 .live.shine::before { animation: shine 1.4s var(--ease) .2s; }
 @keyframes shine { to { background-position: 150% 0; } }
@@ -210,11 +208,6 @@ img { display: block; max-width: 100%; }
   </div>
 </section>
 
-<div class="belt" aria-hidden="true">
-  <div class="belt__row" data-belt="-1">Ingeniería <b>Informática</b> · IA <em>●</em> Robótica · <b>Producto</b> · Datos <em>●</em> Atletismo · <b>Ingeniería</b> · IA <em>●</em> Robótica ·</div>
-  <div class="belt__row" data-belt="1">Lanedata <em>●</em> <b>Mundo Atletismo</b> · Tripfinder <em>●</em> <b>Bicifastness</b> · Aire Claro <em>●</em> <b>Lanedata</b> · Mundo Atletismo ·</div>
-</div>
-
 
 <section class="sec" id="trabajo">
   <div class="award" data-in>
@@ -231,6 +224,10 @@ img { display: block; max-width: 100%; }
 
 <section class="sec">
   <div class="sec__head" data-in><h2>Proyectos</h2><span class="mono">02 — 05</span></div>
+<div class="belt" aria-hidden="true">
+  <div class="belt__row" data-belt="1">Lanedata <em>●</em> <b>Mundo Atletismo</b> · Tripfinder <em>●</em> <b>Bicifastness</b> · Aire Claro <em>●</em> <b>Lanedata</b> · Mundo Atletismo ·</div>
+</div>
+
 
   <article class="proj" data-in>
     <div class="proj__text">
@@ -281,6 +278,7 @@ img { display: block; max-width: 100%; }
 <section class="sec" id="trayectoria">
   <div class="sec__head" data-in><h2>Experiencia</h2><span class="mono">06</span></div>
   <ul class="list" data-in>
+    <li><b>RFEA · Programa Talento IA</b><span>Beca de la Real Federación Española de Atletismo para jóvenes deportistas en tecnología, con mentoría del Director Deportivo</span><span class="mono">2026 — 27</span></li>
     <li><b>Lanedata</b><span>Fundador</span><span class="mono">2026 — hoy</span></li>
     <li><b>Mundo Atletismo</b><span>Cofundador</span><span class="mono">2026 — hoy</span></li>
     <li><b>UFV Racing Team</b><span>Electrical · simulaciones del coche con MATLAB y Simulink</span><span class="mono">2025 — 2026</span></li>
@@ -380,7 +378,6 @@ const frame = () => {
     if (introDone && y < H * 1.3) lines.forEach((l, i) => { l.style.animation = "none"; l.style.transform = `translate3d(${y * (i - 1) * -.12}px, ${y * i * .05}px, 0)`; });
     belts.forEach((b) => { const r = b.parentNode.getBoundingClientRect(); if (r.bottom > -300 && r.top < H + 300) { const dir = +b.dataset.belt; b.style.transform = `translate3d(${(dir > 0 ? -innerWidth * .9 : 0) + (H - r.top) * .4 * dir}px,0,0)`; } });
     if (award) { const r = award.getBoundingClientRect(); const k = Math.min(1, Math.max(0, (H - r.top) / (H * .75))); award.style.clipPath = `inset(0 ${((1 - k) * Math.min(innerWidth * .07, 110)).toFixed(1)}px round ${((1 - k) * 28).toFixed(1)}px)`; }
-    lives.forEach((l) => { const r = l.getBoundingClientRect(); if (r.top < H && r.bottom > 0) { const k = Math.min(1, Math.max(0, (H - r.top) / (H * .6))); l.style.setProperty("--s", (.92 + k * .08).toFixed(4)); } });
   }
   let cur = -1; targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top < H * .4) cur = i; });
   links.forEach((a, i) => a.classList.toggle("on", i === cur));

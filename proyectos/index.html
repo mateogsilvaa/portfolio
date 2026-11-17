@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Proyectos · Mateo González Silva</title>
-<meta name="description" content="Los proyectos de Mateo González Silva explicados a fondo: Mundo Atletismo, Lanedata, Bicifastness y Tripfinder." />
+<meta name="description" content="Los proyectos de Mateo González Silva: Mundo Atletismo, Lanedata, Bicifastness y Tripfinder. Ábrelos en un escritorio y úsalos aquí mismo." />
 <meta property="og:title" content="Proyectos · Mateo González Silva" />
-<meta property="og:description" content="Mundo Atletismo, Lanedata, Bicifastness y Tripfinder, explicados a fondo." />
+<meta property="og:description" content="Mundo Atletismo, Lanedata, Bicifastness y Tripfinder: ábrelos y úsalos aquí mismo." />
 <meta property="og:image" content="https://mateogsilvaa.es/assets/brand/mark-white-on-dark.png" />
 <meta name="theme-color" content="#0e0e0e" />
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
@@ -15,191 +15,512 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/site.css" />
 <style>
+body { background: #0b0b0d; }
+.top { transition: opacity .3s; }
+body.os-on .top { opacity: 0; pointer-events: none; }
+
+/* =============== Intro: de la web a la pantalla de un Mac =============== */
+.intro { position: relative; height: 420vh; }
+.stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #0b0b0d; }
+.mac { position: absolute; left: 50%; top: 50%; width: var(--sw); transform-origin: 50% 50%; will-change: transform; }
+.mac__screen { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 18px; padding: 1.3%; background: #1a1a1c; box-shadow: inset 0 0 0 2px #2c2c30, 0 50px 120px -30px rgba(0,0,0,.9); }
+.mac__screen::before { content: ""; position: absolute; top: .55%; left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #0c0c0e; box-shadow: inset 0 0 0 2px #26262a; }
+.mac__view { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 6px; background: #000; }
+.vscreen { position: absolute; left: 0; top: 0; width: 1440px; height: 900px; transform-origin: 0 0; }
+.mac__base { position: relative; width: 118%; left: -9%; height: calc(var(--sw) * .028); border-radius: 0 0 22px 22px / 0 0 100% 100%; background: linear-gradient(#d9d9dd, #a8a8ae 60%, #77777d); }
+.mac__base::before { content: ""; position: absolute; left: 50%; top: 0; width: 15%; height: 40%; transform: translateX(-50%); border-radius: 0 0 10px 10px; background: #8d8d93; }
+.caption { position: absolute; left: 0; right: 0; bottom: 6svh; text-align: center; color: var(--bg); pointer-events: none; }
+.caption p { position: absolute; left: 0; right: 0; bottom: 0; font-size: clamp(22px, 3vw, 44px); font-weight: 800; letter-spacing: -.04em; opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .6s var(--ease); }
+.caption p.on { opacity: 1; transform: none; }
+.caption p em { font-style: normal; color: #7d8cff; }
+.scrollhint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); color: #8f8a80; transition: opacity .4s; }
+
+/* Página falsa dentro de la pantalla */
+.fakeweb { position: absolute; inset: 0; z-index: 6000; background: var(--bg); color: var(--ink); border-radius: 10px; overflow: hidden; transform-origin: 50% 100%; box-shadow: 0 30px 80px -20px rgba(0,0,0,.6); }
+.fakeweb__bar { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #e4e0d7; }
+.fakeweb__bar i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+.fakeweb__bar i:nth-child(2) { background: #febc2e; } .fakeweb__bar i:nth-child(3) { background: #28c840; }
+.fakeweb__bar span { margin: 0 auto; padding: 4px 16px; border-radius: 7px; background: #f3f1ec; font: 500 13px "JetBrains Mono", monospace; color: #6b6862; }
+.fakeweb__top { display: flex; justify-content: space-between; padding: 22px 56px; font-weight: 900; font-size: 22px; letter-spacing: -.04em; }
+.fakeweb__top span:last-child { font: 500 13px "JetBrains Mono", monospace; }
+.fakeweb h1 { position: absolute; left: 56px; bottom: 150px; font-size: 230px; font-weight: 900; letter-spacing: -.055em; line-height: .8; }
+.fakeweb h1 .dot, .fakeweb__lead b { color: var(--hot); }
+.fakeweb__lead { position: absolute; left: 56px; right: 56px; bottom: 56px; display: flex; justify-content: space-between; border-top: 1px solid var(--ink); padding-top: 16px; font-size: 22px; }
+.fakeweb__lead .mono { font-size: 13px; color: var(--mute); }
+
+/* =============== Escritorio =============== */
+.os { position: relative; height: 100svh; min-height: 520px; overflow: hidden; color: #fff; font-family: "Inter Tight", system-ui, sans-serif; user-select: none;
+  background: radial-gradient(120% 90% at 85% 0%, #5a6dff 0%, #2b45ff 30%, #1426a8 60%, #0a1260 100%); }
+.os::before { content: "MGS"; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); font-weight: 900; font-size: 32vmin; letter-spacing: -.06em; color: rgba(255,255,255,.06); pointer-events: none; }
+.vscreen .os { height: 900px; min-height: 0; }
+.os__menu { position: absolute; inset: 0 0 auto; z-index: 5000; height: 30px; display: flex; align-items: center; gap: 18px; padding: 0 14px; background: rgba(10,14,60,.35); backdrop-filter: blur(20px); font-size: 13.5px; }
+.os__menu b { font-weight: 900; letter-spacing: -.03em; font-size: 15px; }
+.os__menu .app { font-weight: 700; }
+.os__menu .dim { opacity: .85; }
+.os__menu .r { margin-left: auto; display: flex; gap: 16px; align-items: center; }
+.os__menu button, .os__menu a { color: inherit; font: inherit; padding: 2px 6px; border-radius: 5px; }
+.os__menu button:hover, .os__menu a:hover { background: rgba(255,255,255,.15); }
+
+.os__icons { position: absolute; top: 46px; right: 18px; display: grid; gap: 6px; z-index: 1; }
+.dico { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 92px; padding: 6px 2px; border-radius: 8px; color: #fff; text-align: center; }
+.dico:hover, .dico.sel { background: rgba(255,255,255,.14); }
+.dico__i { width: 56px; height: 56px; border-radius: 14px; background: var(--c); color: var(--t); display: grid; place-items: center; font-weight: 900; font-size: 24px; letter-spacing: -.05em; box-shadow: 0 8px 20px -6px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.15); }
+.dico__i.doc { background: #fff; color: #1b1b1b; border-radius: 6px; width: 46px; font-size: 11px; font-family: "JetBrains Mono", monospace; font-weight: 500; }
+.dico span:last-child { font-size: 12.5px; line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
+
+.os__dock { position: absolute; left: 50%; bottom: 8px; z-index: 4000; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; padding: 7px; border-radius: 20px; background: rgba(255,255,255,.18); backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), 0 16px 40px -12px rgba(0,0,0,.5); }
+.dk { position: relative; width: 52px; height: 52px; border-radius: 13px; background: var(--c); color: var(--t); display: grid; place-items: center; font-weight: 900; font-size: 21px; letter-spacing: -.05em; transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease); box-shadow: 0 4px 12px -4px rgba(0,0,0,.4); }
+.dk svg { width: 26px; height: 26px; }
+.dk::after { content: ""; position: absolute; bottom: -6px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #fff; opacity: 0; }
+.dk.run::after { opacity: .9; }
+.dk .tip { position: absolute; bottom: calc(100% + 12px); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 5px 10px; border-radius: 7px; background: rgba(30,30,30,.9); color: #fff; font: 500 12px "Inter Tight", sans-serif; opacity: 0; pointer-events: none; transition: opacity .2s; }
+@media (hover: hover) { .os__dock:not(.static) .dk:hover { width: 70px; height: 70px; } .dk:hover .tip { opacity: 1; } }
+.dk--sep { width: 1px; height: 44px; margin: 0 3px 4px; background: rgba(255,255,255,.3); border-radius: 0; box-shadow: none; }
+
+/* Ventanas */
+.w { position: absolute; display: grid; grid-template-rows: 34px 1fr; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; background: #f6f5f2; color: #1b1b1b; box-shadow: 0 30px 70px -18px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.18);
+  opacity: 0; transform: scale(.92); transition: opacity .25s, transform .35s var(--ease); }
+.w.in { opacity: 1; transform: none; }
+.w.out { opacity: 0; transform: scale(.9); }
+.w.mini { opacity: 0; transform: translate(var(--mx, 0), var(--my, 300px)) scale(.08); pointer-events: none; transition: opacity .45s, transform .55s cubic-bezier(.5,0,.75,0); }
+.w.anim { transition: opacity .25s, transform .35s var(--ease), left .35s var(--ease), top .35s var(--ease), width .35s var(--ease), height .35s var(--ease); }
+.w:not(.focus) { box-shadow: 0 16px 40px -14px rgba(0,0,0,.4), 0 0 0 1px rgba(0,0,0,.15); }
+.w__bar { position: relative; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #e9e7e2; border-bottom: 1px solid #d8d5ce; cursor: default; touch-action: none; }
+.w__dots { display: flex; gap: 8px; z-index: 1; }
+.w__dots button { width: 13px; height: 13px; border-radius: 50%; background: #ff5f57; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.2); }
+.w__dots button:nth-child(2) { background: #febc2e; } .w__dots button:nth-child(3) { background: #28c840; }
+.w:not(.focus) .w__dots button { background: #cfccc6; }
+.w__title { position: absolute; left: 0; right: 0; text-align: center; font-size: 13px; font-weight: 600; color: #4a4843; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 90px; }
+.w__tools { margin-left: auto; display: flex; gap: 6px; z-index: 1; }
+.w__tools a, .w__tools button { font: 500 12px "Inter Tight", sans-serif; padding: 4px 9px; border-radius: 6px; color: #33312d; background: rgba(0,0,0,.06); }
+.w__tools a:hover, .w__tools button:hover { background: rgba(0,0,0,.12); }
+.w__body { position: relative; min-height: 0; overflow: hidden; }
+.w__rs { position: absolute; right: 0; bottom: 0; width: 18px; height: 18px; cursor: nwse-resize; z-index: 3; touch-action: none; }
+.w__rs::after { content: ""; position: absolute; right: 4px; bottom: 4px; width: 8px; height: 8px; border-right: 2px solid rgba(0,0,0,.25); border-bottom: 2px solid rgba(0,0,0,.25); }
+.os.busy iframe { pointer-events: none; }
+.os.busy, .os.busy * { user-select: none; }
+
+/* Navegador */
+.w--web .w__bar { background: #2a2a2c; border-color: #1b1b1c; }
+.w--web .w__title { color: #d9d6cf; font: 500 12px "JetBrains Mono", monospace; }
+.w--web .w__tools a, .w--web .w__tools button { color: #e9e6df; background: rgba(255,255,255,.1); }
+.w--web .w__tools a:hover, .w--web .w__tools button:hover { background: rgba(255,255,255,.2); }
+.w--web .w__body { background: #fff; }
+.w--web iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
+.w--web .load { position: absolute; inset: 0; display: grid; place-items: center; background: #f1efe9; color: #6b6862; font: 500 12px "JetBrains Mono", monospace; text-transform: uppercase; transition: opacity .4s; }
+.w--web .load.off { opacity: 0; pointer-events: none; }
+
+/* Notas */
+.w--notes .w__bar { background: #f0ede6; }
+.w--notes .w__body { display: grid; grid-template-columns: 190px 1fr; background: #fffdf7; }
+.notes__list { overflow-y: auto; background: #f0ede6; border-right: 1px solid #ddd8cd; padding: 8px; }
+.notes__list button { display: block; width: 100%; text-align: left; padding: 9px 10px; border-radius: 8px; font-size: 13.5px; line-height: 1.25; }
+.notes__list button small { display: block; color: #8a857b; font-size: 11.5px; margin-top: 2px; }
+.notes__list button.on { background: #f7d774; }
+.notes__doc { overflow-y: auto; overscroll-behavior: contain; padding: 22px 26px 40px; user-select: text; }
+.notes__doc time { display: block; text-align: center; color: #9a958a; font-size: 12px; margin-bottom: 14px; }
+.notes__doc h2 { font-size: 30px; font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+.notes__doc .one { margin-top: 10px; font-size: 17px; line-height: 1.45; }
+.notes__doc h3 { margin-top: 22px; font-size: 16px; font-weight: 800; }
+.notes__doc p, .notes__doc li { font-size: 14.5px; line-height: 1.55; color: #2a2926; }
+.notes__doc p { margin-top: 8px; }
+.notes__doc ul { margin-top: 6px; padding-left: 0; }
+.notes__doc li { position: relative; padding: 5px 0 5px 18px; }
+.notes__doc li::before { content: "–"; position: absolute; left: 2px; color: #c79a00; }
+.notes__doc li b { font-weight: 700; }
+.notes__doc .kv { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+.notes__doc .kv div { padding: 10px 12px; border-radius: 10px; background: #f5efdc; }
+.notes__doc .kv b { display: block; font-size: 22px; font-weight: 900; letter-spacing: -.04em; }
+.notes__doc .kv span { font-size: 12px; color: #6f6a5e; }
+.notes__doc .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.notes__doc .tags span { padding: 3px 9px; border-radius: 99px; background: #efe9d8; font-size: 12.5px; }
+.notes__doc .go { display: inline-block; margin-top: 18px; padding: 8px 14px; border-radius: 8px; background: #1b1b1b; color: #fff; font-size: 14px; font-weight: 600; }
+.notes__doc .go:hover { background: var(--hot); }
+.notes__doc .small { font-size: 12.5px; color: #8a857b; }
+
+/* Terminal */
+.w--term .w__bar { background: #2a2a2c; border-color: #111; }
+.w--term .w__title { color: #cfcac0; }
+.w--term .w__body { background: #111214; color: #d7e3d4; font: 13.5px/1.55 "JetBrains Mono", monospace; overflow-y: auto; padding: 12px 14px; user-select: text; }
+.term__out div { white-space: pre-wrap; word-break: break-word; }
+.term__out .c { color: #7d8cff; }
+.term__out .g { color: #67d48a; }
+.term__out .m { color: #8a8f99; }
+.term__line { display: flex; gap: 8px; }
+.term__line span { color: #67d48a; }
+.term__line input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: inherit; font: inherit; }
+
+/* Móvil: ventanas a pantalla completa, sin arrastrar (solo el escritorio real) */
+@media (max-width: 760px) {
+  .os--real .os__icons { left: 14px; right: 14px; top: 44px; grid-template-columns: repeat(4, 1fr); }
+  .os--real .dico { width: auto; }
+  .os--real .dico__i { width: 54px; height: 54px; }
+  .os--real .os__menu .dim { display: none; }
+  .os--real .dk { width: 48px; height: 48px; font-size: 19px; }
+  .os--real .os__dock > a.dk, .os--real .dk--sep { display: none; }
+  .w { left: 0 !important; top: 30px !important; width: 100% !important; height: calc(100% - 30px - 74px) !important; border-radius: 0 0 14px 14px; }
+  .w__rs { display: none; }
+  .w--notes .w__body { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .notes__list { display: flex; gap: 6px; overflow-x: auto; border-right: 0; border-bottom: 1px solid #ddd8cd; }
+  .notes__list button { flex: none; width: auto; white-space: nowrap; }
+  .notes__list button small { display: none; }
+  .intro { height: 330vh; }
+}
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 </head>
 <body data-page="proyectos">
 <main>
-<header class="page-hero">
-  <span class="page-hero__big" aria-hidden="true">04</span>
-  <div class="crumb mono"><a href="/">Inicio</a><span>/</span><span>Proyectos</span></div>
-  <h1><i>Proyectos<span class="dot">.</span></i></h1>
-  <div class="page-hero__lead">
-    <span class="mono">4 webs en producción · 2026</span>
-    <p>Cada uno empezó por algo que yo mismo echaba en falta. Todos están publicados y se usan: aquí está qué problema resuelven y cómo.</p>
-  </div>
-  <nav class="pick mono" aria-label="Proyectos">
-    <a href="#mundo-atletismo" style="--c:#f1e2c8;--t:#1a1206"><span>01 <i>↓</i></span><b>Mundo Atletismo</b></a>
-    <a href="#lanedata" style="--c:#0f3a22;--t:#eaf5ec"><span>02 <i>↓</i></span><b>Lanedata</b></a>
-    <a href="#bicifastness" style="--c:#2b45ff;--t:#fff"><span>03 <i>↓</i></span><b>Bicifastness</b></a>
-    <a href="#tripfinder" style="--c:#2a2a2a;--t:#f3f1ec"><span>04 <i>↓</i></span><b>Tripfinder</b></a>
-  </nav>
-</header>
-
-<!-- 01 Mundo Atletismo -->
-<section class="cover" id="mundo-atletismo" style="--c:#f1e2c8;--t:#1a1206;--a:#e2531f" data-in>
-  <div class="cover__top mono"><span>01 · Cofundador</span><span>2026 — hoy</span></div>
-  <h2>Mundo Atletismo<span class="dot">.</span></h2>
-  <div class="cover__lead">
-    <p>Todos los resultados del atletismo español, ordenados y buscables en una sola web.</p>
-    <div class="cover__acts"><a class="btn" href="https://mundoatletismo.es" target="_blank" rel="noopener"><span class="t" data-t="Visitar la web ↗">Visitar la web ↗</span></a></div>
-  </div>
-  <a class="live" href="https://mundoatletismo.es" target="_blank" rel="noopener" data-src="https://mundoatletismo.es" aria-label="Abrir Mundo Atletismo"></a>
-  <div class="cover__stats">
-    <div><b>6,1 M</b><span>marcas registradas</span></div>
-    <div><b>242.574</b><span>atletas con al menos una marca</span></div>
-    <div><b>3.221</b><span>clubes</span></div>
-    <div><b>2.410</b><span>pistas distintas</span></div>
-  </div>
-</section>
-<section class="entry">
-  <div class="entry__grid">
-    <aside class="entry__side" data-in>
-      <div><span class="mono">Mi papel</span>Cofundador</div>
-      <div><span class="mono">Para quién</span>Atletas, entrenadores, clubes y aficionados</div>
-      <div><span class="mono">Stack</span>React, TypeScript, Vite, Firebase</div>
-      <div><span class="mono">Datos</span>A 17 de noviembre de 2026</div>
-    </aside>
-    <div class="prose" data-in>
-      <div class="ps">
-        <div><span class="mono">El problema</span><p>Para saber cómo vas en tu prueba tenías que bucear entre PDFs de resultados y webs distintas por temporada, sin forma de comparar.</p></div>
-        <div><span class="mono">La solución</span><p>Una base de datos única con cada marca, enlazada a su atleta, su club y su pista, con rankings que se calculan solos.</p></div>
-      </div>
-      <h3>Lo que lo hace distinto</h3>
-      <ol class="feat">
-        <li><span class="mono">01</span><span><b>Ranking por puntos:</b> compara marcas de pruebas distintas en la misma escala, algo que un ranking por prueba no permite.</span></li>
-        <li><span class="mono">02</span><span><b>La trayectoria entera de cada atleta</b> en una ficha, y comparativas directas entre dos atletas.</span></li>
-        <li><span class="mono">03</span><span><b>Mínimas internacionales</b> al lado de las marcas: de un vistazo, quién está cerca de un Europeo o un Mundial.</span></li>
-        <li><span class="mono">04</span><span><b>Razones para volver:</b> resumen semanal con los récords de la semana, un juego nuevo cada día y resultados en directo en su propia web.</span></li>
-      </ol>
+<section class="intro" aria-hidden="true">
+  <div class="stage">
+    <div class="mac">
+      <div class="mac__screen"><div class="mac__view"><div class="vscreen">
+        <div class="os os--mock"></div>
+        <div class="fakeweb">
+          <div class="fakeweb__bar"><i></i><i></i><i></i><span>mateogsilvaa.es/proyectos</span></div>
+          <h1>Proyectos<span class="dot">.</span></h1>
+          <div class="fakeweb__lead"><span class="mono">4 webs en producción · 2026</span><span>Cuatro productos reales. <b>Ábrelos y úsalos.</b></span></div>
+        </div>
+      </div></div></div>
+      <div class="mac__base"></div>
     </div>
+    <div class="caption">
+            <p data-k="2">…pero vive dentro de un <em>Mac</em>.</p>
+      <p data-k="3">Cierro la ventana.</p>
+      <p data-k="4">Y en el escritorio, <em>mis proyectos</em>.</p>
+    </div>
+    <span class="scrollhint mono">Baja ↓</span>
   </div>
 </section>
 
-<!-- 02 Lanedata -->
-<section class="cover" id="lanedata" style="--c:#0f3a22;--t:#eaf5ec;--a:#7be38f" data-in>
-  <div class="cover__top mono"><span>02 · Fundador</span><span>2026 — hoy</span></div>
-  <h2>Lanedata<span class="dot">.</span></h2>
-  <div class="cover__lead">
-    <p>Periodismo de datos sobre atletismo: preguntas que todo el mundo se hace, respondidas con resultados reales.</p>
-    <div class="cover__acts"><a class="btn" href="https://lanedata.es" target="_blank" rel="noopener"><span class="t" data-t="Visitar la web ↗">Visitar la web ↗</span></a></div>
-  </div>
-  <a class="live" href="https://lanedata.es" target="_blank" rel="noopener" data-src="https://lanedata.es" aria-label="Abrir Lanedata"></a>
-  <div class="cover__stats">
-    <div><b>21</b><span>temporadas de datos de la RFEA (2005 — 2026)</span></div>
-    <div><b>12</b><span>generaciones de atletas seguidas año a año</span></div>
-    <div><b>16</b><span>años: edad a la que, en la mediana, las mujeres bajan del 1 % de mejora</span></div>
-    <div><b>19</b><span>años: la misma edad en los hombres</span></div>
-  </div>
-</section>
-<section class="entry">
-  <div class="entry__grid">
-    <aside class="entry__side" data-in>
-      <div><span class="mono">Mi papel</span>Fundador: idea, diseño, desarrollo y análisis</div>
-      <div><span class="mono">Para quién</span>Aficionados, atletas y prensa deportiva</div>
-      <div><span class="mono">Stack</span>Next.js, TypeScript, Supabase</div>
-    </aside>
-    <div class="prose" data-in>
-      <div class="ps">
-        <div><span class="mono">El problema</span><p>En atletismo se opina mucho y se mide poco: "si no destacas de joven, no llegas", "ese club ficha a todos"… casi nunca con datos detrás.</p></div>
-        <div><span class="mono">La solución</span><p>Análisis largos que parten de una pregunta concreta y la contestan con miles de resultados.</p></div>
-      </div>
-      <h3>Lo que ha descubierto</h3>
-      <ol class="feat">
-        <li><span class="mono">01</span><span><b>Los prodigios juveniles casi nunca llegan, pero casi todos los que llegan lo fueron.</b> Seguimiento de los nacidos entre 1990 y 2001.</span></li>
-        <li><span class="mono">02</span><span><b>La progresión se frena antes de lo que se cree:</b> a los 19 años en hombres y a los 16 en mujeres, en la mediana.</span></li>
-        <li><span class="mono">03</span><span><b>GO Fit Athletics:</b> un club que nadie conocía en 2019 y que en 2021 era el mejor equipo júnior de España, y luego desapareció.</span></li>
-      </ol>
-      <h3>Cómo está hecho</h3>
-      <p>Web en Next.js y TypeScript sobre Supabase, con un panel propio para escribir y publicar análisis, archivo completo con buscador y enlaces a los rankings de Mundo Atletismo.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 03 Bicifastness -->
-<section class="cover" id="bicifastness" style="--c:#2b45ff;--t:#fff;--a:#ffd400" data-in>
-  <div class="cover__top mono"><span>03 · Creador</span><span>2026</span></div>
-  <h2>Bicifastness<span class="dot">.</span></h2>
-  <div class="cover__lead">
-    <p>Convierte tus trayectos en BiciMAD en una competición. Madrid es el circuito.</p>
-    <div class="cover__acts"><a class="btn" href="https://bicifastness.es" target="_blank" rel="noopener"><span class="t" data-t="Visitar la web ↗">Visitar la web ↗</span></a></div>
-  </div>
-  <a class="live" href="https://bicifastness.es" target="_blank" rel="noopener" data-src="https://bicifastness.es" aria-label="Abrir Bicifastness"><img class="live__shot" src="/assets/bicifastness.jpg" alt=""></a>
-  <div class="cover__stats">
-    <div><b>685</b><span>estaciones de BiciMAD que conquistar</span></div>
-    <div><b>30</b><span>rivales de tu nivel en cada grupo</span></div>
-    <div><b>3</b><span>formas de puntuar: ritmo, distancia y constancia</span></div>
-    <div><b>1</b><span>temporada nueva cada mes</span></div>
-  </div>
-</section>
-<section class="entry">
-  <div class="entry__grid">
-    <aside class="entry__side" data-in>
-      <div><span class="mono">Mi papel</span>Creador</div>
-      <div><span class="mono">Para quién</span>Usuarios de BiciMAD en Madrid</div>
-      <div><span class="mono">Objetivo</span>Más trayectos en bici por la ciudad</div>
-    </aside>
-    <div class="prose" data-in>
-      <div class="ps">
-        <div><span class="mono">El problema</span><p>Coger la bici en vez del coche o el metro depende de la motivación, y el trayecto de cada día no tiene nada que la alimente.</p></div>
-        <div><span class="mono">La solución</span><p>Gamificar lo que ya haces: subes la captura de tu viaje y compites. No hace falta ir más rápido ni cambiar de ruta.</p></div>
-      </div>
-      <h3>Por qué engancha</h3>
-      <ol class="feat">
-        <li><span class="mono">01</span><span><b>Tres formas de ganar.</b> Sprint, fondo y constancia: el que va despacio pero todos los días también puede ganar.</span></li>
-        <li><span class="mono">02</span><span><b>Grupos de 30 que se reordenan cada lunes,</b> para competir siempre contra gente de tu nivel.</span></li>
-        <li><span class="mono">03</span><span><b>Temporadas de un mes:</b> cada mes se empieza de cero y nadie se queda descolgado.</span></li>
-        <li><span class="mono">04</span><span><b>Clanes y territorio:</b> los equipos conquistan estaciones por la ciudad, y cada semana hay una ruta con su propio récord.</span></li>
-      </ol>
-      <p class="note">Proyecto independiente, sin relación con BiciMAD, la EMT ni el Ayuntamiento de Madrid.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 04 Tripfinder -->
-<section class="cover" id="tripfinder" style="--c:#161616;--t:#f3f1ec;--a:#2b45ff" data-in>
-  <div class="cover__top mono"><span>04 · Creador</span><span>2026</span></div>
-  <h2>Tripfinder<span class="dot">.</span></h2>
-  <div class="cover__lead">
-    <p>Escapadas de fin de semana desde Madrid, solo cuando el precio está de verdad por debajo de lo normal.</p>
-    <div class="cover__acts"><a class="btn" href="https://tripfinder.es" target="_blank" rel="noopener"><span class="t" data-t="Visitar la web ↗">Visitar la web ↗</span></a></div>
-  </div>
-  <a class="live" href="https://tripfinder.es" target="_blank" rel="noopener" data-src="https://tripfinder.es" aria-label="Abrir Tripfinder"></a>
-  <div class="cover__stats">
-    <div><b>12 h</b><span>entre cada rastreo de precios</span></div>
-    <div><b>365</b><span>días vista en el buscador</span></div>
-    <div><b>5</b><span>filtros: destino, precio, zona, hora y personas</span></div>
-    <div><b>0</b><span>anuncios</span></div>
-  </div>
-</section>
-<section class="entry">
-  <div class="entry__grid">
-    <aside class="entry__side" data-in>
-      <div><span class="mono">Mi papel</span>Creador</div>
-      <div><span class="mono">Para quién</span>Gente en Madrid que quiere escaparse barato</div>
-      <div><span class="mono">Stack</span>Python, JavaScript, Firebase, GitHub Actions</div>
-      <div><span class="mono">Tests</span>pytest y Playwright</div>
-    </aside>
-    <div class="prose" data-in>
-      <div class="ps">
-        <div><span class="mono">El problema</span><p>Un vuelo a 40 € puede ser un chollo o lo de siempre. Los buscadores te enseñan precios, pero no te dicen si son buenos.</p></div>
-        <div><span class="mono">La solución</span><p>Guardar el histórico de cada ruta y puntuar cada precio contra él. Solo aparece lo que está claramente por debajo de lo normal.</p></div>
-      </div>
-      <h3>Cómo funciona</h3>
-      <ol class="feat">
-        <li><span class="mono">01</span><span><b>Rastreo automático cada 12 horas</b> con GitHub Actions, en todas las compañías y no solo en las de bajo coste.</span></li>
-        <li><span class="mono">02</span><span><b>Puntuación contra el histórico:</b> el precio no se compara con otros vuelos, sino con lo que suele costar esa misma ruta.</span></li>
-        <li><span class="mono">03</span><span><b>Avisos de precio:</b> sigues un vuelo, fijas un límite y te escribe cuando baja de él.</span></li>
-        <li><span class="mono">04</span><span><b>Pensado para ir en grupo:</b> enlace para compartir, votación entre amigos y calendario con ida y vuelta.</span></li>
-      </ol>
-      <h3>Calidad</h3>
-      <p>El rastreador en Python está cubierto con pytest y la web se prueba de punta a punta con Playwright, para que un cambio no rompa los avisos sin que nadie se entere.</p>
-    </div>
-  </div>
-</section>
+<section class="os os--real" id="escritorio" aria-label="Escritorio con mis proyectos"></section>
 
 <a class="next" href="/premio/"><span class="mono">Siguiente</span><b>Premio <span>→</span></b></a>
 </main>
+<script>
+/* ---------------- Datos de cada proyecto ---------------- */
+const APPS = [
+  { id: "mundo-atletismo", name: "Mundo Atletismo", k: "MA", url: "https://mundoatletismo.es", c: "#f1e2c8", t: "#1a1206",
+    role: "Cofundador · 2026 — hoy",
+    one: "Todo el atletismo español en una web: cada marca, cada atleta, cada club y cada pista, conectados entre sí.",
+    body: `<h3>Qué es</h3>
+      <p>Una base de datos pública del atletismo español. Reúne lo que antes estaba repartido en actas y webs de cada temporada y lo convierte en rankings, fichas y estadísticas que se actualizan solas.</p>
+      <h3>Qué encuentras</h3>
+      <ul>
+        <li><b>Ranking nacional</b> de cada prueba, por año y categoría, y un <b>ranking por puntos</b> para comparar pruebas distintas en la misma escala.</li>
+        <li><b>Campeonatos de España</b> absolutos y sub: finales, semifinales y récords de campeonato.</li>
+        <li><b>Fichas de atleta</b> con trayectoria, progresión año a año y comparativas.</li>
+        <li><b>Internacionales:</b> quién tiene la mínima para Mundiales, Europeos y Juegos Olímpicos.</li>
+        <li><b>Clubes</b> con su cantera por categoría y prueba, y <b>pistas</b> con su información.</li>
+        <li><b>Novedades de la semana:</b> récords de España, las mejores marcas por puntos y las mínimas conseguidas.</li>
+        <li><b>Curiosidades</b>, un <b>arcade</b> con un juego nuevo cada día y una web aparte con resultados en directo.</li>
+      </ul>
+      <h3>Para quién</h3>
+      <p>Atletas, entrenadores, clubes, familias y aficionados que quieren saber cómo está una prueba, un atleta o un club sin bucear entre PDFs.</p>`,
+    stats: [["6,1 M", "marcas"], ["242.574", "atletas"], ["3.221", "clubes"], ["2.410", "pistas"]],
+    stack: ["React", "TypeScript", "Vite", "Firebase"] },
+  { id: "lanedata", name: "Lanedata", k: "L", url: "https://lanedata.es", c: "#0f3a22", t: "#eaf5ec",
+    role: "Fundador · 2026 — hoy",
+    one: "El atletismo español contado con datos: periodismo que responde preguntas con resultados reales.",
+    body: `<h3>Qué es</h3>
+      <p>Un medio de análisis. Cada pieza parte de una pregunta sobre el atletismo español y la contesta con los resultados de la RFEA, con estadística sencilla: medianas, porcentajes de mejora o el seguimiento de una misma generación durante años.</p>
+      <h3>Qué publica</h3>
+      <ul>
+        <li><b>Carreras deportivas:</b> a qué edad se deja de mejorar, o si los prodigios juveniles acaban llegando a la élite.</li>
+        <li><b>Historias:</b> clubes, equipos y atletas cuya trayectoria se explica mejor con números.</li>
+        <li><b>Actualidad:</b> competiciones y temas del momento, con el contexto de los datos.</li>
+      </ul>
+      <h3>Cómo se navega</h3>
+      <p>La portada destaca el último análisis y el dato de la semana. Hay archivo completo, buscador y categorías, y enlaza con los rankings de Mundo Atletismo.</p>
+      <h3>Cómo está hecho</h3>
+      <p>Next.js y TypeScript sobre Supabase, con un panel propio para escribir y publicar. Idea, datos, texto y desarrollo: todo mío.</p>`,
+    stats: [["21", "temporadas de datos"], ["2005", "primer año analizado"]],
+    stack: ["Next.js", "TypeScript", "Supabase"] },
+  { id: "bicifastness", name: "Bicifastness", k: "B", url: "https://bicifastness.es", c: "#ffd400", t: "#1426a8",
+    role: "Creador · 2026",
+    one: "Una liga para quien se mueve en BiciMAD: tu trayecto de cada día suma puntos. Madrid es el circuito.",
+    body: `<h3>Qué es</h3>
+      <p>Un juego que convierte la bici compartida de Madrid en competición, para que moverse en bici tenga un motivo más. No hace falta cambiar de ruta ni ir más rápido: cuenta lo que ya haces.</p>
+      <h3>Cómo funciona</h3>
+      <ul>
+        <li><b>Te registras</b> con Google o con tu correo y eliges un nombre de piloto. Tu nombre real no se publica.</li>
+        <li><b>Haces tu trayecto</b> en BiciMAD y <b>subes la captura</b>.</li>
+        <li><b>Sumas puntos</b> por distancia, ritmo y constancia. Cada día seguido que pedaleas, tu racha multiplica los puntos hasta ×1,5.</li>
+        <li><b>Compites en tu división</b>, con unos 30 rivales; los grupos se reordenan cada lunes.</li>
+        <li><b>Tres clasificaciones:</b> Sprint, Fondo y Constancia.</li>
+        <li><b>Clanes y territorio:</b> los equipos conquistan estaciones en el mapa de Madrid. Si un clan deja de rodar, las pierde.</li>
+        <li><b>Temporadas de un mes:</b> cada mes todo vuelve a cero.</li>
+      </ul>
+      <p class="small">Proyecto independiente, sin relación con BiciMAD, la EMT ni el Ayuntamiento de Madrid.</p>`,
+    stats: [["30", "rivales por división"], ["×1,5", "multiplicador de racha"], ["3", "clasificaciones"], ["1 mes", "por temporada"]] },
+  { id: "tripfinder", name: "Tripfinder", k: "T", url: "https://tripfinder.es", c: "#1b1b1b", t: "#f3f1ec",
+    role: "Creador · 2026",
+    one: "Vuelos baratos antes que nadie: escapadas desde Madrid que cuestan menos de lo normal.",
+    body: `<h3>Qué es</h3>
+      <p>Un buscador de chollos de fin de semana. Revisa precios cada 12 horas en todas las compañías, no solo las de bajo coste, y solo enseña los viajes que están más baratos de lo habitual.</p>
+      <h3>Qué puedes hacer</h3>
+      <ul>
+        <li><b>Chollos:</b> el feed del día, filtrable por destino, precio máximo, zona, hora de salida y número de viajeros.</li>
+        <li><b>Buscar:</b> a cualquier sitio o a uno concreto, en un finde al azar, un mes entero, unos días de la semana o fechas exactas, hasta un año vista. También busca dónde dormir.</li>
+        <li><b>Avisos:</b> sigues un vuelo, pones un precio y te escribe cuando baja de él.</li>
+        <li><b>Viajar en grupo:</b> compartes un viaje con un enlace, lo mandas a un HOP (un espacio donde el grupo vota) y lo añades al calendario.</li>
+      </ul>
+      <p>La cuenta es gratis, no hay anuncios y los correos solo llegan si los activas.</p>
+      <h3>Cómo está hecho</h3>
+      <p>El rastreador está en Python y se ejecuta solo con GitHub Actions; la web, en JavaScript con Firebase. Probado con pytest y Playwright.</p>`,
+    stats: [["12 h", "entre revisiones"], ["1 año", "vista en el buscador"], ["1 — 6", "viajeros"], ["0", "anuncios"]],
+    stack: ["Python", "JavaScript", "Firebase", "GitHub Actions"] },
+];
+const README = { id: "leeme", name: "Léeme", one: "Bienvenido a mi escritorio.",
+  body: `<p>Aquí están mis cuatro proyectos. Todos son webs reales y funcionan dentro de cada ventana.</p>
+    <h3>Cómo se usa</h3>
+    <ul>
+      <li><b>Abre</b> un proyecto desde el escritorio o desde el Dock.</li>
+      <li><b>Mueve</b> las ventanas arrastrando su barra y <b>cambia su tamaño</b> desde la esquina de abajo a la derecha.</li>
+      <li>Los botones de colores <b>cierran</b>, <b>minimizan</b> y <b>maximizan</b>.</li>
+      <li>Cada proyecto tiene su <b>nota</b> en esta app, y en la <b>Terminal</b> puedes escribir <code>help</code>.</li>
+    </ul>` };
+
+/* ---------------- Escritorio (también se usa como maqueta en la intro) ---------------- */
+const IC_NOTES = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>`;
+const IC_TERM = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 4 4-4 4M12 16h7"/></svg>`;
+const deskHTML = (mock) => `
+  <div class="os__menu"><b>MGS</b><span class="app">Finder</span><span class="dim">Archivo</span><span class="dim">Edición</span><span class="dim">Ventana</span>
+    <span class="r"><span class="dim">Madrid</span><time class="clock"></time>${mock ? "" : `<button type="button" class="os__site">Menú</button>`}</span></div>
+  <div class="os__icons">
+    ${APPS.map((a) => `<button type="button" class="dico" data-open="${a.id}"><span class="dico__i" style="--c:${a.c};--t:${a.t}">${a.k}</span><span>${a.name}</span></button>`).join("")}
+    <button type="button" class="dico" data-open="notes:leeme"><span class="dico__i doc">TXT</span><span>Léeme.txt</span></button>
+  </div>
+  <nav class="os__dock${mock ? " static" : ""}">
+    <a class="dk" href="/" style="--c:#2b45ff;--t:#fff" aria-label="Inicio">M<span class="tip">Volver al inicio</span></a>
+    <span class="dk dk--sep"></span>
+    ${APPS.map((a) => `<button type="button" class="dk" data-open="${a.id}" style="--c:${a.c};--t:${a.t}" aria-label="${a.name}">${a.k}<span class="tip">${a.name}</span></button>`).join("")}
+    <span class="dk dk--sep"></span>
+    <button type="button" class="dk" data-open="notes" style="--c:#f7d774;--t:#5a4300" aria-label="Notas">${IC_NOTES}<span class="tip">Notas</span></button>
+    <button type="button" class="dk" data-open="term" style="--c:#1b1b1b;--t:#67d48a" aria-label="Terminal">${IC_TERM}<span class="tip">Terminal</span></button>
+  </nav>`;
+const os = document.querySelector(".os--real");
+os.innerHTML = deskHTML(false);
+document.querySelector(".os--mock").innerHTML = deskHTML(true);
+
+/* ---------------- Gestor de ventanas ---------------- */
+const MENU_H = 30, DOCK_H = 84;
+const wins = {}; let Z = 10;
+const mobile = () => innerWidth <= 760;
+const area = () => ({ w: os.clientWidth, h: os.clientHeight - MENU_H - DOCK_H });
+const appName = { notes: "Notas", term: "Terminal" };
+const syncDock = () => {
+  os.querySelectorAll(".os__dock [data-open]").forEach((d) => {
+    const k = d.dataset.open; d.classList.toggle("run", !!(wins["web:" + k] || wins[k]));
+  });
+};
+const focus = (w) => {
+  Object.values(wins).forEach((x) => x.el.classList.remove("focus"));
+  w.el.classList.add("focus"); w.el.style.zIndex = ++Z;
+  os.querySelector(".os__menu .app").textContent = w.app;
+};
+const makeWin = (key, { title, cls, x, y, w, h, html, app, tools = "" }) => {
+  if (wins[key]) { restore(wins[key]); focus(wins[key]); return wins[key]; }
+  const el = document.createElement("div");
+  el.className = "w " + cls;
+  el.innerHTML = `<div class="w__bar"><div class="w__dots"><button type="button" data-a="close" aria-label="Cerrar"></button><button type="button" data-a="min" aria-label="Minimizar"></button><button type="button" data-a="max" aria-label="Maximizar"></button></div><div class="w__title">${title}</div><div class="w__tools">${tools}</div></div><div class="w__body">${html}</div><div class="w__rs"></div>`;
+  const A = area();
+  w = Math.min(w, A.w - 20); h = Math.min(h, A.h - 10);
+  x = Math.max(6, Math.min(x, A.w - w - 6)); y = Math.max(MENU_H + 6, Math.min(y, MENU_H + A.h - h));
+  Object.assign(el.style, { left: x + "px", top: y + "px", width: w + "px", height: h + "px", zIndex: ++Z });
+  os.append(el);
+  const win = { key, el, app, max: false, prev: null };
+  wins[key] = win;
+  requestAnimationFrame(() => el.classList.add("in"));
+  el.addEventListener("pointerdown", () => focus(win));
+  el.querySelector('[data-a="close"]').addEventListener("click", (e) => { e.stopPropagation(); closeWin(win); });
+  el.querySelector('[data-a="min"]').addEventListener("click", (e) => { e.stopPropagation(); minimize(win); });
+  el.querySelector('[data-a="max"]').addEventListener("click", (e) => { e.stopPropagation(); toggleMax(win); });
+  el.querySelector(".w__bar").addEventListener("dblclick", (e) => { if (!e.target.closest("button, a")) toggleMax(win); });
+  drag(win); resize(win); focus(win); syncDock();
+  return win;
+};
+const closeWin = (w) => { w.el.classList.add("out"); setTimeout(() => w.el.remove(), 250); delete wins[w.key]; syncDock(); };
+const dockIconFor = (w) => os.querySelector(`.os__dock [data-open="${w.key.replace("web:", "")}"]`);
+const minimize = (w) => {
+  const d = dockIconFor(w), r = w.el.getBoundingClientRect();
+  if (d) { const q = d.getBoundingClientRect(); w.el.style.setProperty("--mx", q.left + q.width / 2 - (r.left + r.width / 2) + "px"); w.el.style.setProperty("--my", q.top - (r.top + r.height / 2) + "px"); }
+  w.el.classList.add("mini"); w.mini = true;
+};
+const restore = (w) => { if (w.mini) { w.el.classList.remove("mini"); w.mini = false; } };
+const toggleMax = (w) => {
+  if (mobile()) return;
+  const s = w.el.style; w.el.classList.add("anim");
+  if (!w.max) { w.prev = { left: s.left, top: s.top, width: s.width, height: s.height }; Object.assign(s, { left: "0px", top: MENU_H + "px", width: os.clientWidth + "px", height: os.clientHeight - MENU_H - DOCK_H + "px" }); }
+  else Object.assign(s, w.prev);
+  w.max = !w.max; setTimeout(() => w.el.classList.remove("anim"), 380);
+};
+const drag = (w) => {
+  const bar = w.el.querySelector(".w__bar"); let st = null;
+  bar.addEventListener("pointerdown", (e) => {
+    if (mobile() || e.button !== 0 || e.target.closest("button, a")) return;
+    st = { x: e.clientX, y: e.clientY, l: w.el.offsetLeft, t: w.el.offsetTop }; bar.setPointerCapture(e.pointerId); os.classList.add("busy");
+  });
+  bar.addEventListener("pointermove", (e) => {
+    if (!st) return; if (w.max) { w.max = false; }
+    const l = Math.max(-w.el.offsetWidth + 90, Math.min(os.clientWidth - 90, st.l + e.clientX - st.x));
+    const t = Math.max(MENU_H, Math.min(os.clientHeight - 60, st.t + e.clientY - st.y));
+    w.el.style.left = l + "px"; w.el.style.top = t + "px";
+  });
+  const end = () => { st = null; os.classList.remove("busy"); };
+  bar.addEventListener("pointerup", end); bar.addEventListener("pointercancel", end);
+};
+const resize = (w) => {
+  const h = w.el.querySelector(".w__rs"); let st = null;
+  h.addEventListener("pointerdown", (e) => { e.stopPropagation(); st = { x: e.clientX, y: e.clientY, w: w.el.offsetWidth, h: w.el.offsetHeight }; h.setPointerCapture(e.pointerId); os.classList.add("busy"); focus(w); });
+  h.addEventListener("pointermove", (e) => {
+    if (!st) return;
+    w.el.style.width = Math.max(300, Math.min(os.clientWidth - w.el.offsetLeft, st.w + e.clientX - st.x)) + "px";
+    w.el.style.height = Math.max(200, Math.min(os.clientHeight - w.el.offsetTop, st.h + e.clientY - st.y)) + "px";
+  });
+  const end = () => { st = null; os.classList.remove("busy"); };
+  h.addEventListener("pointerup", end); h.addEventListener("pointercancel", end);
+};
+
+/* ---------------- Apps ---------------- */
+let opened = 0;
+const openProject = (id) => {
+  const a = APPS.find((x) => x.id === id); if (!a) return;
+  const A = area(), i = APPS.indexOf(a);
+  const bw = Math.round(A.w * .6), bh = Math.round(A.h * .86);
+  const bx = Math.round(A.w * .05) + i * 26, by = MENU_H + 18 + i * 22;
+  const existed = !!wins["web:" + id];
+  const w = makeWin("web:" + id, {
+    title: a.url.replace("https://", ""), cls: "w--web", app: a.name, x: bx, y: by, w: bw, h: bh,
+    tools: `<button type="button" data-note="${id}">Notas</button><a href="${a.url}" target="_blank" rel="noopener">Abrir ↗</a>`,
+    html: `<iframe src="${a.url}" title="${a.name}" loading="eager"></iframe><div class="load">Cargando ${a.name}…</div>`,
+  });
+  if (!existed) {
+    const f = w.el.querySelector("iframe"), l = w.el.querySelector(".load");
+    const done = () => l.classList.add("off"); f.addEventListener("load", () => setTimeout(done, 300)); setTimeout(done, 8000);
+    w.el.querySelector("[data-note]").addEventListener("click", () => openNotes(id));
+  }
+  if (!mobile()) openNotes(id, { x: bx + bw - 30, y: by + 40, h: bh - 40 });
+  focus(w); opened++;
+};
+const NOTES = [README, ...APPS];
+const noteHTML = (n) => n.id === "leeme"
+  ? `<time>Hoy</time><h2>${n.name}</h2><p class="one">${n.one}</p>${n.body}`
+  : `<time>${n.role}</time><h2>${n.name}</h2><p class="one">${n.one}</p>
+     <div class="kv">${n.stats.map(([b, s]) => `<div><b>${b}</b><span>${s}</span></div>`).join("")}</div>
+     ${n.body}${n.stack ? `<h3>Stack</h3><div class="tags">${n.stack.map((s) => `<span>${s}</span>`).join("")}</div>` : ""}
+     <a class="go" href="${n.url}" target="_blank" rel="noopener">Visitar ${n.url.replace("https://", "")} ↗</a>`;
+const openNotes = (id = "leeme", pos) => {
+  const A = area();
+  const p = pos || { x: A.w - 600, y: MENU_H + 40, h: A.h * .8 };
+  const w = makeWin("notes", {
+    title: "Notas", cls: "w--notes", app: "Notas", x: p.x, y: p.y, w: 560, h: p.h,
+    html: `<div class="notes__list">${NOTES.map((n) => `<button type="button" data-n="${n.id}">${n.name}<small>${n.id === "leeme" ? "Cómo usar el escritorio" : n.role}</small></button>`).join("")}</div><div class="notes__doc"></div>`,
+  });
+  if (!w.wired) { w.wired = true; w.el.querySelectorAll("[data-n]").forEach((b) => b.addEventListener("click", () => showNote(w, b.dataset.n))); }
+  showNote(w, id); focus(w);
+};
+const showNote = (w, id) => {
+  const n = NOTES.find((x) => x.id === id) || README;
+  w.el.querySelectorAll("[data-n]").forEach((b) => b.classList.toggle("on", b.dataset.n === n.id));
+  const d = w.el.querySelector(".notes__doc"); d.innerHTML = noteHTML(n); d.scrollTop = 0;
+};
+const plain = (html) => { const d = document.createElement("div"); d.innerHTML = html.replace(/<li>/g, "<li>  · "); return d.innerText.replace(/\n{3,}/g, "\n\n").trim(); };
+const openTerm = () => {
+  const A = area();
+  const w = makeWin("term", { title: "mateo — zsh", cls: "w--term", app: "Terminal", x: A.w * .18, y: MENU_H + A.h * .22, w: 620, h: 380,
+    html: `<div class="term__out"></div><label class="term__line"><span>mateo@mgs ~ %</span><input type="text" autocomplete="off" spellcheck="false" aria-label="Comando"></label>` });
+  const body = w.el.querySelector(".w__body"), out = w.el.querySelector(".term__out"), inp = w.el.querySelector("input");
+  const say = (t, c = "") => { const d = document.createElement("div"); d.className = c; d.textContent = t; out.append(d); body.scrollTop = body.scrollHeight; };
+  if (!w.wired) {
+    w.wired = true;
+    say("Último inicio de sesión: hoy en mateogsilvaa.es", "m");
+    say("Escribe help para ver los comandos.", "m");
+    const ids = APPS.map((a) => a.id);
+    const find = (q) => APPS.find((a) => a.id.startsWith(q) || a.name.toLowerCase().startsWith(q) || a.k.toLowerCase() === q);
+    inp.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter") return;
+      const v = inp.value.trim(); inp.value = ""; say("mateo@mgs ~ % " + v, "c");
+      const [cmd, ...rest] = v.toLowerCase().split(/\s+/), arg = rest.join(" ");
+      if (!cmd) return;
+      if (cmd === "help") say("ls                 lista mis proyectos\ncat <proyecto>     explica un proyecto\nopen <proyecto>    abre la web\nwhoami             quién soy\ncontacto           cómo escribirme\nclear              limpia la pantalla");
+      else if (cmd === "ls") say(APPS.map((a) => a.id.padEnd(18) + a.url.replace("https://", "")).join("\n"), "g");
+      else if (cmd === "whoami") say("Mateo González Silva. Ingeniería Informática + IA en la UFV, atleta y\nfundador de Lanedata. Construyo productos con datos.");
+      else if (cmd === "contacto") say("contacto@mateogsilvaa.es · linkedin.com/in/mateo-gonzález-silva");
+      else if (cmd === "clear") out.innerHTML = "";
+      else if (cmd === "cat" || cmd === "open") {
+        const a = find(arg); if (!a) return say(`${cmd}: ${arg || "?"}: no existe. Prueba con: ${ids.join(", ")}`, "m");
+        if (cmd === "open") { say("Abriendo " + a.url + " …", "g"); openProject(a.id); }
+        else say(`${a.name.toUpperCase()} — ${a.url.replace("https://", "")}\n${a.one}\n\n${plain(a.body)}`);
+      } else say(`zsh: comando no encontrado: ${cmd}`, "m");
+    });
+    body.addEventListener("pointerup", () => { if (!getSelection().toString()) inp.focus(); });
+  }
+  setTimeout(() => inp.focus({ preventScroll: true }), 80);
+};
+const launch = (k) => {
+  if (k === "notes") return openNotes();
+  if (k.startsWith("notes:")) return openNotes(k.slice(6));
+  if (k === "term") return openTerm();
+  const w = wins["web:" + k];
+  if (w && w.mini) { restore(w); focus(w); return; }
+  openProject(k);
+};
+os.addEventListener("click", (e) => {
+  const t = e.target.closest("[data-open]"); if (!t) return;
+  launch(t.dataset.open);
+});
+os.querySelector(".os__site").addEventListener("click", () => document.querySelector(".burger").click());
+
+/* Oculta la cabecera de la web cuando el escritorio ocupa la pantalla */
+new IntersectionObserver(([e]) => document.body.classList.toggle("os-on", e.intersectionRatio > .6), { threshold: [0, .6, 1] }).observe(os);
+
+/* Llegar con #proyecto: baja al escritorio y lo abre */
+addEventListener("load", () => {
+  const id = location.hash.slice(1);
+  if (APPS.some((a) => a.id === id)) { os.scrollIntoView(); setTimeout(() => openProject(id), 300); }
+  else if (id === "escritorio") os.scrollIntoView();
+});
+
+/* ---------------- Intro con scroll ---------------- */
+(() => {
+  const intro = document.querySelector(".intro"); if (getComputedStyle(intro).display === "none") return;
+  const mac = intro.querySelector(".mac"), screen = intro.querySelector(".mac__screen"), view = intro.querySelector(".mac__view");
+  const vs = intro.querySelector(".vscreen"), web = intro.querySelector(".fakeweb"), hint = intro.querySelector(".scrollhint");
+  const icons = [...intro.querySelectorAll(".os--mock .dico")], caps = [...intro.querySelectorAll(".caption p")];
+  const clamp = (v) => Math.max(0, Math.min(1, v)), seg = (p, a, b) => clamp((p - a) / (b - a));
+  const ease = (t) => 1 - Math.pow(1 - t, 3), inout = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  let sw = 0, s0 = 1, raf = 0;
+  const layout = () => {
+    sw = Math.min(1100, innerWidth * (innerWidth < 760 ? .9 : .7));
+    mac.style.setProperty("--sw", sw + "px");
+    const sh = sw * 10 / 16, pad = screen.offsetWidth ? (screen.offsetWidth - view.offsetWidth) : sw * .026;
+    s0 = (innerWidth < 760 ? innerWidth / (sw - pad) : Math.max(innerWidth / (sw - pad), innerHeight / (sh - pad))) * 1.01;
+    vs.style.transform = `scale(${view.offsetWidth / 1440})`;
+    run();
+  };
+  const run = () => {
+    raf = 0;
+    const r = intro.getBoundingClientRect(), p = clamp(-r.top / (r.height - innerHeight));
+    // 1) la web encoge hasta verse dentro del Mac  2) se cierra  3) aparecen los iconos  4) zoom a la pantalla
+    const a = inout(seg(p, .04, .3)), z = inout(seg(p, .8, 1));
+    const sc = s0 + (1 - s0) * a + (s0 - 1) * z;
+    mac.style.transform = `translate(-50%, -${50 + 0}%) translateY(${(1 - Math.max(1 - a, z)) * -2}%) scale(${sc})`;
+    const c = ease(seg(p, .36, .56));
+    web.style.transform = `translateY(${c * 38}%) scale(${1 - c * .9})`;
+    web.style.opacity = 1 - seg(p, .5, .58);
+    web.style.borderRadius = 10 + c * 30 + "px";
+    icons.forEach((ic, i) => { const k = ease(seg(p, .58 + i * .03, .68 + i * .03)); ic.style.opacity = k; ic.style.transform = `translateY(${(1 - k) * 18}px) scale(${.85 + k * .15})`; });
+    const step = p < .26 ? 0 : p < .38 ? 2 : p < .58 ? 3 : p < .8 ? 4 : 0;
+    caps.forEach((cp) => cp.classList.toggle("on", +cp.dataset.k === step));
+    hint.style.opacity = p < .02 ? 1 : 0;
+  };
+  addEventListener("scroll", () => { if (!raf) raf = requestAnimationFrame(run); }, { passive: true });
+  addEventListener("resize", layout);
+  layout(); requestAnimationFrame(layout);
+})();
+</script>
 <script src="/site.js"></script>
 </body>
 </html>

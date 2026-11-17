@@ -33,17 +33,20 @@
 .hero__meta .mono { color: var(--mute); }
 @media (max-width: 760px) { .hero__meta { grid-template-columns: 1fr 1fr; row-gap: 22px; } }
 
-/* Sobre mí + ahora */
-.about { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(28px, 5vw, 80px); margin-top: 36px; }
-.about__txt { font-size: clamp(24px, 2.9vw, 44px); font-weight: 600; letter-spacing: -.035em; line-height: 1.12; }
-.about__txt em { font-style: normal; color: var(--hot); }
-.now { border-top: 1px solid var(--line); }
-.now li { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
-.now li .mono { color: var(--mute); }
-.now__t { display: flex; align-items: center; gap: 8px; color: var(--mute); margin-bottom: 12px; }
-.now__t::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #2fa84f; box-shadow: 0 0 0 4px rgba(47,168,79,.18); animation: blink 2s ease-in-out infinite; }
-@keyframes blink { 50% { opacity: .35; } }
-@media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+/* Sobre mí: las palabras se encienden al bajar */
+.about__txt { margin-top: 40px; max-width: 26ch; font-size: clamp(30px, 4.6vw, 72px); font-weight: 800; letter-spacing: -.045em; line-height: 1.04; }
+.about__txt .w { color: #cfcac0; transition: color .3s; }
+.about__txt .w.lit { color: var(--ink); }
+.about__txt .w.hot.lit { color: var(--hot); }
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: clamp(48px, 6vw, 80px); background: var(--line); border-top: 1px solid var(--ink); }
+.trio article { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 22px 24px 26px 0; background: var(--bg); transition-delay: var(--d); }
+.trio article + article { padding-left: 24px; }
+.trio .mono { color: var(--mute); }
+.trio b { font-size: clamp(24px, 2.4vw, 36px); font-weight: 900; letter-spacing: -.045em; line-height: 1; }
+.trio p { font-size: 16px; line-height: 1.5; color: #3b3935; flex: 1; }
+.trio article::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--hot); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); }
+@media (hover: hover) { .trio article:hover::after { transform: none; } }
+@media (max-width: 860px) { .trio { grid-template-columns: 1fr; } .trio article, .trio article + article { padding: 20px 0 24px; } }
 .hero__name i { will-change: transform; }
 
 /* Premio */
@@ -122,17 +125,26 @@
 
 <section class="sec" id="sobre-mi">
   <div class="head" data-in><h2>Sobre mí</h2><span class="mono">00</span></div>
-  <div class="about">
-    <p class="about__txt" data-in>Estudio ingeniería e IA en Madrid, hago atletismo y construyo <em>productos que la gente usa</em>: de una base de datos con seis millones de marcas a un juego para moverse en bici por la ciudad.</p>
-    <div data-in>
-      <div class="now__t mono">Ahora mismo</div>
-      <ul class="now">
-        <li><span>Beca RFEA Talento IA</span><span class="mono">2026 — 27</span></li>
-        <li><span>Ingeniería Informática + IA, UFV</span><span class="mono">2.º curso</span></li>
-        <li><span>Lanedata y Mundo Atletismo</span><span class="mono">En marcha</span></li>
-        <li><span>Hora en Madrid</span><span class="mono"><time class="clock"></time></span></li>
-      </ul>
-    </div>
+  <p class="about__txt">Estudio ingeniería e inteligencia artificial, compito en atletismo y construyo productos que la gente usa de verdad.</p>
+  <div class="trio">
+    <article data-in style="--d:0s">
+      <span class="mono">01 · Estudio</span>
+      <b>Ingeniería Informática + IA</b>
+      <p>En la Universidad Francisco de Vitoria, con mención en IA aplicada a la robótica. Delegado de clase.</p>
+      <a class="more-link mono" href="/educacion/">Educación <span>→</span></a>
+    </article>
+    <article data-in style="--d:.1s">
+      <span class="mono">02 · Compito</span>
+      <b>Atletismo</b>
+      <p>Por eso mis proyectos hablan de atletismo, y por eso la federación me ha becado para formarme en IA aplicada al rendimiento.</p>
+      <a class="more-link mono" href="/experiencia/">Experiencia <span>→</span></a>
+    </article>
+    <article data-in style="--d:.2s">
+      <span class="mono">03 · Construyo</span>
+      <b>4 webs en producción</b>
+      <p>Del dato al producto: diseño, desarrollo y publico yo mismo. Más de seis millones de marcas en la mayor de ellas.</p>
+      <a class="more-link mono" href="/proyectos/">Proyectos <span>→</span></a>
+    </article>
   </div>
 </section>
 
@@ -217,6 +229,17 @@ const mail = document.querySelector(".end__mail"); let ci = 0;
 mail.innerHTML = mail.innerHTML.split(/(<br>)/).map((p) => p === "<br>" ? p : [...p].map((c) => `<span class="c" style="--i:${ci++}">${c}</span>`).join("")).join("");
 </script>
 <script src="/site.js"></script>
+<script>
+// Sobre mí: cada palabra se ilumina según avanzas
+(() => {
+  const p = document.querySelector(".about__txt"), hot = ["ingeniería", "inteligencia", "artificial,", "atletismo", "productos", "de", "verdad."];
+  p.innerHTML = p.textContent.trim().split(/\s+/).map((w) => `<span class="w${hot.includes(w) ? " hot" : ""}">${w}</span> `).join("");
+  const ws = [...p.querySelectorAll(".w")]; let r = 0;
+  const run = () => { r = 0; const b = p.getBoundingClientRect(), k = (innerHeight * .85 - b.top) / (b.height + innerHeight * .35);
+    const n = MGS.reduce ? ws.length : Math.round(Math.max(0, Math.min(1, k)) * ws.length); ws.forEach((w, i) => w.classList.toggle("lit", i < n)); };
+  addEventListener("scroll", () => { if (!r) r = requestAnimationFrame(run); }, { passive: true }); run();
+})();
+</script>
 <script>
 // Portada: las líneas del nombre se separan al bajar
 (() => {

@@ -98,14 +98,19 @@
     const step = (t) => { const k = Math.min(1, (t - t0) / dur), ek = 1 - Math.pow(1 - k, 4); el.textContent = fmt(val * ek); if (k < 1) requestAnimationFrame(step); };
     el.textContent = fmt(0); requestAnimationFrame(step);
   }), { threshold: .6 });
-  document.querySelectorAll(".stats b, .cover__stats b:not(.w), .scard__stats b").forEach((b) => num.observe(b));
+  document.querySelectorAll(".stats b, .cover__stats b:not(.w), .scard__stats b, .facts b:not(.w)").forEach((b) => num.observe(b));
 
-  // Lupa "Abrir" al pasar por encima de una web en vivo
-  if (matchMedia("(hover: hover)").matches && !reduce) {
-    const peek = document.createElement("div"); peek.className = "peek"; peek.textContent = "Abrir ↗"; document.body.append(peek);
-    addEventListener("mousemove", (e) => { peek.style.left = e.clientX + "px"; peek.style.top = e.clientY + "px"; }, { passive: true });
-    document.addEventListener("mouseover", (e) => peek.classList.toggle("on", !!e.target.closest(".live")));
-  }
+  // Botones: relleno que nace desde donde entra el ratón
+  document.addEventListener("pointerover", (e) => {
+    const b = e.target.closest(".btn"); if (!b || e.pointerType !== "mouse") return;
+    const r = b.getBoundingClientRect();
+    b.style.setProperty("--x", e.clientX - r.left + "px"); b.style.setProperty("--y", e.clientY - r.top + "px");
+  });
+  document.addEventListener("pointerout", (e) => {
+    const b = e.target.closest(".btn"); if (!b || b.contains(e.relatedTarget)) return;
+    const r = b.getBoundingClientRect();
+    b.style.setProperty("--x", e.clientX - r.left + "px"); b.style.setProperty("--y", e.clientY - r.top + "px");
+  });
 
   // Cortina azul entre páginas
   const cur = document.createElement("div"); cur.className = "curtain"; cur.innerHTML = "<b></b>"; document.body.append(cur);

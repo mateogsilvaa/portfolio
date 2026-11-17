@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Educación · Mateo González Silva</title>
 <meta name="description" content="Educación de Mateo González Silva: Ingeniería Informática + IA en la UFV, IES Cervantes, Global Classrooms y certificaciones." />
+<meta property="og:title" content="Educación · Mateo González Silva" />
+<meta property="og:image" content="https://mateogsilvaa.es/assets/brand/mark-white-on-dark.png" />
 <meta name="theme-color" content="#0e0e0e" />
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -12,12 +14,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/site.css" />
 <style>
-.certs li { border-bottom: 1px solid var(--line); }
-.cert { display: grid; grid-template-columns: minmax(0, 1fr) auto 16px; gap: 24px; align-items: center; padding: 20px 0; transition: padding .4s var(--ease); }
-.cert b { display: block; font-size: clamp(18px, 1.7vw, 23px); font-weight: 600; letter-spacing: -.02em; }
-.cert small { display: block; margin-top: 4px; color: var(--mute); font-size: 15px; }
-.cert .ico { color: var(--mute); transition: transform .35s var(--ease), color .3s; }
-@media (hover: hover) { a.cert:hover { padding-left: 12px; } a.cert:hover .ico { color: var(--ink); transform: translate(2px, -2px); } }
+.certs { margin-top: clamp(28px, 4vw, 44px); border-top: 1px solid color-mix(in srgb, var(--t) 25%, transparent); }
+.certs li { border-bottom: 1px solid color-mix(in srgb, var(--t) 18%, transparent); }
+.cert { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto 16px; gap: 18px; align-items: center; padding: 16px 0; transition: padding .4s var(--ease); }
+.cert img { width: 44px; height: 44px; object-fit: contain; padding: 7px; border-radius: 10px; background: #fff; }
+.cert b { display: block; font-size: clamp(18px, 1.7vw, 24px); font-weight: 700; letter-spacing: -.02em; }
+.cert small { display: block; margin-top: 3px; opacity: .7; font-size: 14px; }
+.cert .mono { opacity: .7; }
+@media (hover: hover) { a.cert:hover { padding-left: 10px; } }
+@media (max-width: 560px) { .cert { grid-template-columns: 40px minmax(0, 1fr) 14px; } .cert > .mono { display: none; } }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -31,56 +36,78 @@
     <span class="mono">2021 — 2029</span>
     <p>Ingeniería e inteligencia artificial en la universidad, y antes un instituto donde siempre me tocó representar a mis compañeros.</p>
   </div>
-  <nav class="toc" aria-label="Educación">
-    <a href="#ufv">Universidad</a><a href="#cervantes">IES Cervantes</a><a href="#certificaciones">Certificaciones</a>
+  <nav class="pick mono" style="--n:3" aria-label="Educación">
+    <a href="#ufv" style="--c:#14245c;--t:#fff"><span>01 <i>↓</i></span><b>Universidad</b></a>
+    <a href="#cervantes" style="--c:#6e1b26;--t:#fff"><span>02 <i>↓</i></span><b>IES Cervantes</b></a>
+    <a href="#certificaciones" style="--c:#e4dfd3;--t:#0e0e0e"><span>03 <i>↓</i></span><b>Certificaciones</b></a>
   </nav>
 </header>
 
-<section class="entry" id="ufv">
-  <div class="entry__head" data-in><div><span class="mono">01 · 2025 — 2029</span><h2>Ingeniería Informática + IA<span class="dot">.</span></h2></div></div>
+<!-- UFV -->
+<section class="cover" id="ufv" style="--c:#14245c;--t:#fff;--a:#5fa8ff" data-in>
+  <div class="cover__top mono"><span>01 · Universidad Francisco de Vitoria</span><span>2025 — 2029</span></div>
+  <h2>Ingeniería Informática + IA<span class="dot">.</span></h2>
+  <div class="cover__lead">
+    <p>Grado en Ingeniería Informática con mención en inteligencia artificial aplicada a la robótica.</p>
+  </div>
+  <div class="cover__stats">
+    <div><b class="w">2.º curso</b><span>de cuatro</span></div>
+    <div><b class="w">Delegado</b><span>de clase</span></div>
+    <div><b class="w">1.er premio</b><span>San Esteban Tech Challenge 2026, con compañeros de la UFV</span></div>
+    <div><b class="w">Racing</b><span>UFV Racing Team, departamento eléctrico</span></div>
+  </div>
+</section>
+<section class="entry">
   <div class="entry__grid">
     <aside class="entry__side" data-in>
-      <div><span class="mono">Centro</span>Universidad Francisco de Vitoria</div>
+      <div><span class="mono">Centro</span>Universidad Francisco de Vitoria, Madrid</div>
       <div><span class="mono">Mención</span>IA aplicada a la Robótica</div>
       <div><span class="mono">Cargo</span>Delegado de clase</div>
     </aside>
     <div class="prose" data-in>
-      <p class="lead">Grado en Ingeniería Informática con inteligencia artificial aplicada a la robótica.</p>
-      <p>Lo compagino con mis proyectos, el atletismo y el UFV Racing Team. Soy delegado de clase y, con compañeros de la universidad, gané el San Esteban Tech Challenge 2026.</p>
-      <div class="chips"><span>Programación</span><span>Inteligencia artificial</span><span>Robótica</span><span>Delegado de clase</span></div>
+      <p class="lead">Lo compagino con mis proyectos, el atletismo y la beca de la RFEA. Lo que aprendo en clase acaba casi siempre en algo que construyo fuera.</p>
+      <div class="chips"><span>Programación</span><span>Inteligencia artificial</span><span>Robótica</span><span>MATLAB</span></div>
+      <div><a class="btn btn--line" href="/premio/"><span class="t" data-t="Ver el premio →">Ver el premio →</span></a></div>
     </div>
   </div>
 </section>
 
-<section class="entry" id="cervantes">
-  <div class="entry__head" data-in><div><span class="mono">02 · — 2025</span><h2>IES Cervantes<span class="dot">.</span></h2></div></div>
-  <div class="entry__grid">
-    <aside class="entry__side" data-in>
-      <div><span class="mono">Etapa</span>Instituto, hasta Bachillerato</div>
-      <div><span class="mono">Consejo escolar</span>4 años</div>
-      <div><span class="mono">Otros cargos</span>Delegado, subdelegado y más</div>
-    </aside>
-    <div class="prose" data-in>
-      <p class="lead">Cuatro años como consejero escolar, la voz de los alumnos en el órgano que gobierna el instituto.</p>
-      <p>Además fui delegado, subdelegado y tuve otros cargos de representación de los alumnos.</p>
-      <div class="subentry">
-        <span class="mono">Dentro del instituto · nov 2021 — mar 2022</span>
-        <h4>Global Classrooms</h4>
-        <p>Modelo de Naciones Unidas para estudiantes. Defendí una propuesta social a favor de los derechos de la tercera edad: primero representando a Etiopía en las fases previas y después a Japón en las rondas clasificatorias para la conferencia final de Madrid.</p>
-        <div class="chips" style="margin-top:14px"><span>Etiopía → Japón</span><span>Oratoria</span><span>Negociación</span></div>
-      </div>
+<!-- IES Cervantes -->
+<section class="cover" id="cervantes" style="--c:#6e1b26;--t:#fff;--a:#ffb4a2;--sc:#009edb;--st:#fff" data-in>
+  <div class="cover__top mono"><span>02 · Instituto, hasta Bachillerato</span><span>— 2025</span></div>
+  <h2>IES Cervantes<span class="dot">.</span></h2>
+  <div class="cover__lead">
+    <p>Cuatro años como consejero escolar: la voz de los alumnos en el órgano que gobierna el instituto.</p>
+  </div>
+  <div class="cover__stats">
+    <div><b>4</b><span>años en el consejo escolar</span></div>
+    <div><b class="w">Delegado</b><span>de clase</span></div>
+    <div><b class="w">Subdelegado</b><span>de clase</span></div>
+    <div><b class="w">Y más</b><span>otros cargos de representación de los alumnos</span></div>
+  </div>
+  <div class="sub">
+    <span class="mono">Dentro del instituto · nov 2021 — mar 2022</span>
+    <h3>Global Classrooms</h3>
+    <p>Modelo de Naciones Unidas para estudiantes. Defendí una propuesta social a favor de los derechos de la tercera edad: primero representando a Etiopía en las fases previas, y después a Japón en las rondas clasificatorias para la conferencia final de Madrid.</p>
+    <div class="cover__stats" style="--t:#fff">
+      <div><b>2</b><span>países representados: Etiopía y Japón</span></div>
+      <div><b>5</b><span>meses de debate y negociación</span></div>
+      <div><b class="w">Oratoria</b><span>hablar en público y defender una postura</span></div>
+      <div><b class="w">Negociación</b><span>llegar a acuerdos con otras delegaciones</span></div>
     </div>
   </div>
 </section>
 
-<section class="entry" id="certificaciones">
-  <div class="entry__head" data-in><div><span class="mono">03 · 2023 — 2026</span><h2>Certificaciones<span class="dot">.</span></h2></div></div>
-  <ul class="certs" data-in style="margin-top:8px">
-    <li><a class="cert" href="https://verify.skilljar.com/c/kc8jkt6z6q8p" target="_blank" rel="noopener"><span><b>AI Fluency for Builders</b><small>Anthropic</small></span><span class="mono">ago 2026</span><span class="ico" aria-hidden="true">↗</span></a></li>
-    <li><a class="cert" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener"><span><b>Claude Code in Action</b><small>Anthropic</small></span><span class="mono">jul 2026</span><span class="ico" aria-hidden="true">↗</span></a></li>
-    <li><a class="cert" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener"><span><b>Introduction to Cybersecurity</b><small>Cisco Networking Academy</small></span><span class="mono">jul 2026</span><span class="ico" aria-hidden="true">↗</span></a></li>
-    <li><a class="cert" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener"><span><b>MATLAB Onramp</b><small>MathWorks</small></span><span class="mono">sept 2025</span><span class="ico" aria-hidden="true">↗</span></a></li>
-    <li><div class="cert"><span><b>B2 First · 176</b><small>Cambridge English</small></span><span class="mono">jun 2023</span><span class="ico"></span></div></li>
+<!-- Certificaciones -->
+<section class="cover" id="certificaciones" style="--c:#e4dfd3;--t:#0e0e0e;--a:#2b45ff" data-in>
+  <div class="cover__top mono"><span>03 · Formación complementaria</span><span>2023 — 2026</span></div>
+  <h2>Certificaciones<span class="dot">.</span></h2>
+  <ul class="certs">
+    <li><a class="cert" href="https://verify.skilljar.com/c/kc8jkt6z6q8p" target="_blank" rel="noopener"><img src="/assets/certs/anthropic.svg" alt=""><span><b>AI Fluency for Builders</b><small>Anthropic</small></span><span class="mono">ago 2026</span><span aria-hidden="true">↗</span></a></li>
+    <li><a class="cert" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener"><img src="/assets/certs/anthropic.svg" alt=""><span><b>Claude Code in Action</b><small>Anthropic</small></span><span class="mono">jul 2026</span><span aria-hidden="true">↗</span></a></li>
+    <li><a class="cert" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener"><img src="/assets/certs/cisco.svg" alt=""><span><b>Introduction to Cybersecurity</b><small>Cisco Networking Academy</small></span><span class="mono">jul 2026</span><span aria-hidden="true">↗</span></a></li>
+    <li><a class="cert" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener"><img src="/assets/certs/mathworks.png" alt=""><span><b>MATLAB Onramp</b><small>MathWorks</small></span><span class="mono">sept 2025</span><span aria-hidden="true">↗</span></a></li>
+    <li><div class="cert"><img src="/assets/certs/cambridge.png" alt=""><span><b>B2 First · 176</b><small>Cambridge English</small></span><span class="mono">jun 2023</span><span></span></div></li>
   </ul>
 </section>
 

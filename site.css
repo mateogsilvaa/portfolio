@@ -223,3 +223,21 @@ img { display: block; max-width: 100%; }
 .peek.on { transform: scale(1); }
 .live { cursor: none; }
 @media (hover: none) { .peek { display: none; } .live { cursor: pointer; } }
+
+/* Accesos de colores bajo la cabecera */
+.pick { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 10px; margin-top: 28px; position: relative; }
+.pick a { display: flex; flex-direction: column; justify-content: space-between; gap: 26px; min-height: 120px; padding: 16px; border-radius: 14px; background: var(--c); color: var(--t); transition: transform .5s var(--ease); }
+.pick b { font-family: "Inter Tight", sans-serif; text-transform: none; font-size: clamp(20px, 1.8vw, 26px); font-weight: 900; letter-spacing: -.04em; line-height: 1; }
+.pick span { display: flex; justify-content: space-between; opacity: .75; }
+@media (hover: hover) { .pick a:hover { transform: translateY(-6px) rotate(-1deg); } }
+@media (max-width: 760px) { .pick { grid-template-columns: 1fr 1fr; } .pick a { min-height: 96px; } }
+.cover__img { display: block; width: 100%; aspect-ratio: 16 / 8; object-fit: cover; margin-top: clamp(28px, 4vw, 48px); border-radius: 14px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.5); }
+.cover__stats b.w { font-size: clamp(24px, 2.6vw, 40px); }
+.cover .sub { margin-top: clamp(28px, 4vw, 44px); padding: clamp(18px, 2.4vw, 30px); border-radius: 16px; background: var(--sc); color: var(--st); }
+.cover .sub h3 { font-size: clamp(30px, 4vw, 60px); font-weight: 900; letter-spacing: -.05em; line-height: .9; margin: 10px 0 12px; }
+.cover .sub p { font-size: 17px; line-height: 1.5; max-width: 60ch; opacity: .9; }
+.cover .sub .mono { opacity: .75; }
+@media (max-width: 560px) {
+  .page-hero h1 { font-size: 12.6vw; }
+  .cover h2 { font-size: 10.6vw; overflow-wrap: normal; }
+}

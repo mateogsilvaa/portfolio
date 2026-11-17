@@ -98,7 +98,7 @@
     const step = (t) => { const k = Math.min(1, (t - t0) / dur), ek = 1 - Math.pow(1 - k, 4); el.textContent = fmt(val * ek); if (k < 1) requestAnimationFrame(step); };
     el.textContent = fmt(0); requestAnimationFrame(step);
   }), { threshold: .6 });
-  document.querySelectorAll(".stats b, .cover__stats b, .scard__stats b").forEach((b) => num.observe(b));
+  document.querySelectorAll(".stats b, .cover__stats b:not(.w), .scard__stats b").forEach((b) => num.observe(b));
 
   // Lupa "Abrir" al pasar por encima de una web en vivo
   if (matchMedia("(hover: hover)").matches && !reduce) {

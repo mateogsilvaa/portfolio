@@ -299,3 +299,4 @@ img { display: block; max-width: 100%; }
   .cards > div { flex: 0 0 82%; scroll-snap-align: start; min-height: 0; }
   .cards::after { content: ""; flex: 0 0 1px; }
 }
+@media (max-width: 760px) { .story__item .facts { grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 0 14px; } .story__item .facts b { font-size: 22px; } }

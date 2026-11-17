@@ -31,7 +31,7 @@
 @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .hero__meta b { font-weight: 500; font-size: 15px; line-height: 1.35; }
 .hero__meta .mono { color: var(--mute); }
-@media (max-width: 760px) { .hero__meta { grid-template-columns: 1fr 1fr; row-gap: 22px; } }
+@media (max-width: 760px) { .hero__meta { grid-template-columns: 1fr 1fr; row-gap: 22px; } .hero__name { font-size: 20.5vw; } .hero { padding-bottom: 22px; } }
 
 /* Sobre mí: las palabras se encienden al bajar */
 .about__txt { margin-top: 40px; max-width: 26ch; font-size: clamp(30px, 4.6vw, 72px); font-weight: 800; letter-spacing: -.045em; line-height: 1.04; }
@@ -119,13 +119,13 @@
     <div style="--i:0"><span class="mono">Estudio</span><b>Ing. Informática + IA aplicada a la Robótica</b></div>
     <div style="--i:1"><span class="mono">Universidad</span><b>Francisco de Vitoria, 2025 — 2029</b></div>
     <div style="--i:2"><span class="mono">Construyo</span><b>Lanedata, Mundo Atletismo, Tripfinder y Bicifastness</b></div>
-    <div style="--i:3"><span class="mono">Último premio</span><b>San Esteban Tech Challenge 2026</b></div>
+    <div style="--i:3"><span class="mono">Premio</span><b>San Esteban Tech Challenge 2026, con mi equipo</b></div>
   </div>
 </section>
 
 <section class="sec" id="sobre-mi">
   <div class="head" data-in><h2>Sobre mí</h2><span class="mono">00</span></div>
-  <p class="about__txt">Estudio ingeniería e inteligencia artificial, compito en atletismo y construyo productos que la gente usa de verdad.</p>
+  <p class="about__txt">Estudio ingeniería e inteligencia artificial, hago atletismo y, en el tiempo que queda, aprendo construyendo webs.</p>
   <div class="trio">
     <article data-in style="--d:0s">
       <span class="mono">01 · Estudio</span>
@@ -136,13 +136,13 @@
     <article data-in style="--d:.1s">
       <span class="mono">02 · Compito</span>
       <b>Atletismo</b>
-      <p>Por eso mis proyectos hablan de atletismo, y por eso la federación me ha becado para formarme en IA aplicada al rendimiento.</p>
+      <p>Es de donde salen casi todas mis ideas. Este curso, además, formo parte del programa Talento IA de la federación.</p>
       <a class="more-link mono" href="/experiencia/">Experiencia <span>→</span></a>
     </article>
     <article data-in style="--d:.2s">
       <span class="mono">03 · Construyo</span>
-      <b>4 webs en producción</b>
-      <p>Del dato al producto: diseño, desarrollo y publico yo mismo. Más de seis millones de marcas en la mayor de ellas.</p>
+      <b>Proyectos propios</b>
+      <p>Cuatro webs que empezaron como ideas para aprender. Me encargo de casi todo y sigo aprendiendo con cada una.</p>
       <a class="more-link mono" href="/proyectos/">Proyectos <span>→</span></a>
     </article>
   </div>
@@ -152,11 +152,11 @@
   <div class="head" data-in><h2>Premio</h2><span class="mono">01</span></div>
   <div class="award" data-in>
     <div>
-      <span class="mono">Ganador · 2026</span>
+      <span class="mono">Primer premio · 2026</span>
       <h3>San Esteban Tech Challenge <em>2026</em></h3>
     </div>
     <div>
-      <p>Aire Claro: cinco estaciones con sensores, avisos vecinales y una web pública para vigilar que la futura planta de biometano de San Esteban de Gormaz cumple lo prometido.</p>
+      <p>Con cuatro compañeros de la UFV propusimos Aire Claro: cinco estaciones con sensores, avisos vecinales y una web pública para vigilar que la futura planta de biometano de San Esteban de Gormaz cumple lo prometido.</p>
       <div class="award__acts">
         <a class="btn btn--light" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Probar demo ↗">Probar demo ↗</span></a>
         <a class="btn btn--line" href="/premio/"><span class="t" data-t="Ver el proyecto →">Ver el proyecto →</span></a>
@@ -203,7 +203,7 @@ const P = [
   ["mundo-atletismo", "Mundo Atletismo", "Cofundador", "https://mundoatletismo.es", "Todos los resultados del atletismo español en una web: cada marca enlazada a su atleta, su club y su pista, con rankings que se calculan solos.", "", "#f1e2c8", "#1a1206", "#e2531f", [["6,1 M", "marcas"], ["242.574", "atletas"], ["3.221", "clubes"]]],
   ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "Artículos que responden con datos las preguntas del atletismo español: quién mejora, cuándo y por qué.", "", "#0f3a22", "#eaf5ec", "#7be38f", []],
   ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Tus trayectos en BiciMAD convertidos en competición: ritmo, distancia y constancia puntúan, y los clanes conquistan estaciones.", "/assets/bicifastness.jpg", "#2b45ff", "#ffffff", "#ffd400", []],
-  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Vuelos de finde desde Madrid puntuados contra su propio histórico: solo aparece lo que está de verdad por debajo de lo normal.", "", "#161616", "#f3f1ec", "#2b45ff", []],
+  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Vuelos de finde desde Madrid puntuados contra su propio histórico: solo aparece lo que está por debajo de lo normal.", "", "#161616", "#f3f1ec", "#2b45ff", []],
 ];
 const stack = document.querySelector(".stack");
 stack.innerHTML = P.map(([id, name, role, url, txt, shot, c, t, a, st], i) => `

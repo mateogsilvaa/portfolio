@@ -1,6 +1,6 @@
 // Mateo González Silva — piezas comunes de la opción 1: cabecera, menú, pie, entradas y webs en vivo
 (() => {
-  const base = "/opcion1/";
+  const base = "/";
   const here = document.body.dataset.page || "inicio";
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 

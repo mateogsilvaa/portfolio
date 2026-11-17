@@ -1,137 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mateo González Silva</title>
-  <meta name="description" content="Mateo González Silva. Ingeniería Informática e IA. Ganador del San Esteban Tech Challenge 2026. Mundo Atletismo, Lanedata y Tripfinder." />
-  <meta name="theme-color" content="#14233f" />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png" />
-  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <script>document.documentElement.classList.add("js");</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mateo González Silva</title>
+<meta name="description" content="Mateo González Silva. Ingeniería Informática e IA aplicada a la Robótica en la UFV. Fundador de Lanedata y cofundador de Mundo Atletismo." />
+<meta name="theme-color" content="#f3f1ec" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/site.css" />
+<style>
+/* Portada */
+.hero { min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: 90px var(--pad) 28px; }
+.hero__name { align-self: end; font-weight: 900; letter-spacing: -.055em; line-height: .8; font-size: clamp(64px, 15.6vw, 280px); }
+.hero__name span { display: block; overflow: hidden; padding-bottom: .06em; }
+.hero__name i { display: block; font-style: normal; transform: translateY(105%); animation: up 1.1s var(--ease) forwards; }
+.hero__name span:nth-child(2) i { animation-delay: .08s; }
+.hero__name span:nth-child(3) i { animation-delay: .16s; }
+.hero__name .dot { color: var(--hot); }
+.hero__meta { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 14px; margin-top: 28px; }
+.hero__meta::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; animation: grow 1.2s var(--ease) .4s forwards; }
+@keyframes grow { to { transform: none; } }
+.hero__meta div { display: flex; flex-direction: column; gap: 6px; opacity: 0; animation: fade .9s var(--ease) forwards; animation-delay: calc(.55s + var(--i) * .07s); }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.hero__meta b { font-weight: 500; font-size: 15px; line-height: 1.35; }
+.hero__meta .mono { color: var(--mute); }
+@media (max-width: 760px) { .hero__meta { grid-template-columns: 1fr 1fr; row-gap: 22px; } }
+
+/* Premio */
+.award { margin: 32px calc(var(--pad) * -1) 0; padding: clamp(48px, 7vw, 100px) var(--pad); background: var(--ink); color: var(--bg); display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
+.award .mono { color: #8f8a80; display: block; margin-bottom: 18px; }
+.award h3 { font-size: clamp(40px, 6.4vw, 108px); font-weight: 900; letter-spacing: -.05em; line-height: .9; }
+.award h3 em { font-style: normal; color: var(--hot); }
+.award p { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5; color: #cfcac0; max-width: 42ch; }
+.award__acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+@media (max-width: 860px) { .award { grid-template-columns: 1fr; gap: 24px; } }
+
+/* Proyectos: rejilla */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 72px) clamp(20px, 3vw, 44px); margin-top: 36px; }
+.card { display: flex; flex-direction: column; }
+.card .live { transition: border-radius .5s var(--ease); }
+.card__n { display: flex; justify-content: space-between; color: var(--mute); margin: 18px 0 8px; }
+.card h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: clamp(30px, 3.4vw, 50px); font-weight: 900; letter-spacing: -.045em; line-height: .95; }
+.card h3 .arrow { font-size: .6em; color: var(--hot); transition: transform .45s var(--ease); }
+.card p { margin-top: 12px; font-size: 16px; line-height: 1.5; color: #3b3935; max-width: 48ch; }
+.card__acts { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 16px; }
+.card__acts a { font-weight: 500; font-size: 15px; border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: border-color .3s, color .3s; }
+.card__acts a:hover { border-color: var(--ink); }
+@media (hover: hover) { .card:hover .live { border-radius: 22px; } .card:hover h3 .arrow { transform: translateX(6px); } }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+/* Trayectoria: accesos a cada página */
+.paths li { border-bottom: 1px solid var(--line); }
+.path { display: grid; grid-template-columns: 3.2em minmax(0, 1fr) minmax(0, 1.3fr) 32px; gap: 24px; align-items: center; padding: 30px 0; transition: padding .45s var(--ease); }
+.path .mono { color: var(--mute); }
+.path b { font-size: clamp(30px, 4.4vw, 64px); font-weight: 900; letter-spacing: -.05em; line-height: .95; }
+.path p { color: var(--mute); font-size: 16px; line-height: 1.45; }
+.path .arrow { font-size: 26px; justify-self: end; transition: transform .45s var(--ease), color .3s; }
+@media (hover: hover) { .path:hover { padding-left: 14px; } .path:hover .arrow { transform: translateX(6px); color: var(--hot); } }
+@media (max-width: 760px) { .path { grid-template-columns: 2.6em minmax(0, 1fr) 24px; row-gap: 8px; } .path p { grid-column: 2; grid-row: 2; } .path .arrow { grid-column: 3; grid-row: 1; } }
+
+/* Contacto */
+.end { padding: clamp(120px, 14vw, 180px) var(--pad) 28px; }
+.end > .mono { color: var(--mute); }
+.end__mail { display: block; margin-top: 16px; font-size: clamp(36px, 8.6vw, 156px); font-weight: 900; letter-spacing: -.055em; line-height: .95; overflow-wrap: anywhere; }
+.end__mail .c { display: inline-block; transition: transform .45s var(--ease), color .25s; }
+@media (hover: hover) { .end__mail:hover .c { color: var(--hot); transform: translateY(-.06em); transition-delay: calc(var(--i) * 12ms); } }
+.end__acts { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
+.end__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-top: 90px; border-top: 1px solid var(--ink); padding-top: 14px; }
+.end__foot nav { display: flex; flex-wrap: wrap; gap: 22px; }
+.end__foot a:hover { color: var(--hot); }
+@media (prefers-reduced-motion: reduce) { .hero__name i, .hero__meta div { transform: none !important; opacity: 1 !important; } .hero__meta::before { transform: none; } }
+</style>
+<script>document.documentElement.classList.add("js");</script>
 </head>
-<body>
-
-  <!-- Fondo: calles de pista, líneas finas que ceden al paso del cursor -->
-  <canvas id="track" aria-hidden="true"></canvas>
-
-  <!-- El scroll son los 400 m de una vuelta -->
-  <div class="meter" aria-hidden="true"><span id="meter">000</span> m</div>
-
-  <main>
-    <section class="start">
-      <h1 data-split>Mateo<br>González<br>Silva</h1>
-      <p class="start__text" data-reveal>Ingeniería Informática e IA aplicada a la Robótica, UFV.</p>
-    </section>
-
-    <section class="sec">
-      <h2 data-reveal>Premios</h2>
-      <ul class="rows">
-        <li data-reveal><button class="row row--link" type="button" data-project="ac">
-          <span class="row__main">
-            <span class="row__title">Ganador · San Esteban Tech Challenge 2026</span>
-            <span class="row__tag">Aire Claro: datos abiertos para vigilar el aire de un pueblo</span>
-            <span class="row__sub">Premio: full congress pass para el Smart City Expo 2026 de Barcelona</span>
-          </span>
-          <span class="row__go" aria-hidden="true">→</span>
-        </button></li>
-      </ul>
-    </section>
-
-    <section class="sec">
-      <h2 data-reveal>Proyectos</h2>
-      <ul class="rows">
-        <li data-reveal><button class="row row--link row--proj" type="button" data-project="ma">
-          <img src="assets/mundoatletismo.png" alt="" />
-          <span class="row__main"><span class="row__title">Mundo Atletismo</span><span class="row__tag">Todo el atletismo español, en un solo sitio</span><span class="row__sub">React · Vite · Firebase</span></span>
-          <span class="row__meta">Cofundador</span><span class="row__go" aria-hidden="true">→</span>
-        </button></li>
-        <li data-reveal><button class="row row--link row--proj" type="button" data-project="ld">
-          <img src="assets/lanedata.svg" alt="" />
-          <span class="row__main"><span class="row__title">Lanedata</span><span class="row__tag">El atletismo español, contado con datos</span><span class="row__sub">Next.js · Supabase · Python</span></span>
-          <span class="row__meta">Fundador</span><span class="row__go" aria-hidden="true">→</span>
-        </button></li>
-        <li data-reveal><button class="row row--link row--proj" type="button" data-project="tf">
-          <img src="assets/tripfinder.png" alt="" />
-          <span class="row__main"><span class="row__title">Tripfinder</span><span class="row__tag">Acercando viajar a todos los bolsillos</span><span class="row__sub">JavaScript · Python · Firebase</span></span>
-          <span class="row__meta">Creador</span><span class="row__go" aria-hidden="true">→</span>
-        </button></li>
-        <li data-reveal><div class="row row--proj">
-          <img src="assets/secreto.jpg" alt="" />
-          <span class="row__main"><span class="row__title row__title--scramble" id="scramble" aria-label="Proyecto sin anunciar">XXXXXXX XXXXXXXXX</span><span class="row__tag">Estoy desarrollando algo que saldrá muy pronto</span></span>
-          <span class="row__meta">Muy pronto</span><span class="row__go" aria-hidden="true"></span>
-        </div></li>
-      </ul>
-    </section>
-
-    <section class="sec">
-      <h2 data-reveal>Experiencia</h2>
-      <ul class="rows">
-        <li class="row" data-reveal><span class="row__main"><span class="row__title">Fundador, Lanedata</span></span><span class="row__meta">2026 — hoy</span><span class="row__go" aria-hidden="true"></span></li>
-        <li class="row" data-reveal><span class="row__main"><span class="row__title">Cofundador, Mundo Atletismo</span></span><span class="row__meta">2026 — hoy</span><span class="row__go" aria-hidden="true"></span></li>
-        <li data-reveal><button class="row row--link" type="button" data-project="ufv"><span class="row__main"><span class="row__title">Electrical, UFV Racing Team</span><span class="row__sub">Simulaciones del coche, creadas desde cero</span></span><span class="row__meta">2025 — 2026</span><span class="row__go" aria-hidden="true">→</span></button></li>
-      </ul>
-    </section>
-
-    <section class="sec">
-      <h2 data-reveal>Voluntariado</h2>
-      <ul class="rows">
-        <li class="row" data-reveal><span class="row__main"><span class="row__title">Acompañamiento infantil en hospitales</span><span class="row__sub">Fundación Talento MCR</span></span><span class="row__meta">En activo</span></li>
-        <li class="row" data-reveal><span class="row__main"><span class="row__title">Clases a niños en Nepal</span><span class="row__sub">AIPC Pandora · 90 horas</span></span><span class="row__meta">Verano 2024</span></li>
-      </ul>
-    </section>
-
-    <section class="sec">
-      <h2 data-reveal>Educación</h2>
-      <ul class="rows">
-        <li class="row" data-reveal><span class="row__main"><span class="row__title">Ing. Informática + IA aplicada a la Robótica</span><span class="row__sub">Universidad Francisco de Vitoria · delegado de clase</span></span><span class="row__meta">2025 — 2029</span></li>
-        <li class="row" data-reveal><span class="row__main"><span class="row__title">Bachillerato Tecnológico</span><span class="row__sub">IES Cervantes · consejo escolar 4 años</span></span><span class="row__meta">— 2025</span></li>
-      </ul>
-    </section>
-
-    <section class="sec">
-      <h2 data-reveal>Certificaciones</h2>
-      <ul class="rows">
-        <li data-reveal><a class="row row--link" href="https://verify.skilljar.com/c/kc8jkt6z6q8p" target="_blank" rel="noopener"><span class="tile tile--a"><img src="assets/certs/anthropic.svg" alt="" /></span><span class="row__main"><span class="row__title">AI Fluency for Builders</span><span class="row__sub">Anthropic · ID kc8jkt6z6q8p</span></span><span class="row__meta">ago 2026</span><span class="row__go" aria-hidden="true">→</span></a></li>
-        <li data-reveal><a class="row row--link" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener"><span class="tile tile--a"><img src="assets/certs/anthropic.svg" alt="" /></span><span class="row__main"><span class="row__title">Claude Code in Action</span><span class="row__sub">Anthropic · ID ouxpxxc5cizk</span></span><span class="row__meta">jul 2026</span><span class="row__go" aria-hidden="true">→</span></a></li>
-        <li data-reveal><a class="row row--link" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener"><span class="tile"><img src="assets/certs/cisco.svg" alt="" /></span><span class="row__main"><span class="row__title">Introduction to Cybersecurity</span><span class="row__sub">Cisco Networking Academy · ID 741c71bb-8e9e-4517-84ce-aba698794cf4</span></span><span class="row__meta">jul 2026</span><span class="row__go" aria-hidden="true">→</span></a></li>
-        <li data-reveal><a class="row row--link" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener"><span class="tile"><img src="assets/certs/mathworks.png" alt="" /></span><span class="row__main"><span class="row__title">MATLAB Onramp</span><span class="row__sub">MathWorks</span></span><span class="row__meta">sept 2025</span><span class="row__go" aria-hidden="true">→</span></a></li>
-        <li data-reveal><div class="row"><span class="tile"><img src="assets/certs/cambridge.png" alt="" /></span><span class="row__main"><span class="row__title">B2 First · 176</span><span class="row__sub">Cambridge English</span></span><span class="row__meta">jun 2023</span><span class="row__go" aria-hidden="true"></span></div></li>
-      </ul>
-    </section>
-
-    <section class="end">
-      <a class="end__mail" href="mailto:contacto@mateogsilvaa.es" data-reveal>contacto@mateogsilvaa.es</a>
-      <p class="end__links" data-reveal>
-        <a href="https://www.linkedin.com/in/mateo-gonzález-silva-58b61641b" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram</a>
-      </p>
-    </section>
-  </main>
-
-  <!-- Ventanas: la web en vivo y, detrás, una terminal que explica el proyecto -->
-  <div class="win win--term" id="win-term" hidden>
-    <div class="win__bar">
-      <span class="win__dots"><button data-act="close" type="button" aria-label="Cerrar"></button><button data-act="close" type="button" aria-label="Minimizar"></button><button data-act="max" type="button" aria-label="Maximizar"></button></span>
-      <span class="win__title" id="term-title"></span>
-      <span class="win__dots"></span>
-    </div>
-    <pre class="term" id="term-out" tabindex="0"></pre>
+<body data-page="inicio">
+<main>
+<section class="hero" id="inicio">
+  <h1 class="hero__name"><span><i>Mateo</i></span><span><i>González</i></span><span><i>Silva<b class="dot">.</b></i></span></h1>
+  <div class="hero__meta">
+    <div style="--i:0"><span class="mono">Estudio</span><b>Ing. Informática + IA aplicada a la Robótica</b></div>
+    <div style="--i:1"><span class="mono">Universidad</span><b>Francisco de Vitoria, 2025 — 2029</b></div>
+    <div style="--i:2"><span class="mono">Construyo</span><b>Lanedata, Mundo Atletismo, Tripfinder y Bicifastness</b></div>
+    <div style="--i:3"><span class="mono">Último premio</span><b>San Esteban Tech Challenge 2026</b></div>
   </div>
-  <div class="win win--web" id="win-web" hidden>
-    <div class="win__bar">
-      <span class="win__dots"><button data-act="close" type="button" aria-label="Cerrar"></button><button data-act="close" type="button" aria-label="Minimizar"></button><button data-act="max" type="button" aria-label="Maximizar"></button></span>
-      <a class="win__title" id="web-url" target="_blank" rel="noopener"></a>
-      <span class="win__dots"></span>
-    </div>
-    <div class="win__view" id="web-view"></div>
-  </div>
+</section>
 
-  <script src="script.js"></script>
+<section class="sec" id="premio">
+  <div class="head" data-in><h2>Premio</h2><span class="mono">01</span></div>
+  <div class="award" data-in>
+    <div>
+      <span class="mono">Ganador · 2026</span>
+      <h3>San Esteban Tech Challenge <em>2026</em></h3>
+    </div>
+    <div>
+      <p>Aire Claro: cinco estaciones con sensores, avisos vecinales y una web pública para vigilar que la futura planta de biometano de San Esteban de Gormaz cumple lo prometido.</p>
+      <div class="award__acts">
+        <a class="btn btn--light" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Probar demo ↗">Probar demo ↗</span></a>
+        <a class="btn btn--line" href="/premio/"><span class="t" data-t="Ver el proyecto →">Ver el proyecto →</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="proyectos">
+  <div class="head" data-in><h2>Proyectos</h2><a class="more-link mono" href="/proyectos/">Todos los detalles <span>→</span></a></div>
+  <div class="grid"></div>
+</section>
+
+<section class="sec" id="trayectoria">
+  <div class="head" data-in><h2>Trayectoria</h2><span class="mono">03</span></div>
+  <ul class="paths" data-in>
+    <li><a class="path" href="/experiencia/"><span class="mono">03.1</span><b>Experiencia</b><p>Beca RFEA Talento IA, Lanedata, Mundo Atletismo y UFV Racing Team.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="path" href="/educacion/"><span class="mono">03.2</span><b>Educación</b><p>Ingeniería en la UFV, el IES Cervantes, Global Classrooms y certificaciones.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="path" href="/voluntariado/"><span class="mono">03.3</span><b>Voluntariado</b><p>Acompañamiento a niños hospitalizados y tres semanas en Nepal.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="end" id="contacto">
+  <span class="mono">04 — Hablemos</span>
+  <a class="end__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<br>mateogsilvaa.es</a>
+  <div class="end__acts">
+    <a class="btn btn--hot" href="mailto:contacto@mateogsilvaa.es"><span class="t" data-t="Escríbeme">Escríbeme</span></a>
+    <button class="btn btn--line" type="button" data-copy="contacto@mateogsilvaa.es"><span class="t" data-t="Copiar correo">Copiar correo</span></button>
+  </div>
+  <div class="end__foot mono">
+    <span>© 2026 Mateo González Silva</span>
+    <nav>
+      <a href="https://www.linkedin.com/in/mateo-gonz%C3%A1lez-silva-58b61641b" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram ↗</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+// Tarjetas de proyectos
+const P = [
+  ["mundo-atletismo", "Mundo Atletismo", "Cofundador", "https://mundoatletismo.es", "Todo el atletismo español en una web: más de seis millones de marcas, rankings, campeonatos y atletas."],
+  ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "El atletismo español contado con datos: análisis largos, archivo y buscador."],
+  ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Movilidad urbana en bici convertida en juego: cada trayecto en BiciMAD suma puntos.", "/assets/bicifastness.jpg"],
+  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Escapadas de finde desde Madrid por debajo de lo que suelen costar, con avisos."],
+];
+document.querySelector(".grid").innerHTML = P.map(([id, name, role, url, txt, shot], i) => `
+  <article class="card" data-in>
+    <a class="live" href="/proyectos/#${id}" data-src="${url}" aria-label="Ver ${name}">${shot ? `<img class="live__shot" src="${shot}" alt="">` : ""}</a>
+    <div class="card__n mono"><span>${String(i + 1).padStart(2, "0")} · ${role}</span><span>${url.replace("https://", "")}</span></div>
+    <h3><a href="/proyectos/#${id}">${name}</a><span class="arrow" aria-hidden="true">→</span></h3>
+    <p>${txt}</p>
+    <div class="card__acts"><a href="/proyectos/#${id}">Cómo funciona</a><a href="${url}" target="_blank" rel="noopener">Visitar la web ↗</a></div>
+  </article>`).join("");
+
+// Correo: letras sueltas para la ola
+const mail = document.querySelector(".end__mail"); let ci = 0;
+mail.innerHTML = mail.innerHTML.split(/(<br>)/).map((p) => p === "<br>" ? p : [...p].map((c) => `<span class="c" style="--i:${ci++}">${c}</span>`).join("")).join("");
+</script>
+<script src="/site.js"></script>
 </body>
 </html>

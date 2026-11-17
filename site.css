@@ -316,5 +316,5 @@ img { display: block; max-width: 100%; }
   .foot__cols { flex-direction: column; gap: 22px; margin-top: 30px; }
   .foot__cols nav:first-child { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
   .foot__cols nav:first-child a { padding: 13px 0; border-bottom: 1px solid var(--line); }
-  .foot__cols nav:last-child { gap: 8px; } .foot__cols nav:last-child a { display: inline-flex; align-items: center; height: 40px; padding: 0 13px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--line); }
+  .foot__cols nav:last-child { gap: 22px; } .foot__cols nav:last-child a { padding: 8px 0; }
 }

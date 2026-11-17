@@ -1,0 +1,26 @@
+# Mateo González Silva
+
+> Estudiante de Ingeniería Informática e Inteligencia Artificial aplicada a la Robótica en la Universidad Francisco de Vitoria (Madrid, 2025-2029). Hace atletismo y crea webs sobre atletismo y datos. Web personal: https://mateogsilvaa.es
+
+## Quién es
+- Estudia Ingeniería Informática con mención en IA aplicada a la Robótica en la Universidad Francisco de Vitoria (UFV). Delegado de clase.
+- Atleta. Participa en el programa Talento IA de la Real Federación Española de Atletismo (2026-2027), un itinerario formativo en IA aplicada al rendimiento.
+- Primer premio, con un equipo de cinco estudiantes de la UFV, en el San Esteban Tech Challenge 2026 con Aire Claro.
+- Estuvo en el departamento eléctrico del UFV Racing Team (Formula Student), con modelado y simulación en MATLAB y Simulink.
+- Voluntario con niños hospitalizados en Madrid y tres semanas de voluntariado en Nepal (2024).
+- Contacto: contacto@mateogsilvaa.es · LinkedIn: https://www.linkedin.com/in/mateo-gonz%C3%A1lez-silva-58b61641b · GitHub: https://github.com/mateogsilvaa
+
+## Proyectos
+- [Mundo Atletismo](https://mundoatletismo.es): Cofundador. Web con los resultados del atletismo español: marcas, atletas, clubes, pistas, rankings y mínimas.
+- [Lanedata](https://lanedata.es): Fundador. Periodismo de datos sobre el atletismo español.
+- [Bicifastness](https://bicifastness.es): Creador. Liga para usuarios de BiciMAD en Madrid. Proyecto independiente, sin relación con BiciMAD ni la EMT.
+- [Tripfinder](https://tripfinder.es): Creador. Buscador de vuelos baratos de fin de semana desde Madrid con avisos de precio.
+- [Aire Claro](https://aireclaro.netlify.app): propuesta premiada de sensores, avisos vecinales y web pública para vigilar la futura planta de biometano de San Esteban de Gormaz (Soria). Demo con datos simulados.
+
+## Páginas
+- [Inicio](https://mateogsilvaa.es/)
+- [Proyectos](https://mateogsilvaa.es/proyectos/)
+- [Premio: Aire Claro](https://mateogsilvaa.es/premio/)
+- [Experiencia](https://mateogsilvaa.es/experiencia/)
+- [Educación](https://mateogsilvaa.es/educacion/)
+- [Voluntariado](https://mateogsilvaa.es/voluntariado/)

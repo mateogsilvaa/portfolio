@@ -23,12 +23,19 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 .intro { position: relative; height: 420vh; }
 .stage { position: sticky; top: 0; height: 100svh; overflow: hidden; background: #0b0b0d; }
 .mac { position: absolute; left: 50%; top: 50%; width: var(--sw); transform-origin: 50% 50%; will-change: transform; }
-.mac__screen { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 18px; padding: 1.3%; background: #1a1a1c; box-shadow: inset 0 0 0 2px #2c2c30, 0 50px 120px -30px rgba(0,0,0,.9); }
-.mac__screen::before { content: ""; position: absolute; top: .55%; left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #0c0c0e; box-shadow: inset 0 0 0 2px #26262a; }
-.mac__view { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 6px; background: #000; }
-.vscreen { position: absolute; left: 0; top: 0; width: 1440px; height: 900px; transform-origin: 0 0; }
-.mac__base { position: relative; width: 118%; left: -9%; height: calc(var(--sw) * .028); border-radius: 0 0 22px 22px / 0 0 100% 100%; background: linear-gradient(#d9d9dd, #a8a8ae 60%, #77777d); }
-.mac__base::before { content: ""; position: absolute; left: 50%; top: 0; width: 15%; height: 40%; transform: translateX(-50%); border-radius: 0 0 10px 10px; background: #8d8d93; }
+/* MacBook: tapa de aluminio, marco negro con notch, bisagra y base */
+.mac__lid { position: relative; padding: .55%; border-radius: calc(var(--sw) * .034); background: linear-gradient(160deg, #d6d6db 0%, #a9a9b0 35%, #8c8c93 65%, #b9b9bf 100%); box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 60px 120px -40px rgba(0,0,0,.95); }
+.mac__screen { position: relative; width: 100%; aspect-ratio: 16 / 10.35; border-radius: calc(var(--sw) * .03); padding: 1.5% 1.5% 2%; background: #050505; box-shadow: inset 0 0 0 1px #1d1d20, inset 0 0 0 3px #0c0c0e; }
+.mac__screen::before { content: ""; position: absolute; z-index: 2; top: 0; left: 50%; width: 10.5%; height: 2.9%; transform: translateX(-50%); border-radius: 0 0 calc(var(--sw) * .009) calc(var(--sw) * .009); background: #050505; }
+.mac__screen::after { content: ""; position: absolute; z-index: 3; top: 1.05%; left: 50%; width: calc(var(--sw) * .0075); aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(circle at 35% 35%, #2c3550, #0b0d14 60%); box-shadow: 0 0 0 1px #121216; }
+.mac__view { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: calc(var(--sw) * .012) calc(var(--sw) * .012) calc(var(--sw) * .006) calc(var(--sw) * .006); background: #000; }
+.mac__view::after { content: ""; position: absolute; inset: 0; z-index: 9000; pointer-events: none; background: linear-gradient(118deg, rgba(255,255,255,.075) 0%, rgba(255,255,255,.02) 32%, transparent 33%); }
+.vscreen { position: absolute; left: 0; top: 0; width: 1440px; height: 931px; transform-origin: 0 0; }
+.mac__hinge { width: 78%; height: calc(var(--sw) * .009); margin: 0 auto; border-radius: 0 0 6px 6px; background: linear-gradient(#1a1a1c, #3a3a3e 60%, #232326); }
+.mac__base { position: relative; width: 122%; left: -11%; height: calc(var(--sw) * .024); margin-top: -1px; border-radius: 2px 2px calc(var(--sw) * .03) calc(var(--sw) * .03) / 2px 2px 100% 100%;
+  background: linear-gradient(180deg, #e9e9ed 0%, #cfcfd4 18%, #b4b4ba 55%, #8a8a90 85%, #6c6c72 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -2px 3px rgba(0,0,0,.25); }
+.mac__base::before { content: ""; position: absolute; left: 50%; top: 0; width: 13%; height: 42%; transform: translateX(-50%); border-radius: 0 0 calc(var(--sw) * .012) calc(var(--sw) * .012); background: linear-gradient(#9d9da3, #c4c4c9); box-shadow: inset 0 2px 3px rgba(0,0,0,.25); }
+.mac__base::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: -60%; height: 70%; border-radius: 50%; background: radial-gradient(closest-side, rgba(0,0,0,.75), transparent); filter: blur(6px); z-index: -1; }
 .caption { position: absolute; left: 0; right: 0; bottom: 6svh; text-align: center; color: var(--bg); pointer-events: none; }
 .caption p { position: absolute; left: 0; right: 0; bottom: 0; font-size: clamp(22px, 3vw, 44px); font-weight: 800; letter-spacing: -.04em; opacity: 0; transform: translateY(14px); transition: opacity .5s, transform .6s var(--ease); }
 .caption p.on { opacity: 1; transform: none; }
@@ -37,10 +44,11 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 
 /* Página falsa dentro de la pantalla */
 .fakeweb { position: absolute; inset: 0; z-index: 6000; background: var(--bg); color: var(--ink); border-radius: 10px; overflow: hidden; transform-origin: 50% 100%; box-shadow: 0 30px 80px -20px rgba(0,0,0,.6); }
-.fakeweb__bar { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #e4e0d7; }
+.fakeweb__bar { height: 52px; display: flex; align-items: center; gap: 8px; padding: 0 18px; background: linear-gradient(#f4f4f6, #e6e6e9); border-bottom: 1px solid #cfcfd4; }
 .fakeweb__bar i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
 .fakeweb__bar i:nth-child(2) { background: #febc2e; } .fakeweb__bar i:nth-child(3) { background: #28c840; }
-.fakeweb__bar span { margin: 0 auto; padding: 4px 16px; border-radius: 7px; background: #f3f1ec; font: 500 13px "JetBrains Mono", monospace; color: #6b6862; }
+.fakeweb__bar span { margin: 0 auto; width: 420px; text-align: center; padding: 7px 16px; border-radius: 9px; background: rgba(0,0,0,.06); font: 500 14px -apple-system, "Inter Tight", sans-serif; color: #3a3a3c; }
+.fakeweb__bar em { font-style: normal; color: #8a8a8e; font-size: 20px; margin-left: 14px; }
 .fakeweb__top { display: flex; justify-content: space-between; padding: 22px 56px; font-weight: 900; font-size: 22px; letter-spacing: -.04em; }
 .fakeweb__top span:last-child { font: 500 13px "JetBrains Mono", monospace; }
 .fakeweb h1 { position: absolute; left: 56px; bottom: 150px; font-size: 230px; font-weight: 900; letter-spacing: -.055em; line-height: .8; }
@@ -50,10 +58,16 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 
 /* =============== Escritorio =============== */
 .os { position: relative; height: 100svh; min-height: 520px; overflow: hidden; color: #fff; font-family: "Inter Tight", system-ui, sans-serif; user-select: none;
-  background: radial-gradient(120% 90% at 85% 0%, #5a6dff 0%, #2b45ff 30%, #1426a8 60%, #0a1260 100%); }
-.os::before { content: "MGS"; position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); font-weight: 900; font-size: 32vmin; letter-spacing: -.06em; color: rgba(255,255,255,.06); pointer-events: none; }
-.vscreen .os { height: 900px; min-height: 0; }
-.os__menu { position: absolute; inset: 0 0 auto; z-index: 5000; height: 30px; display: flex; align-items: center; gap: 18px; padding: 0 14px; background: rgba(10,14,60,.35); backdrop-filter: blur(20px); font-size: 13.5px; }
+  background:
+    radial-gradient(60% 50% at 78% 18%, rgba(140,160,255,.85), transparent 60%),
+    radial-gradient(70% 60% at 15% 85%, rgba(20,40,190,.9), transparent 65%),
+    radial-gradient(50% 45% at 60% 75%, rgba(255,120,190,.35), transparent 70%),
+    radial-gradient(45% 40% at 30% 30%, rgba(80,200,255,.35), transparent 70%),
+    linear-gradient(160deg, #3048ff 0%, #1b2bb8 45%, #0b1258 100%); }
+.os::before { content: ""; position: absolute; inset: -10%; pointer-events: none; opacity: .55;
+  background: repeating-radial-gradient(ellipse at 70% 120%, rgba(255,255,255,0) 0 38px, rgba(255,255,255,.07) 39px 40px, rgba(255,255,255,0) 41px 80px); filter: blur(1.5px); }
+.vscreen .os { height: 100%; min-height: 0; }
+.os__menu { position: absolute; inset: 0 0 auto; z-index: 5000; height: 30px; display: flex; align-items: center; gap: 18px; padding: 0 14px; background: rgba(20,24,70,.28); backdrop-filter: blur(30px) saturate(1.5); -webkit-backdrop-filter: blur(30px) saturate(1.5); font: 500 13.5px -apple-system, BlinkMacSystemFont, "Inter Tight", sans-serif; }
 .os__menu b { font-weight: 900; letter-spacing: -.03em; font-size: 15px; }
 .os__menu .app { font-weight: 700; }
 .os__menu .dim { opacity: .85; }
@@ -64,12 +78,12 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 .os__icons { position: absolute; top: 46px; right: 18px; display: grid; gap: 6px; z-index: 1; }
 .dico { display: flex; flex-direction: column; align-items: center; gap: 5px; width: 92px; padding: 6px 2px; border-radius: 8px; color: #fff; text-align: center; }
 .dico:hover, .dico.sel { background: rgba(255,255,255,.14); }
-.dico__i { width: 56px; height: 56px; border-radius: 14px; background: var(--c); color: var(--t); display: grid; place-items: center; font-weight: 900; font-size: 24px; letter-spacing: -.05em; box-shadow: 0 8px 20px -6px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.15); }
+.dico__i { position: relative; width: 56px; height: 56px; border-radius: 13px; background: linear-gradient(180deg, color-mix(in srgb, var(--c) 78%, #fff) 0%, var(--c) 55%, color-mix(in srgb, var(--c) 85%, #000) 100%); color: var(--t); display: grid; place-items: center; font-weight: 900; font-size: 24px; letter-spacing: -.05em; box-shadow: 0 8px 20px -6px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.15); }
 .dico__i.doc { background: #fff; color: #1b1b1b; border-radius: 6px; width: 46px; font-size: 11px; font-family: "JetBrains Mono", monospace; font-weight: 500; }
 .dico span:last-child { font-size: 12.5px; line-height: 1.2; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
 
-.os__dock { position: absolute; left: 50%; bottom: 8px; z-index: 4000; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; padding: 7px; border-radius: 20px; background: rgba(255,255,255,.18); backdrop-filter: blur(24px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), 0 16px 40px -12px rgba(0,0,0,.5); }
-.dk { position: relative; width: 52px; height: 52px; border-radius: 13px; background: var(--c); color: var(--t); display: grid; place-items: center; font-weight: 900; font-size: 21px; letter-spacing: -.05em; transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease); box-shadow: 0 4px 12px -4px rgba(0,0,0,.4); }
+.os__dock { position: absolute; left: 50%; bottom: 8px; z-index: 4000; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 6px; padding: 6px; border-radius: 22px; background: rgba(246,246,250,.22); backdrop-filter: blur(30px) saturate(1.6); -webkit-backdrop-filter: blur(30px) saturate(1.6); box-shadow: inset 0 0 0 .5px rgba(255,255,255,.5), 0 0 0 .5px rgba(0,0,0,.25), 0 18px 40px -12px rgba(0,0,0,.45); }
+.dk { position: relative; width: 52px; height: 52px; border-radius: 12px; background: linear-gradient(180deg, color-mix(in srgb, var(--c) 78%, #fff) 0%, var(--c) 55%, color-mix(in srgb, var(--c) 85%, #000) 100%); color: var(--t); display: grid; place-items: center; font-weight: 900; font-size: 21px; letter-spacing: -.05em; transition: width .25s var(--ease), height .25s var(--ease), margin .25s var(--ease); box-shadow: 0 4px 12px -4px rgba(0,0,0,.4); }
 .dk svg { width: 26px; height: 26px; }
 .dk::after { content: ""; position: absolute; bottom: -6px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: #fff; opacity: 0; }
 .dk.run::after { opacity: .9; }
@@ -78,7 +92,7 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 .dk--sep { width: 1px; height: 44px; margin: 0 3px 4px; background: rgba(255,255,255,.3); border-radius: 0; box-shadow: none; }
 
 /* Ventanas */
-.w { position: absolute; display: grid; grid-template-rows: 34px 1fr; min-width: 300px; min-height: 200px; border-radius: 12px; overflow: hidden; background: #f6f5f2; color: #1b1b1b; box-shadow: 0 30px 70px -18px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.18);
+.w { position: absolute; display: grid; grid-template-rows: 34px 1fr; min-width: 300px; min-height: 200px; border-radius: 11px; overflow: hidden; background: #f6f5f2; color: #1b1b1b; box-shadow: 0 0 0 .5px rgba(0,0,0,.35), 0 22px 70px -10px rgba(0,0,0,.55), 0 4px 12px rgba(0,0,0,.15);
   opacity: 0; transform: scale(.92); transition: opacity .25s, transform .35s var(--ease); }
 .w.in { opacity: 1; transform: none; }
 .w.out { opacity: 0; transform: scale(.9); }
@@ -101,10 +115,9 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 .os.busy, .os.busy * { user-select: none; }
 
 /* Navegador */
-.w--web .w__bar { background: #2a2a2c; border-color: #1b1b1c; }
-.w--web .w__title { color: #d9d6cf; font: 500 12px "JetBrains Mono", monospace; }
-.w--web .w__tools a, .w--web .w__tools button { color: #e9e6df; background: rgba(255,255,255,.1); }
-.w--web .w__tools a:hover, .w--web .w__tools button:hover { background: rgba(255,255,255,.2); }
+.w--web { grid-template-rows: 42px 1fr; }
+.w--web .w__bar { background: linear-gradient(#f4f4f6, #e7e7ea); border-color: #cfcfd4; }
+.w--web .w__title { left: 50%; right: auto; transform: translateX(-50%); width: min(46%, 420px); padding: 5px 12px; border-radius: 8px; background: rgba(0,0,0,.06); color: #3a3a3c; font: 500 12.5px -apple-system, "Inter Tight", sans-serif; }
 .w--web .w__body { background: #fff; }
 .w--web iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #fff; }
 .w--web .load { position: absolute; inset: 0; display: grid; place-items: center; background: #f1efe9; color: #6b6862; font: 500 12px "JetBrains Mono", monospace; text-transform: uppercase; transition: opacity .4s; }
@@ -175,14 +188,15 @@ body.os-on .top { opacity: 0; pointer-events: none; }
 <section class="intro" aria-hidden="true">
   <div class="stage">
     <div class="mac">
-      <div class="mac__screen"><div class="mac__view"><div class="vscreen">
+      <div class="mac__lid"><div class="mac__screen"><div class="mac__view"><div class="vscreen">
         <div class="os os--mock"></div>
         <div class="fakeweb">
-          <div class="fakeweb__bar"><i></i><i></i><i></i><span>mateogsilvaa.es/proyectos</span></div>
+          <div class="fakeweb__bar"><i></i><i></i><i></i><em>‹</em><em>›</em><span>mateogsilvaa.es</span><em>+</em></div>
           <h1>Proyectos<span class="dot">.</span></h1>
           <div class="fakeweb__lead"><span class="mono">4 webs en producción · 2026</span><span>Cuatro productos reales. <b>Ábrelos y úsalos.</b></span></div>
         </div>
-      </div></div></div>
+      </div></div></div></div>
+      <div class="mac__hinge"></div>
       <div class="mac__base"></div>
     </div>
     <div class="caption">
@@ -486,7 +500,7 @@ addEventListener("load", () => {
 /* ---------------- Intro con scroll ---------------- */
 (() => {
   const intro = document.querySelector(".intro"); if (getComputedStyle(intro).display === "none") return;
-  const mac = intro.querySelector(".mac"), screen = intro.querySelector(".mac__screen"), view = intro.querySelector(".mac__view");
+  const mac = intro.querySelector(".mac"), screen = intro.querySelector(".mac__lid"), view = intro.querySelector(".mac__view");
   const vs = intro.querySelector(".vscreen"), web = intro.querySelector(".fakeweb"), hint = intro.querySelector(".scrollhint");
   const icons = [...intro.querySelectorAll(".os--mock .dico")], caps = [...intro.querySelectorAll(".caption p")];
   const clamp = (v) => Math.max(0, Math.min(1, v)), seg = (p, a, b) => clamp((p - a) / (b - a));
@@ -495,9 +509,9 @@ addEventListener("load", () => {
   const layout = () => {
     sw = Math.min(1100, innerWidth * (innerWidth < 760 ? .9 : .7));
     mac.style.setProperty("--sw", sw + "px");
-    const sh = sw * 10 / 16, pad = screen.offsetWidth ? (screen.offsetWidth - view.offsetWidth) : sw * .026;
+    const sh = sw * 10.35 / 16, pad = screen.offsetWidth ? (screen.offsetWidth - view.offsetWidth) : sw * .026;
     s0 = (innerWidth < 760 ? innerWidth / (sw - pad) : Math.max(innerWidth / (sw - pad), innerHeight / (sh - pad))) * 1.01;
-    vs.style.transform = `scale(${view.offsetWidth / 1440})`;
+    vs.style.transform = `scale(${view.offsetWidth / 1440})`; vs.style.height = view.offsetHeight * 1440 / view.offsetWidth + "px";
     run();
   };
   const run = () => {

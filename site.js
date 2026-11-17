@@ -132,3 +132,14 @@
 
   window.MGS = { reduce };
 })();
+
+// Cabecera: se esconde al bajar y reaparece al subir
+(() => {
+  const t = document.querySelector(".top"); if (!t) return; let y0 = scrollY;
+  addEventListener("scroll", () => {
+    const y = scrollY;
+    if (Math.abs(y - y0) < 8) return;
+    t.classList.toggle("hide", y > y0 && y > 120 && !document.documentElement.classList.contains("menu-open") && !document.body.classList.contains("menu-open"));
+    y0 = y;
+  }, { passive: true });
+})();

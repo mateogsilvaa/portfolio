@@ -289,3 +289,13 @@ img { display: block; max-width: 100%; }
 .tagline { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 .tagline span { display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 99px; box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; color: var(--mute); }
 .tagline span b { color: var(--ink); font-weight: 600; margin-right: 6px; }
+
+/* Móvil: cabecera que se esconde al bajar y vuelve al subir; tarjetas en carrusel */
+.top { transition: transform .45s var(--ease); }
+.top.hide { transform: translateY(-110%); }
+@media (max-width: 760px) {
+  .cards { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px; margin-inline: calc(-1 * var(--pad)); padding: 0 var(--pad) 6px; scroll-padding: 0 var(--pad); scrollbar-width: none; }
+  .cards::-webkit-scrollbar { display: none; }
+  .cards > div { flex: 0 0 82%; scroll-snap-align: start; min-height: 0; }
+  .cards::after { content: ""; flex: 0 0 1px; }
+}

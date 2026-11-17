@@ -201,9 +201,9 @@
 // Tarjetas de proyectos
 const P = [
   ["mundo-atletismo", "Mundo Atletismo", "Cofundador", "https://mundoatletismo.es", "Todos los resultados del atletismo español en una web: cada marca enlazada a su atleta, su club y su pista, con rankings que se calculan solos.", "", "#f1e2c8", "#1a1206", "#e2531f", [["6,1 M", "marcas"], ["242.574", "atletas"], ["3.221", "clubes"]]],
-  ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "Periodismo de datos sobre atletismo: preguntas como «¿llegan los prodigios juveniles?» respondidas con 21 temporadas de resultados.", "", "#0f3a22", "#eaf5ec", "#7be38f", [["21", "temporadas"], ["12", "generaciones"], ["2005", "desde"]]],
-  ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Tus trayectos en BiciMAD convertidos en competición: ritmo, distancia y constancia puntúan, y los clanes conquistan estaciones.", "/assets/bicifastness.jpg", "#2b45ff", "#ffffff", "#ffd400", [["685", "estaciones"], ["30", "rivales"], ["3", "modos"]]],
-  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Vuelos de finde desde Madrid puntuados contra su propio histórico: solo aparece lo que está de verdad por debajo de lo normal.", "", "#161616", "#f3f1ec", "#2b45ff", [["12 h", "rastreo"], ["365", "días vista"], ["0", "anuncios"]]],
+  ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "Artículos que responden con datos las preguntas del atletismo español: quién mejora, cuándo y por qué.", "", "#0f3a22", "#eaf5ec", "#7be38f", []],
+  ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Tus trayectos en BiciMAD convertidos en competición: ritmo, distancia y constancia puntúan, y los clanes conquistan estaciones.", "/assets/bicifastness.jpg", "#2b45ff", "#ffffff", "#ffd400", []],
+  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Vuelos de finde desde Madrid puntuados contra su propio histórico: solo aparece lo que está de verdad por debajo de lo normal.", "", "#161616", "#f3f1ec", "#2b45ff", []],
 ];
 const stack = document.querySelector(".stack");
 stack.innerHTML = P.map(([id, name, role, url, txt, shot, c, t, a, st], i) => `
@@ -213,7 +213,7 @@ stack.innerHTML = P.map(([id, name, role, url, txt, shot, c, t, a, st], i) => `
         <div class="scard__n mono"><span>${String(i + 1).padStart(2, "0")} / ${String(P.length).padStart(2, "0")}</span><span>${role}</span></div>
         <h3>${name}<span class="dot">.</span></h3>
         <p>${txt}</p>
-        <div class="scard__stats">${st.map(([b, s]) => `<div><b>${b}</b><span class="mono">${s}</span></div>`).join("")}</div>
+        ${st.length ? `<div class="scard__stats">${st.map(([b, s]) => `<div><b>${b}</b><span class="mono">${s}</span></div>`).join("")}</div>` : ""}
         <div class="scard__acts">
           <a class="btn" href="/proyectos/#${id}"><span class="t" data-t="Ver más →">Ver más →</span></a>
           <a class="btn btn--line" href="${url}" target="_blank" rel="noopener"><span class="t" data-t="Visitar ↗">Visitar ↗</span></a>
@@ -245,7 +245,7 @@ mail.innerHTML = mail.innerHTML.split(/(<br>)/).map((p) => p === "<br>" ? p : [.
 (() => {
   if (MGS.reduce) return;
   const ls = [...document.querySelectorAll(".hero__name span")]; let r = 0;
-  setTimeout(() => ls.forEach((l) => l.firstElementChild.style.animation = "none"), 1400);
+  setTimeout(() => ls.forEach((l) => { const i = l.firstElementChild; i.style.transform = "none"; i.style.animation = "none"; }), 1400);
   addEventListener("scroll", () => { if (r) return; r = requestAnimationFrame(() => { r = 0;
     const k = Math.min(1, scrollY / innerHeight);
     if (getComputedStyle(ls[0].firstElementChild).animationName !== "none") return;

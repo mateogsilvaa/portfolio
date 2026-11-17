@@ -32,12 +32,19 @@
       <ul class="menu__list">
         ${pages.map(([id, name, href], i) => `<li><a href="${href}" style="--i:${i}"${id === here ? ' class="on" aria-current="page"' : ""}><span class="n">${String(i).padStart(2, "0")}</span><span class="w">${name}</span></a></li>`).join("")}
       </ul>
-      <div class="menu__foot mono"><a href="mailto:contacto@mateogsilvaa.es">contacto@mateogsilvaa.es</a><span class="foot__now">Madrid · <time class="clock"></time></span><nav>${social}</nav></div>
+      <div class="menu__foot mono"><a href="mailto:contacto@mateogsilvaa.es">contacto@mateogsilvaa.es</a><nav>${social}</nav></div>
     </div>`);
 
   // Pie en las páginas interiores
   if (here !== "inicio") document.body.insertAdjacentHTML("beforeend", `
-    <footer class="foot mono"><span>© 2026 Mateo González Silva</span><span class="foot__now">Madrid · <time class="clock"></time></span><nav><a href="mailto:contacto@mateogsilvaa.es">Correo</a>${social}<a class="totop" href="#top">Arriba ↑</a></nav></footer>`);
+    <footer class="foot">
+      <div class="foot__cta"><span class="mono">¿Hablamos?</span><a class="foot__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a></div>
+      <div class="foot__cols mono">
+        <nav aria-label="Páginas">${pages.filter(([id]) => id !== here).map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
+        <nav aria-label="Redes">${social}</nav>
+      </div>
+      <p class="foot__copy mono">© 2026 Mateo González Silva</p>
+    </footer>`);
 
   const root = document.documentElement, burger = document.querySelector(".burger"), menu = document.querySelector(".menu");
   const setMenu = (open) => {

@@ -6,76 +6,13 @@
 <title>Mateo González Silva</title>
 <meta name="description" content="Mateo González Silva. Ingeniería Informática e IA aplicada a la Robótica en la UFV. Fundador de Lanedata y cofundador de Mundo Atletismo." />
 <meta name="theme-color" content="#f3f1ec" />
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/brand/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/opcion1/site.css" />
 <style>
-:root {
-  --bg: #f3f1ec; --ink: #0e0e0e; --mute: #6b6862; --line: #d9d5cc; --hot: #2b45ff;
-  --pad: clamp(18px, 4vw, 56px); --ease: cubic-bezier(.2,.8,.2,1); --row: 22px;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: "Inter Tight", system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-body.lock { overflow: hidden; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-ul { list-style: none; }
-img { display: block; max-width: 100%; }
-::selection { background: var(--ink); color: var(--bg); }
-.mono { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; letter-spacing: .02em; text-transform: uppercase; }
-:focus-visible { outline: 2px solid var(--hot); outline-offset: 3px; }
-
-/* Botones */
-.btn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: 99px; background: var(--ink); color: var(--bg); font-weight: 500; font-size: 15px; overflow: hidden; transition: background .3s, color .3s; }
-.btn .t { display: inline-block; position: relative; transition: transform .45s var(--ease); }
-.btn .t::after { content: attr(data-t); position: absolute; left: 0; top: 150%; }
-.btn:hover .t { transform: translateY(-150%); }
-.btn--hot { background: var(--hot); color: #fff; }
-.btn--line { background: transparent; color: inherit; box-shadow: inset 0 0 0 1px currentColor; }
-
-/* ---------- Cabecera ---------- */
-.prog { position: fixed; inset: 0 0 auto; height: 2px; z-index: 40; background: var(--hot); transform-origin: 0 50%; transform: scaleX(0); }
-.menu-open .top { mix-blend-mode: normal; }
-.top :focus-visible { outline-color: currentColor; }
-.top { position: fixed; inset: 0 0 auto; z-index: 60; display: flex; justify-content: space-between; align-items: center; padding: 14px var(--pad); color: #fff; mix-blend-mode: difference; }
-.top__logo { font-weight: 900; font-size: 20px; letter-spacing: -.04em; }
-.burger { display: flex; align-items: center; gap: 12px; height: 40px; }
-.burger__lines { position: relative; width: 26px; height: 10px; }
-.burger__lines i { position: absolute; left: 0; right: 0; height: 2px; background: currentColor; transition: transform .5s var(--ease), top .5s var(--ease); }
-.burger__lines i:first-child { top: 0; } .burger__lines i:last-child { top: 8px; }
-.burger__word { position: relative; overflow: hidden; height: 1.3em; display: inline-block; }
-.burger__word span { display: block; transition: transform .5s var(--ease); }
-.menu-open .burger__lines i:first-child { top: 4px; transform: rotate(45deg); }
-.menu-open .burger__lines i:last-child { top: 4px; transform: rotate(-45deg); }
-.menu-open .burger__word span { transform: translateY(-100%); }
-
-/* ---------- Menú ---------- */
-.menu { position: fixed; inset: 0; z-index: 50; background: var(--hot); color: #fff; display: grid; grid-template-rows: 1fr auto; padding: 90px var(--pad) 28px;
-  clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path .8s var(--ease), visibility 0s .8s; }
-.menu-open .menu { clip-path: inset(0 0 0 0); visibility: visible; transition: clip-path .8s var(--ease); }
-.menu__list { align-self: center; display: flex; flex-direction: column; }
-.menu__list li { overflow: hidden; }
-.menu__list a { display: flex; align-items: baseline; gap: clamp(14px, 2.4vw, 34px); font-weight: 900; letter-spacing: -.055em; line-height: .98; font-size: clamp(52px, 10.5vh, 128px); padding: .02em 0;
-  transform: translateY(110%); transition: transform .9s var(--ease), opacity .3s; }
-.menu-open .menu__list a { transform: none; transition-delay: calc(.12s + var(--i) * .06s), 0s; }
-.menu__list .n { font: 500 13px "JetBrains Mono", monospace; letter-spacing: 0; width: 2.4em; opacity: .65; position: relative; }
-.menu__list a.on .n::before { content: ""; position: absolute; left: -14px; top: .45em; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
-.menu__list a .w { position: relative; transition: transform .5s var(--ease); }
-.menu__list a .w::after { content: ""; position: absolute; left: 0; right: 0; bottom: .02em; height: .045em; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .5s var(--ease); }
-@media (hover: hover) {
-  .menu__list:hover a { opacity: .4; }
-  .menu__list a:hover { opacity: 1; }
-  .menu__list a:hover .w { transform: translateX(.12em); }
-  .menu__list a:hover .w::after { transform: scaleX(1); transform-origin: left; }
-}
-.menu__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px 28px; border-top: 1px solid rgba(255,255,255,.35); padding-top: 16px; opacity: 0; transition: opacity .4s; }
-.menu-open .menu__foot { opacity: 1; transition-delay: .5s; }
-.menu__foot nav { display: flex; gap: 24px; }
-.menu__foot a:hover { opacity: .65; }
-
-/* ---------- Portada ---------- */
+/* Portada */
 .hero { min-height: 100svh; display: grid; grid-template-rows: 1fr auto; padding: 90px var(--pad) 28px; }
 .hero__name { align-self: end; font-weight: 900; letter-spacing: -.055em; line-height: .8; font-size: clamp(64px, 15.6vw, 280px); }
 .hero__name span { display: block; overflow: hidden; padding-bottom: .06em; }
@@ -83,7 +20,6 @@ img { display: block; max-width: 100%; }
 .hero__name span:nth-child(2) i { animation-delay: .08s; }
 .hero__name span:nth-child(3) i { animation-delay: .16s; }
 .hero__name .dot { color: var(--hot); }
-@keyframes up { to { transform: none; } }
 .hero__meta { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 14px; margin-top: 28px; }
 .hero__meta::before { content: ""; position: absolute; inset: 0 0 auto; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; animation: grow 1.2s var(--ease) .4s forwards; }
 @keyframes grow { to { transform: none; } }
@@ -93,128 +29,59 @@ img { display: block; max-width: 100%; }
 .hero__meta .mono { color: var(--mute); }
 @media (max-width: 760px) { .hero__meta { grid-template-columns: 1fr 1fr; row-gap: 22px; } }
 
-/* ---------- Secciones ---------- */
-.sec { padding: clamp(96px, 12vw, 150px) var(--pad) 0; }
-.head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; border-bottom: 1px solid var(--ink); padding-bottom: 12px; margin-bottom: 8px; }
-.head h2 { font-size: clamp(34px, 5vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1.02; overflow: hidden; }
-.head h2 span { display: inline-block; transform: translateY(105%); transition: transform 1s var(--ease); }
-.head.in h2 span { transform: none; }
-.head .mono { color: var(--mute); }
-
-/* ---------- Premio ---------- */
+/* Premio */
 .award { margin: 32px calc(var(--pad) * -1) 0; padding: clamp(48px, 7vw, 100px) var(--pad); background: var(--ink); color: var(--bg); display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
 .award .mono { color: #8f8a80; display: block; margin-bottom: 18px; }
 .award h3 { font-size: clamp(40px, 6.4vw, 108px); font-weight: 900; letter-spacing: -.05em; line-height: .9; }
 .award h3 em { font-style: normal; color: var(--hot); }
 .award p { font-size: clamp(16px, 1.4vw, 19px); line-height: 1.5; color: #cfcac0; max-width: 42ch; }
-.award .btn { margin-top: 26px; background: var(--bg); color: var(--ink); }
+.award__acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 @media (max-width: 860px) { .award { grid-template-columns: 1fr; gap: 24px; } }
 
-/* ---------- Proyectos ---------- */
-.work { position: relative; }
+/* Galería de proyectos */
 .work__pin { padding: clamp(96px, 12vw, 150px) 0 0; }
 .work__pin .head { margin: 0 var(--pad) 32px; }
 .track { display: flex; gap: clamp(16px, 2.2vw, 32px); padding: 0 var(--pad); }
-.card { flex: none; width: clamp(300px, 40vw, 600px); display: flex; flex-direction: column; }
+.card { flex: none; width: clamp(300px, 38vw, 580px); display: flex; flex-direction: column; }
 .card__n { display: flex; justify-content: space-between; color: var(--mute); margin: 18px 0 10px; }
 .card h3 { font-size: clamp(32px, 3.4vw, 52px); font-weight: 900; letter-spacing: -.045em; line-height: .95; }
 .card p { margin-top: 12px; font-size: 16px; line-height: 1.5; color: #3b3935; max-width: 46ch; }
 .card__acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
-.live { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px; background: #e6e2da; box-shadow: 0 0 0 1px var(--line); }
-.live iframe { position: absolute; top: 0; left: 0; width: 1440px; height: 900px; border: 0; transform-origin: 0 0; pointer-events: none; opacity: 0; transition: opacity .7s; }
-.live iframe.on { opacity: 1; }
-.live.wait { background: linear-gradient(100deg, #e6e2da 30%, #efece5 50%, #e6e2da 70%) 0 0 / 300% 100%; animation: skel 1.4s linear infinite; }
-@keyframes skel { to { background-position: -150% 0; } }
-.live__shot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.card .live { transition: transform .6s var(--ease); }
-.card .live::after { content: ""; position: absolute; inset: 0; background: var(--ink); opacity: 0; transition: opacity .4s; }
-@media (hover: hover) { .card:hover .live::after { opacity: .06; } }
-.card--soon { justify-content: flex-start; }
+.card .live { transform: scale(var(--z, 1)); transition: transform .8s var(--ease); }
 .card--soon .live { display: grid; place-items: center; background: repeating-linear-gradient(-45deg, #ebe7df 0 12px, #e4e0d7 12px 24px); }
 .card--soon .live span { filter: blur(8px); font-weight: 900; font-size: clamp(30px, 3.4vw, 52px); letter-spacing: -.045em; }
+.card--all { justify-content: center; }
+.card--all a { display: flex; flex-direction: column; justify-content: space-between; aspect-ratio: 16 / 10; padding: 24px; border-radius: 8px; background: var(--ink); color: var(--bg); }
+.card--all b { font-size: clamp(30px, 3vw, 46px); font-weight: 900; letter-spacing: -.045em; line-height: .95; }
+.card--all .arrow { align-self: flex-end; font-size: 40px; color: var(--hot); transition: transform .5s var(--ease); }
+@media (hover: hover) { .card--all a:hover .arrow { transform: translateX(8px); } }
 .work__foot { display: flex; align-items: center; gap: 18px; margin: 32px var(--pad) 0; color: var(--mute); }
-.work__bar { flex: 1; height: 1px; background: var(--line); position: relative; }
+.work__bar { flex: 1; height: 2px; background: var(--line); position: relative; border-radius: 2px; overflow: hidden; }
 .work__bar i { position: absolute; inset: 0; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
-.work.pinned .work__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 40px; overflow: hidden; }
+.work__nav { display: none; gap: 8px; }
+.work__nav button { width: 44px; height: 44px; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink); font-size: 18px; transition: background .3s, color .3s, opacity .3s; }
+.work__nav button:hover { background: var(--ink); color: var(--bg); }
+.work__nav button:disabled { opacity: .3; pointer-events: none; }
+.work.pinned .work__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 50px; overflow: hidden; }
 .work.pinned .track { width: max-content; }
-.work__hint { display: none; }
 @media (max-width: 860px) {
   .track { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); scrollbar-width: none; overscroll-behavior-x: contain; }
   .track::-webkit-scrollbar { display: none; }
   .card { width: 84vw; scroll-snap-align: start; }
-  .work__hint { display: inline; }
+  .work__nav { display: flex; }
 }
 
-/* ---------- Ficha de proyecto ---------- */
-.sheet { position: fixed; inset: 0; z-index: 70; visibility: hidden; transition: visibility 0s .7s; }
-.sheet.open { visibility: visible; transition: none; }
-.sheet__bg { position: absolute; inset: 0; background: rgba(14,14,14,.45); opacity: 0; transition: opacity .5s; }
-.sheet.open .sheet__bg { opacity: 1; }
-.sheet__panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(880px, 100%); background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
-  transform: translateX(100%); transition: transform .7s var(--ease); padding: 22px clamp(20px, 4vw, 48px) 48px; }
-.sheet.open .sheet__panel { transform: none; }
-.sheet__top { position: sticky; top: -22px; z-index: 2; display: flex; justify-content: space-between; align-items: center; margin: -22px calc(clamp(20px, 4vw, 48px) * -1) 0; padding: 16px clamp(20px, 4vw, 48px); background: var(--bg); border-bottom: 1px solid var(--line); }
-.sheet__close { display: flex; align-items: center; gap: 10px; height: 40px; }
-.sheet__close i { position: relative; width: 16px; height: 16px; }
-.sheet__close i::before, .sheet__close i::after { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 2px; background: currentColor; transform: rotate(45deg); transition: transform .4s var(--ease); }
-.sheet__close i::after { transform: rotate(-45deg); }
-.sheet__close:hover i::before { transform: rotate(135deg); } .sheet__close:hover i::after { transform: rotate(45deg); }
-.sheet__body > * { opacity: 0; transform: translateY(16px); transition: opacity .6s, transform .7s var(--ease); }
-.sheet.open .sheet__body > * { opacity: 1; transform: none; transition-delay: calc(.25s + var(--i, 0) * .06s); }
-.sheet__body .live { margin-top: 28px; }
-.sheet h3 { margin-top: 34px; font-size: clamp(44px, 7vw, 92px); font-weight: 900; letter-spacing: -.05em; line-height: .9; }
-.sheet__lead { margin-top: 18px; font-size: clamp(18px, 1.8vw, 22px); line-height: 1.45; max-width: 52ch; }
-.sheet__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; padding: 16px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
-.sheet__facts div { display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.35; }
-.sheet__facts .mono { color: var(--mute); }
-.sheet__feat { margin-top: 32px; }
-.sheet__feat li { display: grid; grid-template-columns: 2.4em 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.45; }
-.sheet__feat li .mono { color: var(--mute); padding-top: 3px; }
-.sheet__feat b { font-weight: 600; }
-.sheet__acts { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 32px; }
-.sheet__next { display: inline-flex; align-items: center; gap: 10px; height: 44px; font-weight: 500; }
-.sheet__next span { transition: transform .4s var(--ease); }
-.sheet__next:hover span { transform: translateX(5px); }
-@media (max-width: 640px) { .sheet__facts { grid-template-columns: 1fr 1fr; } }
+/* Trayectoria: accesos a cada página */
+.paths li { border-bottom: 1px solid var(--line); }
+.path { display: grid; grid-template-columns: 3.2em minmax(0, 1fr) minmax(0, 1.3fr) 32px; gap: 24px; align-items: center; padding: 30px 0; transition: padding .45s var(--ease); }
+.path .mono { color: var(--mute); }
+.path b { font-size: clamp(30px, 4.4vw, 64px); font-weight: 900; letter-spacing: -.05em; line-height: .95; }
+.path p { color: var(--mute); font-size: 16px; line-height: 1.45; }
+.path .arrow { font-size: 26px; justify-self: end; transition: transform .45s var(--ease), color .3s; }
+@media (hover: hover) { .path:hover { padding-left: 14px; } .path:hover .arrow { transform: translateX(6px); color: var(--hot); } }
+@media (max-width: 760px) { .path { grid-template-columns: 2.6em minmax(0, 1fr) 24px; row-gap: 8px; } .path p { grid-column: 2; grid-row: 2; } .path .arrow { grid-column: 3; grid-row: 1; } }
 
-/* ---------- Listas ---------- */
-.list > li { border-bottom: 1px solid var(--line); }
-.row { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto 16px; align-items: center; column-gap: 24px; padding: var(--row) 0; text-align: left; transition: padding .4s var(--ease); }
-.row__main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); column-gap: 24px; align-items: baseline; }
-.row b { font-size: clamp(18px, 1.7vw, 23px); font-weight: 600; letter-spacing: -.02em; line-height: 1.25; }
-.row__sub { color: var(--mute); font-size: 15px; line-height: 1.4; }
-.row__date { text-align: right; white-space: nowrap; }
-.row__ico { width: 16px; height: 16px; position: relative; color: var(--mute); }
-.row__ico.pm::before, .row__ico.pm::after { content: ""; position: absolute; left: 2px; right: 2px; top: 7px; height: 1.5px; background: currentColor; transition: transform .45s var(--ease); }
-.row__ico.pm::after { transform: rotate(90deg); }
-.row__ico.ext::before { content: "↗"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 15px; line-height: 1; transition: transform .35s var(--ease); }
-@media (hover: hover) {
-  .row:hover { padding-left: 12px; }
-  .row:hover .row__ico { color: var(--ink); }
-  a.row:hover .row__ico.ext::before { transform: translate(2px, -2px); }
-}
-.open > .row { padding-left: 12px; }
-.open > .row .row__ico { color: var(--hot); }
-.open > .row .row__ico.pm::after { transform: rotate(0); }
-.x { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .55s var(--ease); }
-.open > .x { grid-template-rows: 1fr; }
-.x > div { overflow: hidden; }
-.x__in { padding: 0 0 26px 12px; max-width: 70ch; opacity: 0; transform: translateY(-6px); transition: opacity .35s, transform .5s var(--ease); }
-.open .x__in { opacity: 1; transform: none; transition-delay: .1s; }
-.x__in p { font-size: 16px; line-height: 1.55; }
-.facts { display: flex; flex-wrap: wrap; gap: 14px 40px; margin-top: 16px; font-size: 14px; }
-.facts div { display: flex; flex-direction: column; gap: 4px; }
-.facts .mono { color: var(--mute); font-size: 11px; }
-.sub { margin-top: 20px; padding-left: 14px; border-left: 2px solid var(--hot); }
-.sub .mono { color: var(--mute); font-size: 11px; }
-.sub b { display: block; margin: 4px 0 6px; font-size: 17px; font-weight: 600; }
-.sub p { font-size: 15px; }
-.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(24px, 4vw, 64px); }
-.cols .row__main, .sec--certs .row__main { grid-template-columns: 1fr; row-gap: 4px; }
-@media (max-width: 860px) { .cols { grid-template-columns: 1fr; } .cols > div + div { margin-top: clamp(96px, 12vw, 150px); } }
-@media (max-width: 760px) { .row__main { grid-template-columns: 1fr; row-gap: 4px; } .row { column-gap: 16px; } }
-
-/* ---------- Contacto ---------- */
+/* Contacto */
 .end { padding: clamp(120px, 14vw, 180px) var(--pad) 28px; }
 .end > .mono { color: var(--mute); }
 .end__mail { display: block; margin-top: 16px; font-size: clamp(36px, 8.6vw, 156px); font-weight: 900; letter-spacing: -.055em; line-height: .95; overflow-wrap: anywhere; }
@@ -222,50 +89,13 @@ img { display: block; max-width: 100%; }
 @media (hover: hover) { .end__mail:hover .c { color: var(--hot); transform: translateY(-.06em); transition-delay: calc(var(--i) * 12ms); } }
 .end__acts { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
 .end__foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-top: 90px; border-top: 1px solid var(--ink); padding-top: 14px; }
-.end__foot nav { display: flex; gap: 22px; }
+.end__foot nav { display: flex; flex-wrap: wrap; gap: 22px; }
 .end__foot a:hover { color: var(--hot); }
-
-/* Entrada */
-.js [data-in] { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-.js [data-in].in { opacity: 1; transform: none; }
-.js .head[data-in] { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
-  .hero__name i, .js [data-in], .head h2 span, .hero__meta div, .menu__list a, .sheet__body > * { transform: none !important; opacity: 1 !important; }
-  .hero__meta::before { transform: none; }
-}
+@media (prefers-reduced-motion: reduce) { .hero__name i, .hero__meta div { transform: none !important; opacity: 1 !important; } .hero__meta::before { transform: none; } }
 </style>
 <script>document.documentElement.classList.add("js");</script>
 </head>
-<body>
-<div class="prog" aria-hidden="true"></div>
-
-<header class="top mono">
-  <a class="top__logo" href="#" aria-label="Inicio">MGS</a>
-  <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
-    <span class="burger__word"><span>Menú</span><span>Cerrar</span></span>
-    <span class="burger__lines" aria-hidden="true"><i></i><i></i></span>
-  </button>
-</header>
-
-<div class="menu" id="menu" aria-hidden="true">
-  <ul class="menu__list">
-    <li><a href="#inicio" style="--i:0"><span class="n">00</span><span class="w">Inicio</span></a></li>
-    <li><a href="#premio" style="--i:1"><span class="n">01</span><span class="w">Premio</span></a></li>
-    <li><a href="#proyectos" style="--i:2"><span class="n">02</span><span class="w">Proyectos</span></a></li>
-    <li><a href="#trayectoria" style="--i:3"><span class="n">03</span><span class="w">Trayectoria</span></a></li>
-    <li><a href="#contacto" style="--i:4"><span class="n">04</span><span class="w">Contacto</span></a></li>
-  </ul>
-  <div class="menu__foot mono">
-    <a href="mailto:contacto@mateogsilvaa.es">contacto@mateogsilvaa.es</a>
-    <nav>
-      <a href="https://www.linkedin.com/in/mateo-gonz%C3%A1lez-silva-58b61641b" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram ↗</a>
-    </nav>
-  </div>
-</div>
-
+<body data-page="inicio">
 <main>
 <section class="hero" id="inicio">
   <h1 class="hero__name"><span><i>Mateo</i></span><span><i>González</i></span><span><i>Silva<b class="dot">.</b></i></span></h1>
@@ -285,109 +115,38 @@ img { display: block; max-width: 100%; }
       <h3>San Esteban Tech Challenge <em>2026</em></h3>
     </div>
     <div>
-      <p>Aire Claro: cinco estaciones con sensores, avisos vecinales y una web pública para vigilar que la futura planta de biometano de San Esteban de Gormaz cumple lo prometido. Premio: full congress pass para el Smart City Expo 2026 de Barcelona.</p>
-      <a class="btn" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Probar demo ↗">Probar demo ↗</span></a>
+      <p>Aire Claro: cinco estaciones con sensores, avisos vecinales y una web pública para vigilar que la futura planta de biometano de San Esteban de Gormaz cumple lo prometido.</p>
+      <div class="award__acts">
+        <a class="btn btn--light" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Probar demo ↗">Probar demo ↗</span></a>
+        <a class="btn btn--line" href="/opcion1/premio/"><span class="t" data-t="Ver el proyecto →">Ver el proyecto →</span></a>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="work" id="proyectos">
   <div class="work__pin">
-    <div class="head" data-in><h2>Proyectos</h2><span class="mono">02</span></div>
+    <div class="head" data-in><h2>Proyectos</h2><a class="more-link mono" href="/opcion1/proyectos/">Todos los detalles <span>→</span></a></div>
     <div class="track"></div>
-    <div class="work__foot mono"><span class="work__count">01 / 05</span><span class="work__bar"><i></i></span><span class="work__hint">Desliza</span></div>
+    <div class="work__foot mono">
+      <span class="work__count">01 / 06</span><span class="work__bar"><i></i></span>
+      <span class="work__nav"><button type="button" data-dir="-1" aria-label="Anterior">←</button><button type="button" data-dir="1" aria-label="Siguiente">→</button></span>
+    </div>
   </div>
 </section>
 
 <section class="sec" id="trayectoria">
-  <div class="head" data-in><h2>Experiencia</h2><span class="mono">03</span></div>
-  <ul class="list" data-in>
-    <li class="more">
-      <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>RFEA · Talento IA</b><span class="row__sub">Beca en IA y analítica de rendimiento</span></span><span class="row__date mono">2026 — 27</span><span class="row__ico pm" aria-hidden="true"></span></button>
-      <div class="x"><div><div class="x__in">
-        <p>Seleccionado por la Real Federación Española de Atletismo para su programa de talento en inteligencia artificial: un itinerario de formación en IA y analítica aplicada al alto rendimiento, con mentoría de la Dirección Deportiva.</p>
-        <div class="facts"><div><span class="mono">Organización</span>Real Federación Española de Atletismo</div><div><span class="mono">Área</span>Dirección Deportiva</div><div><span class="mono">Foco</span>IA, datos y rendimiento</div></div>
-      </div></div></div>
-    </li>
-    <li class="more">
-      <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>Lanedata</b><span class="row__sub">Fundador</span></span><span class="row__date mono">2026 — hoy</span><span class="row__ico pm" aria-hidden="true"></span></button>
-      <div class="x"><div><div class="x__in">
-        <p>Medio de datos sobre el atletismo español. Lo diseño, lo programo y publico en él: análisis, estadísticas, fichajes y calculadoras, con un panel de edición propio.</p>
-        <div class="facts"><div><span class="mono">Stack</span>Next.js, TypeScript, Supabase</div><div><span class="mono">Web</span>lanedata.es</div></div>
-      </div></div></div>
-    </li>
-    <li class="more">
-      <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>Mundo Atletismo</b><span class="row__sub">Cofundador</span></span><span class="row__date mono">2026 — hoy</span><span class="row__ico pm" aria-hidden="true"></span></button>
-      <div class="x"><div><div class="x__in">
-        <p>La plataforma que reúne el atletismo español: rankings, campeonatos, récords, predictor de marcas y resultados en directo.</p>
-        <div class="facts"><div><span class="mono">Stack</span>React, TypeScript, Firebase</div><div><span class="mono">Web</span>mundoatletismo.es</div></div>
-      </div></div></div>
-    </li>
-    <li class="more">
-      <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>UFV Racing Team</b><span class="row__sub">Electrical · simulación del coche</span></span><span class="row__date mono">2025 — 26</span><span class="row__ico pm" aria-hidden="true"></span></button>
-      <div class="x"><div><div class="x__in">
-        <p>Equipo de Formula Student de la universidad. En el departamento eléctrico, modelado y simulación del comportamiento del coche.</p>
-        <div class="facts"><div><span class="mono">Herramientas</span>MATLAB, Simulink</div><div><span class="mono">Departamento</span>Electrical</div></div>
-      </div></div></div>
-    </li>
-  </ul>
-</section>
-
-<section class="sec">
-  <div class="cols">
-    <div>
-      <div class="head" data-in><h2>Educación</h2><span class="mono">04</span></div>
-      <ul class="list" data-in>
-        <li class="more">
-          <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>Ing. Informática + IA</b><span class="row__sub">Universidad Francisco de Vitoria</span></span><span class="row__date mono">2025 — 29</span><span class="row__ico pm" aria-hidden="true"></span></button>
-          <div class="x"><div><div class="x__in">
-            <p>Grado en Ingeniería Informática con mención en Inteligencia Artificial aplicada a la Robótica. Delegado de clase.</p>
-          </div></div></div>
-        </li>
-        <li class="more">
-          <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>IES Cervantes</b><span class="row__sub">Bachillerato · consejero escolar</span></span><span class="row__date mono">— 2025</span><span class="row__ico pm" aria-hidden="true"></span></button>
-          <div class="x"><div><div class="x__in">
-            <p>Cuatro años en el consejo escolar del instituto, además de delegado, subdelegado y otros cargos de representación de los alumnos.</p>
-            <div class="sub"><span class="mono">Nov 2021 — mar 2022</span><b>Global Classrooms</b><p>Modelo de Naciones Unidas: defensa de una propuesta social a favor de los derechos de la tercera edad. Representé a Etiopía en las fases previas y a Japón en las rondas clasificatorias para la conferencia final de Madrid.</p></div>
-          </div></div></div>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <div class="head" data-in><h2>Voluntariado</h2><span class="mono">05</span></div>
-      <ul class="list" data-in>
-        <li class="more">
-          <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>Hospitales</b><span class="row__sub">Fundación Talento MCR</span></span><span class="row__date mono">En activo</span><span class="row__ico pm" aria-hidden="true"></span></button>
-          <div class="x"><div><div class="x__in">
-            <p>Acompañamiento a niños hospitalizados en el Hospital 12 de Octubre y en el Hospital Niño Jesús de Madrid.</p>
-          </div></div></div>
-        </li>
-        <li class="more">
-          <button class="row" type="button" aria-expanded="false"><span class="row__main"><b>Nepal</b><span class="row__sub">AIPC Pandora</span></span><span class="row__date mono">2024</span><span class="row__ico pm" aria-hidden="true"></span></button>
-          <div class="x"><div><div class="x__in">
-            <p>Tres semanas de inmersión cultural y voluntariado internacional en julio de 2024, colaborando en proyectos para mejorar las condiciones de vida de la comunidad local.</p>
-            <div class="facts"><div><span class="mono">Formación</span>16 h</div><div><span class="mono">En terreno</span>90 h</div></div>
-          </div></div></div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--certs">
-  <div class="head" data-in><h2>Certificaciones</h2><span class="mono">06</span></div>
-  <ul class="list" data-in>
-    <li><a class="row" href="https://verify.skilljar.com/c/kc8jkt6z6q8p" target="_blank" rel="noopener"><span class="row__main"><b>AI Fluency for Builders</b><span class="row__sub">Anthropic</span></span><span class="row__date mono">ago 2026</span><span class="row__ico ext" aria-hidden="true"></span></a></li>
-    <li><a class="row" href="https://verify.skilljar.com/c/ouxpxxc5cizk" target="_blank" rel="noopener"><span class="row__main"><b>Claude Code in Action</b><span class="row__sub">Anthropic</span></span><span class="row__date mono">jul 2026</span><span class="row__ico ext" aria-hidden="true"></span></a></li>
-    <li><a class="row" href="https://www.credly.com/badges/bda7e3f6-6856-43c2-969a-1dfa01e10cef/public_url" target="_blank" rel="noopener"><span class="row__main"><b>Introduction to Cybersecurity</b><span class="row__sub">Cisco Networking Academy</span></span><span class="row__date mono">jul 2026</span><span class="row__ico ext" aria-hidden="true"></span></a></li>
-    <li><a class="row" href="https://matlabacademy.mathworks.com/progress/share/certificate.html?id=92a523d9-a372-415a-a16c-7b5f9e9a3774&amp;" target="_blank" rel="noopener"><span class="row__main"><b>MATLAB Onramp</b><span class="row__sub">MathWorks</span></span><span class="row__date mono">sept 2025</span><span class="row__ico ext" aria-hidden="true"></span></a></li>
-    <li><div class="row"><span class="row__main"><b>B2 First · 176</b><span class="row__sub">Cambridge English</span></span><span class="row__date mono">jun 2023</span><span class="row__ico" aria-hidden="true"></span></div></li>
+  <div class="head" data-in><h2>Trayectoria</h2><span class="mono">03</span></div>
+  <ul class="paths" data-in>
+    <li><a class="path" href="/opcion1/experiencia/"><span class="mono">03.1</span><b>Experiencia</b><p>Beca RFEA Talento IA, Lanedata, Mundo Atletismo y UFV Racing Team.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="path" href="/opcion1/educacion/"><span class="mono">03.2</span><b>Educación</b><p>Ingeniería en la UFV, el IES Cervantes, Global Classrooms y certificaciones.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="path" href="/opcion1/voluntariado/"><span class="mono">03.3</span><b>Voluntariado</b><p>Acompañamiento a niños hospitalizados y tres semanas en Nepal.</p><span class="arrow" aria-hidden="true">→</span></a></li>
   </ul>
 </section>
 </main>
 
 <footer class="end" id="contacto">
-  <span class="mono">07 — Hablemos</span>
+  <span class="mono">04 — Hablemos</span>
   <a class="end__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<br>mateogsilvaa.es</a>
   <div class="end__acts">
     <a class="btn btn--hot" href="mailto:contacto@mateogsilvaa.es"><span class="t" data-t="Escríbeme">Escríbeme</span></a>
@@ -403,154 +162,76 @@ img { display: block; max-width: 100%; }
   </div>
 </footer>
 
-<div class="sheet" aria-hidden="true">
-  <div class="sheet__bg"></div>
-  <article class="sheet__panel" role="dialog" aria-modal="true" aria-label="Proyecto">
-    <div class="sheet__top mono"><span class="sheet__n"></span><button class="sheet__close mono" type="button">Cerrar <i aria-hidden="true"></i></button></div>
-    <div class="sheet__body"></div>
-  </article>
-</div>
-
 <script>
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-// ===== Proyectos =====
+// Tarjetas de proyectos
 const P = [
-  { id: "ma", name: "Mundo Atletismo", role: "Cofundador", year: "2026", url: "https://mundoatletismo.es",
-    short: "Todo el atletismo español en un solo sitio: rankings, campeonatos, récords y resultados en directo.",
-    lead: "La plataforma que reúne el atletismo español en un solo sitio, pensada para atletas, entrenadores y aficionados que antes tenían que buscar en diez webs distintas.",
-    stack: "React, TypeScript, Vite, Firebase",
-    feat: [["Rankings top-200", "de cada prueba, actualizados."], ["Campeonato de España", "con inscritos, horarios y resultados."], ["Récords", "nacionales por categoría."], ["Predictor de marcas", "que estima tu tiempo en otras distancias."], ["Resultados en directo", "durante las competiciones."]] },
-  { id: "ld", name: "Lanedata", role: "Fundador", year: "2026", url: "https://lanedata.es",
-    short: "El atletismo español contado con datos: análisis, estadísticas, fichajes y calculadoras.",
-    lead: "Un medio que cuenta el atletismo español con datos. Lo diseño, lo programo y escribo en él, con un panel propio para publicar.",
-    stack: "Next.js, TypeScript, Supabase",
-    feat: [["Análisis", "de competiciones y temporadas a partir de los resultados."], ["Estadísticas", "y archivo histórico de atletas y pruebas."], ["Fichajes", "entre clubes, temporada a temporada."], ["Calculadoras", "de ritmos, puntos y marcas."], ["Panel de edición", "propio para escribir y publicar."]] },
-  { id: "bf", name: "Bicifastness", role: "Creador", year: "2026", url: "https://bicifastness.es", shot: "../assets/bicifastness.jpg",
-    short: "Movilidad urbana en bici convertida en juego: cada trayecto en BiciMAD suma puntos.",
-    lead: "Promueve la movilidad urbana en bici gamificando la experiencia. Haces tu trayecto de siempre en BiciMAD, subes la captura y compites. Madrid es el circuito.",
-    stack: "Madrid · BiciMAD",
-    feat: [["Tres rankings", "Sprint por velocidad, Fondo por distancia y Constancia por días seguidos."], ["Grupos de 30", "que se reordenan cada lunes."], ["Temporadas", "mensuales, con todo a cero al empezar."], ["Clanes", "que conquistan estaciones por la ciudad."]] },
-  { id: "tf", name: "Tripfinder", role: "Creador", year: "2026", url: "https://tripfinder.es",
-    short: "Un buscador automático de chollos de vuelo que avisa por correo.",
-    lead: "Un buscador de chollos de vuelo que trabaja solo: rastrea precios, los compara con su histórico y te avisa cuando aparece uno que de verdad merece la pena.",
-    stack: "Python, JavaScript, Firebase, GitHub Actions",
-    feat: [["Rastreo cada 12 horas", "automatizado con GitHub Actions."], ["Puntuación", "de cada precio contra su histórico."], ["Avisos por correo", "solo cuando hay un chollo real."], ["Probado", "con pytest y Playwright."]] },
+  ["mundo-atletismo", "Mundo Atletismo", "Cofundador", "https://mundoatletismo.es", "Todo el atletismo español en una web: más de seis millones de marcas, rankings, campeonatos y atletas."],
+  ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "El atletismo español contado con datos: análisis largos, archivo y buscador."],
+  ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Movilidad urbana en bici convertida en juego: cada trayecto en BiciMAD suma puntos.", "/assets/bicifastness.jpg"],
+  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Escapadas de finde desde Madrid por debajo de lo que suelen costar, con avisos."],
 ];
 const track = document.querySelector(".track");
-track.innerHTML = P.map((p, i) => `
-  <article class="card" data-in>
-    <a class="live" href="${p.url}" target="_blank" rel="noopener" data-src="${p.url}" aria-label="Abrir ${p.name}">${p.shot ? `<img class="live__shot" src="${p.shot}" alt="">` : ""}</a>
-    <div class="card__n mono"><span>${String(i + 1).padStart(2, "0")} · ${p.role}</span><span>${p.year}</span></div>
-    <h3>${p.name}</h3>
-    <p>${p.short}</p>
+track.innerHTML = P.map(([id, name, role, url, txt, shot], i) => `
+  <article class="card">
+    <a class="live" href="/opcion1/proyectos/#${id}" data-src="${url}" aria-label="Ver ${name}">${shot ? `<img class="live__shot" src="${shot}" alt="">` : ""}</a>
+    <div class="card__n mono"><span>${String(i + 1).padStart(2, "0")} · ${role}</span><span>2026</span></div>
+    <h3>${name}</h3>
+    <p>${txt}</p>
     <div class="card__acts">
-      <button class="btn" type="button" data-open="${i}"><span class="t" data-t="Ver más →">Ver más →</span></button>
-      <a class="btn btn--line" href="${p.url}" target="_blank" rel="noopener"><span class="t" data-t="Visitar ↗">Visitar ↗</span></a>
+      <a class="btn" href="/opcion1/proyectos/#${id}"><span class="t" data-t="Ver más →">Ver más →</span></a>
+      <a class="btn btn--line" href="${url}" target="_blank" rel="noopener"><span class="t" data-t="Visitar ↗">Visitar ↗</span></a>
     </div>
   </article>`).join("") + `
-  <article class="card card--soon" data-in>
+  <article class="card card--soon">
     <div class="live"><span aria-hidden="true">Proyecto nuevo</span></div>
     <div class="card__n mono"><span>05 · Muy pronto</span><span>2026</span></div>
     <h3>Algo nuevo</h3>
     <p>Estoy construyendo el siguiente. Pronto, aquí.</p>
+  </article>
+  <article class="card card--all">
+    <a href="/opcion1/proyectos/"><span class="mono">06 · Todos</span><b>Cada proyecto, explicado a fondo</b><span class="arrow" aria-hidden="true">→</span></a>
   </article>`;
 
-// Webs en vivo: se cargan al acercarse, a tamaño escritorio y encogidas
-const fit = (box) => { const f = box.querySelector("iframe"); if (f) f.style.transform = `scale(${box.clientWidth / 1440})`; };
-const mount = (box) => {
-  if (box.querySelector("iframe")) return;
-  box.classList.add("wait");
-  const f = document.createElement("iframe");
-  f.src = box.dataset.src; f.tabIndex = -1; f.setAttribute("aria-hidden", "true"); f.loading = "lazy";
-  const done = () => { f.classList.add("on"); box.classList.remove("wait"); };
-  f.addEventListener("load", done); setTimeout(done, 6000);
-  box.prepend(f); fit(box); new ResizeObserver(() => fit(box)).observe(box);
-};
-const lazy = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { mount(e.target); lazy.unobserve(e.target); } }), { rootMargin: "300px 600px" });
-document.querySelectorAll(".card .live[data-src]").forEach((el) => lazy.observe(el));
-
-// Ficha de cada proyecto
-const sheet = document.querySelector(".sheet"), body = sheet.querySelector(".sheet__body");
-let lastFocus = null;
-const openSheet = (i) => {
-  const p = P[i], next = P[(i + 1) % P.length];
-  sheet.querySelector(".sheet__n").textContent = `${String(i + 1).padStart(2, "0")} / ${String(P.length).padStart(2, "0")} · ${p.role} · ${p.year}`;
-  body.innerHTML = `
-    <a class="live" style="--i:0" href="${p.url}" target="_blank" rel="noopener" data-src="${p.url}" aria-label="Abrir ${p.name}">${p.shot ? `<img class="live__shot" src="${p.shot}" alt="">` : ""}</a>
-    <h3 style="--i:1">${p.name}</h3>
-    <p class="sheet__lead" style="--i:2">${p.lead}</p>
-    <div class="sheet__facts" style="--i:3"><div><span class="mono">Rol</span>${p.role}</div><div><span class="mono">Año</span>${p.year}</div><div><span class="mono">${p.id === "bf" ? "Dónde" : "Stack"}</span>${p.stack}</div></div>
-    <ul class="sheet__feat" style="--i:4">${p.feat.map((f, k) => `<li><span class="mono">${String(k + 1).padStart(2, "0")}</span><span><b>${f[0]}</b> ${f[1]}</span></li>`).join("")}</ul>
-    <div class="sheet__acts" style="--i:5"><a class="btn btn--hot" href="${p.url}" target="_blank" rel="noopener"><span class="t" data-t="Visitar ${p.url.replace("https://", "")} ↗">Visitar ${p.url.replace("https://", "")} ↗</span></a>
-      <button class="sheet__next" type="button" data-open="${(i + 1) % P.length}">Siguiente: ${next.name} <span>→</span></button></div>`;
-  sheet.querySelector(".sheet__panel").scrollTop = 0;
-  if (!sheet.classList.contains("open")) { lastFocus = document.activeElement; sheet.classList.add("open"); sheet.setAttribute("aria-hidden", "false"); document.body.classList.add("lock"); }
-  mount(body.querySelector(".live"));
-  setTimeout(() => sheet.querySelector(".sheet__close").focus({ preventScroll: true }), 50);
-};
-const closeSheet = () => { sheet.classList.remove("open"); sheet.setAttribute("aria-hidden", "true"); document.body.classList.remove("lock"); lastFocus && lastFocus.focus({ preventScroll: true }); };
-document.addEventListener("click", (e) => { const o = e.target.closest("[data-open]"); if (o) openSheet(+o.dataset.open); });
-sheet.querySelector(".sheet__close").addEventListener("click", closeSheet);
-sheet.querySelector(".sheet__bg").addEventListener("click", closeSheet);
-
-// ===== Menú =====
-const burger = document.querySelector(".burger"), menu = document.querySelector(".menu");
-const setMenu = (open) => {
-  document.documentElement.classList.toggle("menu-open", open);
-  burger.setAttribute("aria-expanded", open); menu.setAttribute("aria-hidden", !open);
-  document.body.classList.toggle("lock", open);
-};
-burger.addEventListener("click", () => setMenu(!document.documentElement.classList.contains("menu-open")));
-menu.querySelectorAll(".menu__list a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
-addEventListener("keydown", (e) => { if (e.key !== "Escape") return; if (sheet.classList.contains("open")) closeSheet(); else setMenu(false); });
-
-// ===== Filas que se despliegan =====
-document.querySelectorAll(".more > .row").forEach((b) => b.addEventListener("click", () => {
-  const li = b.parentNode, open = !li.classList.contains("open");
-  li.classList.toggle("open", open); b.setAttribute("aria-expanded", open);
-}));
-
-// ===== Entrada al hacer scroll =====
-document.querySelectorAll(".head h2").forEach((h) => h.innerHTML = `<span>${h.textContent}</span>`);
-const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
-document.querySelectorAll("[data-in]").forEach((el) => io.observe(el));
-
-// ===== Contacto =====
+// Correo: letras sueltas para la ola
 const mail = document.querySelector(".end__mail"); let ci = 0;
 mail.innerHTML = mail.innerHTML.split(/(<br>)/).map((p) => p === "<br>" ? p : [...p].map((c) => `<span class="c" style="--i:${ci++}">${c}</span>`).join("")).join("");
-document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
-  const t = b.querySelector(".t");
-  try { await navigator.clipboard.writeText(b.dataset.copy); t.textContent = "¡Copiado!"; } catch { location.href = "mailto:" + b.dataset.copy; }
-  setTimeout(() => t.textContent = "Copiar correo", 1800);
-}));
-
-// ===== Scroll: progreso, galería de proyectos y sección actual =====
+</script>
+<script src="/opcion1/site.js"></script>
+<script>
+// Galería: en ordenador avanza con la rueda (suavizado), en móvil se desliza con el dedo
 const work = document.querySelector(".work"), bar = document.querySelector(".work__bar i"), count = document.querySelector(".work__count");
-const cards = track.children.length, prog = document.querySelector(".prog");
-const menuLinks = [...menu.querySelectorAll(".menu__list a")], targets = menuLinks.map((a) => document.querySelector(a.getAttribute("href")));
-let pinned = false, dist = 0, ticking = false;
-const workProg = (k) => { bar.style.transform = `scaleX(${k})`; count.textContent = String(Math.min(cards, 1 + Math.round(k * (cards - 1)))).padStart(2, "0") + " / " + String(cards).padStart(2, "0"); };
-const layout = () => {
-  pinned = innerWidth > 860 && !reduce;
-  work.classList.toggle("pinned", pinned);
-  if (pinned) { dist = Math.max(0, track.scrollWidth - innerWidth); work.style.height = innerHeight + dist + "px"; }
-  else { work.style.height = ""; track.style.transform = ""; }
-  frame();
+const cards = [...track.children], nav = document.querySelectorAll(".work__nav button");
+let pinned = false, dist = 0, x = 0, target = 0, raf = 0;
+const show = (k) => {
+  bar.style.transform = `scaleX(${Math.max(0.02, k)})`;
+  const n = Math.min(cards.length, 1 + Math.round(k * (cards.length - 1)));
+  count.textContent = String(n).padStart(2, "0") + " / " + String(cards.length).padStart(2, "0");
+  nav[0].disabled = k < .01; nav[1].disabled = k > .99;
 };
-track.addEventListener("scroll", () => { if (!pinned) workProg(track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth)); }, { passive: true });
-function frame() {
-  ticking = false;
-  const H = innerHeight, max = document.documentElement.scrollHeight - H;
-  prog.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
-  if (pinned) { const k = Math.min(1, Math.max(0, -work.getBoundingClientRect().top / Math.max(1, dist))); track.style.transform = `translate3d(${-k * dist}px,0,0)`; workProg(k); }
-  let cur = 0; targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top < H * .45) cur = i; });
-  menuLinks.forEach((a, i) => a.classList.toggle("on", i === cur));
-}
-addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
-addEventListener("resize", layout);
-addEventListener("load", layout);
-layout(); workProg(0);
+const loop = () => {
+  x += (target - x) * .12;
+  if (Math.abs(target - x) < .3) x = target;
+  track.style.transform = `translate3d(${-x}px,0,0)`;
+  show(dist ? x / dist : 0);
+  raf = x !== target ? requestAnimationFrame(loop) : 0;
+};
+const onScroll = () => {
+  if (!pinned) return;
+  target = Math.min(1, Math.max(0, -work.getBoundingClientRect().top / Math.max(1, dist))) * dist;
+  if (MGS.reduce) { x = target; track.style.transform = `translate3d(${-x}px,0,0)`; show(x / dist); return; }
+  if (!raf) raf = requestAnimationFrame(loop);
+};
+const layout = () => {
+  pinned = innerWidth > 860;
+  work.classList.toggle("pinned", pinned);
+  if (pinned) { dist = Math.max(0, track.scrollWidth - innerWidth); work.style.height = innerHeight + dist + "px"; onScroll(); }
+  else { work.style.height = ""; track.style.transform = ""; show(0); }
+};
+track.addEventListener("scroll", () => { if (!pinned) show(track.scrollLeft / Math.max(1, track.scrollWidth - track.clientWidth)); }, { passive: true });
+nav.forEach((b) => b.addEventListener("click", () => track.scrollBy({ left: +b.dataset.dir * cards[0].offsetWidth, behavior: "smooth" })));
+addEventListener("scroll", onScroll, { passive: true });
+addEventListener("resize", layout); addEventListener("load", layout);
+layout();
 </script>
 </body>
 </html>

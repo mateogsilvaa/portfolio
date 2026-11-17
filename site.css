@@ -318,3 +318,6 @@ img { display: block; max-width: 100%; }
   .foot__cols nav:first-child a { padding: 13px 0; border-bottom: 1px solid var(--line); }
   .foot__cols nav:last-child { gap: 22px; } .foot__cols nav:last-child a { padding: 8px 0; }
 }
+
+.foot__cv { display: inline-flex; margin-top: 22px; }
+.foot__cta .foot__mail { display: block; }

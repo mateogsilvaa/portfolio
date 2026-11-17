@@ -38,7 +38,7 @@
   // Pie en las páginas interiores
   if (here !== "inicio") document.body.insertAdjacentHTML("beforeend", `
     <footer class="foot">
-      <div class="foot__cta"><span class="mono">¿Hablamos?</span><a class="foot__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a></div>
+      <div class="foot__cta"><span class="mono">¿Hablamos?</span><a class="foot__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a><a class="btn btn--line foot__cv" href="/cv/CV-Mateo-Gonzalez-Silva.pdf" download><span class="t" data-t="Descargar CV ↓">Descargar CV ↓</span></a></div>
       <div class="foot__cols mono">
         <nav aria-label="Páginas">${pages.filter(([id]) => id !== here).map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
         <nav aria-label="Redes">${social}</nav>

@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mateo González Silva</title>
 <meta name="description" content="Mateo González Silva. Ingeniería Informática e IA aplicada a la Robótica en la UFV. Fundador de Lanedata y cofundador de Mundo Atletismo." />
+<meta property="og:title" content="Mateo González Silva" />
+<meta property="og:description" content="Ingeniería e IA. Fundador de Lanedata y cofundador de Mundo Atletismo." />
+<meta property="og:image" content="https://mateogsilvaa.es/assets/brand/mark-white-on-dark.png" />
+<meta name="twitter:card" content="summary" />
 <meta name="theme-color" content="#f3f1ec" />
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,6 +32,19 @@
 .hero__meta b { font-weight: 500; font-size: 15px; line-height: 1.35; }
 .hero__meta .mono { color: var(--mute); }
 @media (max-width: 760px) { .hero__meta { grid-template-columns: 1fr 1fr; row-gap: 22px; } }
+
+/* Sobre mí + ahora */
+.about { display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(28px, 5vw, 80px); margin-top: 36px; }
+.about__txt { font-size: clamp(24px, 2.9vw, 44px); font-weight: 600; letter-spacing: -.035em; line-height: 1.12; }
+.about__txt em { font-style: normal; color: var(--hot); }
+.now { border-top: 1px solid var(--line); }
+.now li { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: baseline; padding: 15px 0; border-bottom: 1px solid var(--line); font-size: 16px; }
+.now li .mono { color: var(--mute); }
+.now__t { display: flex; align-items: center; gap: 8px; color: var(--mute); margin-bottom: 12px; }
+.now__t::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #2fa84f; box-shadow: 0 0 0 4px rgba(47,168,79,.18); animation: blink 2s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .35; } }
+@media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
+.hero__name i { will-change: transform; }
 
 /* Premio */
 .award { margin: 32px calc(var(--pad) * -1) 0; padding: clamp(48px, 7vw, 100px) var(--pad); background: var(--ink); color: var(--bg); display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
@@ -103,6 +120,22 @@
   </div>
 </section>
 
+<section class="sec" id="sobre-mi">
+  <div class="head" data-in><h2>Sobre mí</h2><span class="mono">00</span></div>
+  <div class="about">
+    <p class="about__txt" data-in>Estudio ingeniería e IA en Madrid, hago atletismo y construyo <em>productos que la gente usa</em>: de una base de datos con seis millones de marcas a un juego para moverse en bici por la ciudad.</p>
+    <div data-in>
+      <div class="now__t mono">Ahora mismo</div>
+      <ul class="now">
+        <li><span>Beca RFEA Talento IA</span><span class="mono">2026 — 27</span></li>
+        <li><span>Ingeniería Informática + IA, UFV</span><span class="mono">2.º curso</span></li>
+        <li><span>Lanedata y Mundo Atletismo</span><span class="mono">En marcha</span></li>
+        <li><span>Hora en Madrid</span><span class="mono"><time class="clock"></time></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="sec" id="premio">
   <div class="head" data-in><h2>Premio</h2><span class="mono">01</span></div>
   <div class="award" data-in>
@@ -155,10 +188,10 @@
 <script>
 // Tarjetas de proyectos
 const P = [
-  ["mundo-atletismo", "Mundo Atletismo", "Cofundador", "https://mundoatletismo.es", "Todo el atletismo español en una web: rankings, campeonatos, atletas, clubes y pistas.", "", "#f1e2c8", "#1a1206", "#e2531f", [["6,1 M", "marcas"], ["242 k", "atletas"], ["3.221", "clubes"]]],
-  ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "El atletismo español contado con datos: cada análisis responde una pregunta con miles de resultados reales.", "", "#0f3a22", "#eaf5ec", "#7be38f", [["Next.js", "web"], ["Supabase", "datos"], ["2026", "desde"]]],
-  ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Movilidad urbana en bici convertida en juego: cada trayecto en BiciMAD suma puntos y conquista estaciones.", "/assets/bicifastness.jpg", "#2b45ff", "#ffffff", "#ffd400", [["685", "estaciones"], ["30", "rivales"], ["3", "modos"]]],
-  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Escapadas de finde desde Madrid por debajo de lo que suelen costar. Rastrea precios cada 12 horas y avisa.", "", "#111111", "#f3f1ec", "#2b45ff", [["12 h", "rastreo"], ["1 año", "vista"], ["0", "anuncios"]]],
+  ["mundo-atletismo", "Mundo Atletismo", "Cofundador", "https://mundoatletismo.es", "Todos los resultados del atletismo español en una web: cada marca enlazada a su atleta, su club y su pista, con rankings que se calculan solos.", "", "#f1e2c8", "#1a1206", "#e2531f", [["6,1 M", "marcas"], ["242.574", "atletas"], ["3.221", "clubes"]]],
+  ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "Periodismo de datos sobre atletismo: preguntas como «¿llegan los prodigios juveniles?» respondidas con 21 temporadas de resultados.", "", "#0f3a22", "#eaf5ec", "#7be38f", [["21", "temporadas"], ["12", "generaciones"], ["2005", "desde"]]],
+  ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Tus trayectos en BiciMAD convertidos en competición: ritmo, distancia y constancia puntúan, y los clanes conquistan estaciones.", "/assets/bicifastness.jpg", "#2b45ff", "#ffffff", "#ffd400", [["685", "estaciones"], ["30", "rivales"], ["3", "modos"]]],
+  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Vuelos de finde desde Madrid puntuados contra su propio histórico: solo aparece lo que está de verdad por debajo de lo normal.", "", "#161616", "#f3f1ec", "#2b45ff", [["12 h", "rastreo"], ["365", "días vista"], ["0", "anuncios"]]],
 ];
 const stack = document.querySelector(".stack");
 stack.innerHTML = P.map(([id, name, role, url, txt, shot, c, t, a, st], i) => `
@@ -184,6 +217,19 @@ const mail = document.querySelector(".end__mail"); let ci = 0;
 mail.innerHTML = mail.innerHTML.split(/(<br>)/).map((p) => p === "<br>" ? p : [...p].map((c) => `<span class="c" style="--i:${ci++}">${c}</span>`).join("")).join("");
 </script>
 <script src="/site.js"></script>
+<script>
+// Portada: las líneas del nombre se separan al bajar
+(() => {
+  if (MGS.reduce) return;
+  const ls = [...document.querySelectorAll(".hero__name span")]; let r = 0;
+  setTimeout(() => ls.forEach((l) => l.firstElementChild.style.animation = "none"), 1400);
+  addEventListener("scroll", () => { if (r) return; r = requestAnimationFrame(() => { r = 0;
+    const k = Math.min(1, scrollY / innerHeight);
+    if (getComputedStyle(ls[0].firstElementChild).animationName !== "none") return;
+    ls.forEach((l, i) => l.firstElementChild.style.transform = `translateX(${(i % 2 ? 1 : -1) * k * 18}vw)`);
+  }); }, { passive: true });
+})();
+</script>
 <script>
 // Cartas apiladas: la de debajo se encoge y oscurece mientras la siguiente la tapa
 (() => {

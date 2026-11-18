@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Award · Mateo González Silva</title>
+<meta name="description" content="Aire Claro, first-prize project at the San Esteban Tech Challenge 2026." />
+<meta property="og:title" content="Aire Claro · First prize at the San Esteban Tech Challenge 2026" />
+<meta property="og:image" content="https://mateogsilvaa.es/assets/brand/mark-white-on-dark.png" />
+<meta name="theme-color" content="#0e0e0e" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="canonical" href="https://mateogsilvaa.es/en/premio/" />
+<meta name="author" content="Mateo González Silva" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta property="og:url" content="https://mateogsilvaa.es/en/premio/" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Mateo González Silva" />
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for language models" />
+<meta property="og:description" content="Aire Claro, first-prize project at the San Esteban Tech Challenge 2026." />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "Aire Claro", "url": "https://mateogsilvaa.es/premio/", "about": "Monitorización ciudadana del aire alrededor de la futura planta de biometano de San Esteban de Gormaz (Soria)", "award": "Primer premio, San Esteban Tech Challenge 2026", "creator": [{"@id": "https://mateogsilvaa.es/#mateo", "@type": "Person", "name": "Mateo González Silva"}], "contributor": {"@type": "Organization", "name": "Equipo de cinco estudiantes de la Universidad Francisco de Vitoria"}, "sameAs": "https://aireclaro.netlify.app"}</script>
+<link rel="alternate" hreflang="es" href="https://mateogsilvaa.es/premio/" />
+<link rel="alternate" hreflang="en" href="https://mateogsilvaa.es/en/premio/" />
+<link rel="alternate" hreflang="x-default" href="https://mateogsilvaa.es/premio/" />
+<link rel="stylesheet" href="/site.css" />
+<style>
+/* Banda del premio */
+.prize { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 34px; border-top: 1px solid #3a3833; position: relative; }
+.prize div { padding: 16px 20px 0 0; }
+.prize div + div { padding-left: 20px; border-left: 1px solid #3a3833; }
+.prize .mono { color: #8f8a80; display: block; margin-bottom: 8px; }
+.prize b { font-size: clamp(17px, 1.5vw, 21px); font-weight: 600; color: var(--bg); line-height: 1.3; }
+.hero-acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; position: relative; }
+@media (max-width: 760px) { .prize { grid-template-columns: 1fr; } .prize div + div { padding-left: 0; border-left: 0; border-top: 1px solid #3a3833; margin-top: 14px; } }
+
+/* Cifras grandes a ancho completo */
+.big { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 20px; }
+.big div { padding: 18px 18px 0 0; }
+.big div + div { padding-left: 18px; border-left: 1px solid var(--line); }
+.big b { display: block; font-size: clamp(40px, 5.4vw, 88px); font-weight: 900; letter-spacing: -.055em; line-height: .95; }
+.big span { display: block; margin-top: 8px; font-size: 14px; color: var(--mute); max-width: 22ch; }
+@media (max-width: 760px) { .big b { font-size: 34px; white-space: nowrap; } .big { grid-template-columns: 1fr 1fr; row-gap: 24px; } .big div:nth-child(3) { padding-left: 0; border-left: 0; } }
+
+/* Semáforo de alertas */
+.lights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 20px; }
+.lights div { display: flex; flex-direction: column; gap: 10px; min-height: 210px; padding: 22px; border-radius: 16px; background: var(--c); color: var(--t, #fff); }
+.lights b { font-size: clamp(26px, 2.6vw, 38px); font-weight: 900; letter-spacing: -.045em; }
+.lights p { font-size: 15.5px; line-height: 1.45; }
+.lights i { width: 14px; height: 14px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 25%, transparent); }
+@media (max-width: 860px) { .lights { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .lights { grid-template-columns: 1fr; } .lights div { min-height: 0; } }
+
+/* Demo: texto y web, lado a lado */
+.demo { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(24px, 4vw, 64px); align-items: center; margin-top: 24px; }
+.demo p { font-size: 17px; line-height: 1.6; color: #2a2926; }
+.demo p + p { margin-top: 14px; }
+.demo .acts { display: flex; gap: 10px; margin-top: 24px; }
+.demo .live { box-shadow: 0 30px 60px -30px rgba(0,0,0,.45), 0 0 0 1px var(--line); border-radius: 12px; }
+@media (max-width: 860px) { .demo { grid-template-columns: 1fr; } }
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="premio">
+<main>
+<header class="page-hero">
+  <div class="crumb mono"><a href="/en/">Home</a><span>/</span><span>Award</span></div>
+  <h1><i>Aire Claro<span class="dot">.</span></i></h1>
+  <div class="page-hero__lead">
+    <span class="mono">First prize · San Esteban Tech Challenge 2026</span>
+    <p>A sensor network, reports from residents and a public website to check that the future biomethane plant in San Esteban de Gormaz keeps its promises.</p>
+  </div>
+  <div class="hero-acts">
+    <a class="btn btn--hot" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t">Try the demo ↗</span></a>
+  </div>
+  <div class="prize">
+    <div><span class="mono">Result</span><b>First prize</b></div>
+    <div><span class="mono">Award</span><b>Full congress pass to Smart City Expo 2026 in Barcelona</b></div>
+    <div><span class="mono">Team</span><b>Five students from Universidad Francisco de Vitoria</b></div>
+  </div>
+</header>
+
+<section class="wide">
+  <p class="wide__lead" data-in>A village in Soria is getting a biomethane plant. Residents fear the smell; the company promises there won't be any. Our idea: <em>measure it and publish everything</em>.</p>
+
+  <div class="wide__h" data-in><h3>The context</h3><span class="mono">San Esteban de Gormaz</span></div>
+  <div class="big" data-in>
+    <div><b>10 M€</b><span>invested in the plant</span></div>
+    <div><b>37.000 t</b><span>of waste a year</span></div>
+    <div><b>~1.000</b><span>signatures on the residents' petition</span></div>
+    <div><b>2.976</b><span>inhabitants</span></div>
+  </div>
+
+  <div class="wide__h" data-in><h3>The proposal</h3><span class="mono">4 parts</span></div>
+  <div class="cards" data-in>
+    <div><span class="mono">01</span><b>Five stations</b><p>Placed around the village, they measure hydrogen sulphide and ammonia every minute, with a wind vane to know where the wind comes from.</p></div>
+    <div><span class="mono">02</span><b>Residents' reports</b><p>Anonymous smell reports, cross-checked with the readings and the wind.</p></div>
+    <div><span class="mono">03</span><b>Fair attribution</b><p>An episode only counts against the plant if it exceeds the threshold for 15 minutes or more with the wind blowing from it.</p></div>
+    <div><span class="mono">04</span><b>Tamper-proof record</b><p>Readings are stored in a chained log and published on an open website.</p></div>
+  </div>
+
+  <div class="wide__h" data-in><h3>Colour-coded alerts</h3><span class="mono">From green to red</span></div>
+  <div class="lights" data-in>
+    <div style="--c:#2fa84f"><i></i><b>Green</b><p>Everything below the threshold. Published on the website.</p></div>
+    <div style="--c:#e8b400;--t:#2a1f00"><i></i><b>Yellow</b><p>A 15-minute attributable exceedance: the company gets an email and has 24 hours to explain the cause.</p></div>
+    <div style="--c:#f07a1a"><i></i><b>Orange</b><p>No reply within 24 hours or three alerts in a week: the town council and the monitoring committee are notified.</p></div>
+    <div style="--c:#e0302a"><i></i><b>Red</b><p>More than 2 hours in a row or a week in orange: a report for the regional government and a notice to residents.</p></div>
+  </div>
+
+  <div class="wide__h" data-in><h3>The demo</h3><span class="mono">aireclaro.netlify.app</span></div>
+  <div class="demo" data-in>
+    <div>
+      <p>Two screens with the same data. The residents' one has an illustrated map, the status of each station, the history and a three-step report form.</p>
+      <p>The town council's one has a real map, alerts, charts, direct contact with the plant and a report ready for the regional government. A test panel lets you trigger an exceedance and watch the whole system respond.</p>
+      <div class="acts"><a class="btn" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t">Try the demo ↗</span></a></div>
+      <p class="note" style="margin-top:16px">The demo uses simulated data. It is not an official town council website.</p>
+    </div>
+    <a class="live" href="https://aireclaro.netlify.app" target="_blank" rel="noopener" data-src="https://aireclaro.netlify.app" aria-label="Open the Aire Claro demo"></a>
+  </div>
+
+  <div class="wide__h" data-in><h3>What it costs</h3><span class="mono">Basic version</span></div>
+  <div class="big" data-in>
+    <div><b>7.700 €</b><span>to install, plus ~€1,500 a year</span></div>
+    <div><b>0,08 %</b><span>of the plant's investment</span></div>
+    <div><b>16</b><span>weeks to the first report</span></div>
+  </div>
+</section>
+
+<a class="next" href="/en/experiencia/"><span class="mono">Next</span><b>Experience <span>→</span></b></a>
+</main>
+<script src="/site.js"></script>
+</body>
+</html>

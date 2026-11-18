@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Projects · Mateo González Silva</title>
+<meta name="description" content="Mateo González Silva's projects explained: Mundo Atletismo, Lanedata, Bicifastness and Tripfinder." />
+<meta property="og:title" content="Projects · Mateo González Silva" />
+<meta property="og:description" content="Mundo Atletismo, Lanedata, Bicifastness and Tripfinder, explained." />
+<meta property="og:image" content="https://mateogsilvaa.es/assets/brand/mark-white-on-dark.png" />
+<meta name="theme-color" content="#0e0e0e" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="canonical" href="https://mateogsilvaa.es/en/proyectos/" />
+<meta name="author" content="Mateo González Silva" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta property="og:url" content="https://mateogsilvaa.es/en/proyectos/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:site_name" content="Mateo González Silva" />
+<link rel="alternate" type="text/plain" href="/llms.txt" title="Summary for language models" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Proyectos de Mateo González Silva", "itemListElement": [{"@type": "ListItem", "position": 1, "item": {"@type": "WebSite", "name": "Mundo Atletismo", "url": "https://mundoatletismo.es", "description": "Web con los resultados del atletismo español: marcas, atletas, clubes, pistas, rankings y mínimas.", "creator": {"@id": "https://mateogsilvaa.es/#mateo"}, "inLanguage": "es"}}, {"@type": "ListItem", "position": 2, "item": {"@type": "WebSite", "name": "Lanedata", "url": "https://lanedata.es", "description": "Periodismo de datos sobre el atletismo español.", "creator": {"@id": "https://mateogsilvaa.es/#mateo"}, "inLanguage": "es"}}, {"@type": "ListItem", "position": 3, "item": {"@type": "WebSite", "name": "Bicifastness", "url": "https://bicifastness.es", "description": "Liga para usuarios de BiciMAD en Madrid. Proyecto independiente, sin relación con BiciMAD ni la EMT.", "creator": {"@id": "https://mateogsilvaa.es/#mateo"}, "inLanguage": "es"}}, {"@type": "ListItem", "position": 4, "item": {"@type": "WebSite", "name": "Tripfinder", "url": "https://tripfinder.es", "description": "Buscador de vuelos baratos de fin de semana desde Madrid con avisos de precio.", "creator": {"@id": "https://mateogsilvaa.es/#mateo"}, "inLanguage": "es"}}]}</script>
+<link rel="alternate" hreflang="es" href="https://mateogsilvaa.es/proyectos/" />
+<link rel="alternate" hreflang="en" href="https://mateogsilvaa.es/en/proyectos/" />
+<link rel="alternate" hreflang="x-default" href="https://mateogsilvaa.es/proyectos/" />
+<link rel="stylesheet" href="/site.css" />
+<style>
+/* Índice: lista grande con el icono de cada web */
+.idx { margin-top: 30px; border-top: 1px solid #3a3833; position: relative; }
+.idx a { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto 24px; gap: 18px; align-items: center; padding: 14px 0; border-bottom: 1px solid #3a3833; color: var(--bg); transition: padding .45s var(--ease), color .3s; }
+.idx img { width: 52px; height: 52px; border-radius: 12px; }
+.idx b { font-size: clamp(24px, 3vw, 44px); font-weight: 900; letter-spacing: -.045em; line-height: 1; }
+.idx .mono { color: #8f8a80; }
+.idx .arrow { color: var(--hot); transition: transform .45s var(--ease); }
+@media (hover: hover) { .idx a:hover { padding-left: 12px; } .idx a:hover .arrow { transform: translateY(4px); } }
+@media (max-width: 560px) { .idx a { grid-template-columns: 44px minmax(0, 1fr) 20px; } .idx img { width: 44px; height: 44px; } .idx .mono { display: none; } }
+
+/* Portada de cada proyecto: icono y web en vivo que se endereza al entrar */
+.cover__top { align-items: center; }
+.cover__app { display: flex; align-items: center; gap: 12px; }
+.cover__app img { width: 40px; height: 40px; border-radius: 10px; box-shadow: 0 6px 16px -6px rgba(0,0,0,.4); }
+.cover .live { transform: perspective(1400px) rotateX(var(--rx, 14deg)) scale(var(--ls, .94)); transform-origin: 50% 0; transition: transform 1.2s var(--ease); }
+.cover.in .live { --rx: 0deg; --ls: 1; }
+.cover__stats div { transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.js .cover:not(.in) .cover__stats div { opacity: 0; transform: translateY(16px); }
+.cover.in .cover__stats div:nth-child(2) { transition-delay: .08s; }
+.cover.in .cover__stats div:nth-child(3) { transition-delay: .16s; }
+.cover.in .cover__stats div:nth-child(4) { transition-delay: .24s; }
+.prose ul.pts { border-top: 1px solid var(--line); }
+.prose ul.pts li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.55; }
+.prose ul.pts li::before { content: "—"; color: var(--hot); }
+.prose ul.pts b { font-weight: 600; }
+</style>
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body data-page="proyectos">
+<main>
+<header class="page-hero">
+  <div class="crumb mono"><a href="/en/">Home</a><span>/</span><span>Projects</span></div>
+  <h1><i>Projects<span class="dot">.</span></i></h1>
+  <div class="page-hero__lead">
+    <span class="mono">4 projects · 2026</span>
+    <p>Four websites I've built to learn, mostly around athletics. Here's what each one is.</p>
+  </div>
+  <nav class="idx" aria-label="Projects">
+    <a href="#mundo-atletismo"><img src="/assets/apps/mundoatletismo.png" alt=""><b>Mundo Atletismo</b><span class="mono">Co-founder</span><span class="arrow">↓</span></a>
+    <a href="#lanedata"><img src="/assets/apps/lanedata.png" alt=""><b>Lanedata</b><span class="mono">Founder</span><span class="arrow">↓</span></a>
+    <a href="#bicifastness"><img src="/assets/apps/bicifastness.png" alt=""><b>Bicifastness</b><span class="mono">Creator</span><span class="arrow">↓</span></a>
+    <a href="#tripfinder"><img src="/assets/apps/tripfinder.png" alt=""><b>Tripfinder</b><span class="mono">Creator</span><span class="arrow">↓</span></a>
+  </nav>
+</header>
+
+<!-- 01 Mundo Atletismo -->
+<section class="cover" id="mundo-atletismo" style="--c:#f1e2c8;--t:#1a1206;--a:#e2531f" data-in>
+  <div class="cover__top mono"><span class="cover__app"><img src="/assets/apps/mundoatletismo.png" alt="">01 · Co-founder</span><span>2026 — now</span></div>
+  <h2>Mundo Atletismo<span class="dot">.</span></h2>
+  <div class="cover__lead">
+    <p>All of Spanish athletics on one website: every mark, athlete, club and track, connected to each other.</p>
+    <div class="cover__acts"><a class="btn" href="https://mundoatletismo.es" target="_blank" rel="noopener"><span class="t">Visit the site ↗</span></a></div>
+  </div>
+  <a class="live" href="https://mundoatletismo.es" target="_blank" rel="noopener" data-src="https://mundoatletismo.es" aria-label="Open Mundo Atletismo"></a>
+  <div class="cover__stats">
+    <div><b>6,1 M</b><span>marks recorded</span></div>
+    <div><b>242.574</b><span>athletes with a mark</span></div>
+    <div><b>3.221</b><span>clubs</span></div>
+    <div><b>2.410</b><span>different tracks</span></div>
+  </div>
+</section>
+<section class="wide">
+  <p class="wide__lead" data-in>What used to be scattered across result sheets and each season's websites, now in <em>one place</em> that updates itself.</p>
+  <div class="cards" data-in>
+    <div><span class="mono">01</span><b>Rankings that compare everything</b><p>By event, year and age group, plus a points ranking to compare marks from different events on the same scale.</p></div>
+    <div><span class="mono">02</span><b>Every athlete's career</b><p>A profile with their whole history and year-by-year progression, and head-to-head comparisons.</p></div>
+    <div><span class="mono">03</span><b>Who's going to Worlds?</b><p>Entry standards for the World Championships, Europeans and Olympics, next to each athlete's marks.</p></div>
+    <div><span class="mono">04</span><b>Reasons to come back</b><p>Records of the week, a new game every day and live results.</p></div>
+  </div>
+  <div class="tagline" data-in><span><b>Co-founder</b></span><span><b>Stack</b>React · TypeScript · Firebase</span></div>
+</section>
+
+<!-- 02 Lanedata -->
+<section class="cover" id="lanedata" style="--c:#0f3a22;--t:#eaf5ec;--a:#7be38f" data-in>
+  <div class="cover__top mono"><span class="cover__app"><img src="/assets/apps/lanedata.png" alt="">02 · Founder</span><span>2026 — now</span></div>
+  <h2>Lanedata<span class="dot">.</span></h2>
+  <div class="cover__lead">
+    <p>Articles that answer questions about Spanish athletics with data: who improves, when and why.</p>
+    <div class="cover__acts"><a class="btn" href="https://lanedata.es" target="_blank" rel="noopener"><span class="t">Visit the site ↗</span></a></div>
+  </div>
+  <a class="live" href="https://lanedata.es" target="_blank" rel="noopener" data-src="https://lanedata.es" aria-label="Open Lanedata"></a>
+</section>
+<section class="wide">
+  <p class="wide__lead" data-in>Questions everyone asks about athletics, answered with <em>thousands of real results</em>.</p>
+  <div class="cards" data-in>
+    <div><span class="mono">01</span><b>Athletic careers</b><p>At what age athletes stop improving, or whether junior prodigies end up reaching the elite.</p></div>
+    <div><span class="mono">02</span><b>Stories with numbers</b><p>Clubs, teams and athletes whose story makes more sense with data.</p></div>
+    <div><span class="mono">03</span><b>From idea to website</b><p>I find the data, write the analysis and maintain the site, with a simple panel for publishing.</p></div>
+  </div>
+  <div class="tagline" data-in><span><b>Founder</b></span><span><b>Stack</b>Next.js · TypeScript · Supabase</span></div>
+</section>
+
+<!-- 03 Bicifastness -->
+<section class="cover" id="bicifastness" style="--c:#2b45ff;--t:#fff;--a:#ffd400" data-in>
+  <div class="cover__top mono"><span class="cover__app"><img src="/assets/apps/bicifastness.png" alt="">03 · Creator</span><span>2026</span></div>
+  <h2>Bicifastness<span class="dot">.</span></h2>
+  <div class="cover__lead">
+    <p>A league for people who ride BiciMAD: your daily commute earns points. Madrid is the circuit.</p>
+    <div class="cover__acts"><a class="btn" href="https://bicifastness.es" target="_blank" rel="noopener"><span class="t">Visit the site ↗</span></a></div>
+  </div>
+  <a class="live" href="https://bicifastness.es" target="_blank" rel="noopener" data-src="https://bicifastness.es" aria-label="Open Bicifastness"><img class="live__shot" src="/assets/bicifastness.jpg" alt=""></a>
+</section>
+<section class="wide">
+  <p class="wide__lead" data-in>No need to change your route or ride faster: your usual BiciMAD ride <em>already counts</em>.</p>
+  <div class="cards" data-in>
+    <div><span class="mono">01</span><b>Upload your ride</b><p>You ride, upload the screenshot and earn points for distance, pace and consistency.</p></div>
+    <div><span class="mono">02</span><b>Compete with your peers</b><p>Groups of about 30 riders at your level, reshuffled every Monday.</p></div>
+    <div><span class="mono">03</span><b>Conquer Madrid</b><p>Clans split the stations on the map. If a clan stops riding, it loses them.</p></div>
+  </div>
+  <div class="tagline" data-in><span><b>Creator</b></span><span><b>City</b>Madrid</span><span>Independent, not affiliated with BiciMAD or EMT</span></div>
+</section>
+
+<!-- 04 Tripfinder -->
+<section class="cover" id="tripfinder" style="--c:#161616;--t:#f3f1ec;--a:#ff5a1f" data-in>
+  <div class="cover__top mono"><span class="cover__app"><img src="/assets/apps/tripfinder.png" alt="">04 · Creator</span><span>2026</span></div>
+  <h2>Tripfinder<span class="dot">.</span></h2>
+  <div class="cover__lead">
+    <p>Cheap flights for getaways from Madrid that cost less than usual.</p>
+    <div class="cover__acts"><a class="btn" href="https://tripfinder.es" target="_blank" rel="noopener"><span class="t">Visit the site ↗</span></a></div>
+  </div>
+  <a class="live" href="https://tripfinder.es" target="_blank" rel="noopener" data-src="https://tripfinder.es" aria-label="Open Tripfinder"></a>
+</section>
+<section class="wide">
+  <p class="wide__lead" data-in>A €40 flight might be a bargain or just the usual price. Tripfinder <em>tells you which</em>.</p>
+  <div class="cards" data-in>
+    <div><span class="mono">01</span><b>Only what drops in price</b><p>It checks prices every 12 hours across all airlines and only shows what's below normal.</p></div>
+    <div><span class="mono">02</span><b>Price alerts</b><p>Follow a flight, set a limit and get an email when it drops below it.</p></div>
+    <div><span class="mono">03</span><b>Made for group trips</b><p>Share the trip, the group votes on the options and you add it to your calendar.</p></div>
+  </div>
+  <div class="tagline" data-in><span><b>Creator</b></span><span><b>Stack</b>Python · JavaScript · Firebase · GitHub Actions</span></div>
+</section>
+
+<a class="next" href="/en/premio/"><span class="mono">Next</span><b>Award <span>→</span></b></a>
+</main>
+<script src="/site.js"></script>
+</body>
+</html>

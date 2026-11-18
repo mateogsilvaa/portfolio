@@ -1,20 +1,24 @@
 // Mateo González Silva — piezas comunes de la opción 1: cabecera, menú, pie, entradas y webs en vivo
 (() => {
-  const base = "/";
+  const en = document.documentElement.lang === "en";
+  const L = (es, eng) => (en ? eng : es);
+  const base = en ? "/en/" : "/";
+  const cv = en ? "/cv/CV-Mateo-Gonzalez-Silva-EN.pdf" : "/cv/CV-Mateo-Gonzalez-Silva.pdf";
+  const other = en ? (location.pathname.replace(/^\/en/, "") || "/") : "/en" + location.pathname;
   const here = document.body.dataset.page || "inicio";
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const pages = [
-    ["inicio", "Inicio", base],
-    ["proyectos", "Proyectos", base + "proyectos/"],
-    ["premio", "Premio", base + "premio/"],
-    ["experiencia", "Experiencia", base + "experiencia/"],
-    ["educacion", "Educación", base + "educacion/"],
-    ["voluntariado", "Voluntariado", base + "voluntariado/"],
-    ["contacto", "Contacto", base + "#contacto"],
+    ["inicio", L("Inicio", "Home"), base],
+    ["proyectos", L("Proyectos", "Projects"), base + "proyectos/"],
+    ["premio", L("Premio", "Award"), base + "premio/"],
+    ["experiencia", L("Experiencia", "Experience"), base + "experiencia/"],
+    ["educacion", L("Educación", "Education"), base + "educacion/"],
+    ["voluntariado", L("Voluntariado", "Volunteering"), base + "voluntariado/"],
+    ["contacto", L("Contacto", "Contact"), base + "#contacto"],
   ];
   const social = `
-    <a href="https://www.linkedin.com/in/mateo-gonz%C3%A1lez-silva-58b61641b" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://www.linkedin.com/in/mateogonzalezsilva" target="_blank" rel="noopener">LinkedIn ↗</a>
     <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub ↗</a>
     <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram ↗</a>`;
 
@@ -22,9 +26,9 @@
   document.body.insertAdjacentHTML("afterbegin", `
     <div class="prog" aria-hidden="true"></div>
     <header class="top mono" id="top">
-      <a class="top__logo" href="${base}" aria-label="Inicio">MGS</a>
+      <div class="top__l"><a class="top__logo" href="${base}" aria-label="${L("Inicio", "Home")}">MGS</a><a class="lang" href="${other}${location.hash}" hreflang="${en ? "es" : "en"}" lang="${en ? "es" : "en"}" aria-label="${L("Read in English", "Leer en español")}"><span${en ? "" : ' class="on"'}>ES</span><span${en ? ' class="on"' : ""}>EN</span></a></div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
-        <span class="burger__word"><span>Menú</span><span>Cerrar</span></span>
+        <span class="burger__word"><span>${L("Menú", "Menu")}</span><span>${L("Cerrar", "Close")}</span></span>
         <span class="burger__lines" aria-hidden="true"><i></i><i></i></span>
       </button>
     </header>
@@ -38,10 +42,10 @@
   // Pie en las páginas interiores
   if (here !== "inicio") document.body.insertAdjacentHTML("beforeend", `
     <footer class="foot">
-      <div class="foot__cta"><span class="mono">¿Hablamos?</span><a class="foot__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a><a class="btn btn--line foot__cv" href="/cv/CV-Mateo-Gonzalez-Silva.pdf" download><span class="t" data-t="Descargar CV ↓">Descargar CV ↓</span></a></div>
+      <div class="foot__cta"><span class="mono">${L("¿Hablamos?", "Let's talk")}</span><a class="foot__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a><a class="btn btn--line foot__cv" href="${cv}" download><span class="t" data-t="${L("Descargar CV ↓", "Download CV ↓")}">${L("Descargar CV ↓", "Download CV ↓")}</span></a></div>
       <div class="foot__cols mono">
-        <nav aria-label="Páginas">${pages.filter(([id]) => id !== here).map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
-        <nav aria-label="Redes">${social}</nav>
+        <nav aria-label="${L("Páginas", "Pages")}">${pages.filter(([id]) => id !== here).map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
+        <nav aria-label="${L("Redes", "Social")}">${social}</nav>
       </div>
       <p class="foot__copy mono">© 2026 Mateo González Silva</p>
     </footer>`);
@@ -84,7 +88,7 @@
   // Copiar el correo
   document.querySelectorAll("[data-copy]").forEach((b) => b.addEventListener("click", async () => {
     const t = b.querySelector(".t") || b, old = t.textContent;
-    try { await navigator.clipboard.writeText(b.dataset.copy); t.textContent = "¡Copiado!"; } catch { location.href = "mailto:" + b.dataset.copy; }
+    try { await navigator.clipboard.writeText(b.dataset.copy); t.textContent = L("¡Copiado!", "Copied!"); } catch { location.href = "mailto:" + b.dataset.copy; }
     setTimeout(() => t.textContent = old, 1800);
   }));
 

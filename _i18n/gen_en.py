@@ -44,7 +44,7 @@ for path in PAGES:
             p = p.replace('data-t="Ver más →">Ver más →', 'data-t="Read more →">Read more →').replace('data-t="Visitar ↗">Visitar ↗', 'data-t="Visit ↗">Visit ↗')
             p = p.replace('aria-label="Ver ${name}"', 'aria-label="See ${name}"')
             p = p.replace('href="/proyectos/#${id}"', 'href="/en/proyectos/#${id}"')
-            p = p.replace('hot = ["ingeniería", "inteligencia", "artificial,", "atletismo", "productos", "de", "verdad."]', 'hot = ["engineering", "artificial", "intelligence,", "track", "building", "websites."]')
+            p = p.replace('hot = ["ingeniería", "informática", "inteligencia", "artificial,", "atletismo", "webs."]', 'hot = ["engineering", "artificial", "intelligence,", "athletics", "websites."]')
             parts[i] = p
         else:
             p = re.sub(r">([^<]+)<", tr_text, p)

@@ -139,7 +139,7 @@
 
 <section class="sec" id="sobre-mi">
   <div class="head" data-in><h2>About me</h2><span class="mono">00</span></div>
-  <p class="about__txt">I study engineering and artificial intelligence, I run track and, in whatever time is left, I learn by building websites.</p>
+  <p class="about__txt">I study computer engineering and artificial intelligence, I compete in athletics and I enjoy learning by building websites.</p>
   <div class="trio">
     <article data-in style="--d:0s">
       <span class="mono">01 · Study</span>
@@ -150,13 +150,13 @@
     <article data-in style="--d:.1s">
       <span class="mono">02 · Compete</span>
       <b>Athletics</b>
-      <p>It's where almost all my ideas come from. This year I'm also part of the Spanish Athletics Federation's Talento IA programme.</p>
+      <p>I've been competing for years and many of my ideas come from there. This year I'm also taking part in the Royal Spanish Athletics Federation's Talento IA programme.</p>
       <a class="more-link mono" href="/en/experiencia/">Experience <span>→</span></a>
     </article>
     <article data-in style="--d:.2s">
       <span class="mono">03 · Build</span>
       <b>Side projects</b>
-      <p>Four websites that started as ideas to learn from. I handle almost everything and keep learning with each one.</p>
+      <p>Four websites that began as ideas to learn from, some of them made together with other people. Each one teaches me something new.</p>
       <a class="more-link mono" href="/en/proyectos/">Projects <span>→</span></a>
     </article>
   </div>
@@ -170,7 +170,7 @@
       <h3>San Esteban Tech Challenge <em>2026</em></h3>
     </div>
     <div>
-      <p>With four classmates from UFV we proposed Aire Claro: five sensor stations, reports from residents and a public website to check that the future biomethane plant in San Esteban de Gormaz keeps its promises.</p>
+      <p>With four classmates from UFV we presented Aire Claro, a project to monitor air quality around the future biomethane plant in San Esteban de Gormaz (Soria): five sensor stations, a channel for residents to report smells or nuisances, and a public website with the data.</p>
       <div class="award__acts">
         <a class="btn btn--light" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Try the demo ↗">Try the demo ↗</span></a>
         <a class="btn btn--line" href="/en/premio/"><span class="t" data-t="See the project →">See the project →</span></a>
@@ -225,7 +225,7 @@ const P = [
   ["mundo-atletismo", "Mundo Atletismo", "Co-founder", "https://mundoatletismo.es", "Every result in Spanish athletics on one website: each mark linked to its athlete, club and track, with rankings that update themselves.", "", "#f1e2c8", "#1a1206", "#e2531f", [["6,1 M", "marcas"], ["242.574", "atletas"], ["3.221", "clubes"]]],
   ["lanedata", "Lanedata", "Fundador", "https://lanedata.es", "Articles that answer questions about Spanish athletics with data: who improves, when and why.", "", "#0f3a22", "#eaf5ec", "#7be38f", []],
   ["bicifastness", "Bicifastness", "Creador", "https://bicifastness.es", "Your BiciMAD rides turned into a competition: pace, distance and consistency score points, and clans conquer stations.", "/assets/bicifastness.jpg", "#2b45ff", "#ffffff", "#ffd400", []],
-  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Weekend flights from Madrid scored against their own price history: only what's below normal shows up.", "", "#161616", "#f3f1ec", "#2b45ff", []],
+  ["tripfinder", "Tripfinder", "Creador", "https://tripfinder.es", "Finds weekend flights from Madrid and compares each price with what that route usually costs: it only shows the ones that are cheaper than usual.", "", "#161616", "#f3f1ec", "#2b45ff", []],
 ];
 const stack = document.querySelector(".stack");
 stack.innerHTML = P.map(([id, name, role, url, txt, shot, c, t, a, st], i) => `
@@ -254,7 +254,7 @@ mail.innerHTML = mail.innerHTML.split(/(<br>)/).map((p) => p === "<br>" ? p : [.
 <script>
 // Sobre mí: cada palabra se ilumina según avanzas
 (() => {
-  const p = document.querySelector(".about__txt"), hot = ["engineering", "artificial", "intelligence,", "track", "building", "websites."];
+  const p = document.querySelector(".about__txt"), hot = ["engineering", "artificial", "intelligence,", "athletics", "websites."];
   p.innerHTML = p.textContent.trim().split(/\s+/).map((w) => `<span class="w${hot.includes(w) ? " hot" : ""}">${w}</span> `).join("");
   const ws = [...p.querySelectorAll(".w")]; let r = 0;
   const run = () => { r = 0; const b = p.getBoundingClientRect(), k = (innerHeight * .85 - b.top) / (b.height + innerHeight * .35);

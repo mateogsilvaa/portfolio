@@ -329,3 +329,39 @@ img { display: block; max-width: 100%; }
 .lang span.on { opacity: 1; background: currentColor; }
 .lang span.on { color: #000; background: #fff; }
 .lang:hover span { opacity: 1; }
+
+/* Logo */
+.mk { width: 34px; height: 34px; display: block; }
+.top__logo { font-size: 0; }
+
+/* Pie: bloque oscuro */
+.ft { margin-top: clamp(90px, 11vw, 150px); background: var(--ink); color: var(--bg); border-radius: 28px 28px 0 0; padding: clamp(36px, 5vw, 64px) var(--pad) 22px; }
+.ft a { transition: color .25s; }
+.ft a:hover { color: #8fa0ff; }
+.ft__cta { padding-bottom: clamp(32px, 4vw, 52px); margin-bottom: clamp(32px, 4vw, 52px); border-bottom: 1px solid #2c2b28; }
+.ft__cta .mono { display: block; color: #8f8a80; margin-bottom: 10px; }
+.ft__mail { display: block; font-weight: 900; letter-spacing: -.045em; line-height: 1; font-size: clamp(30px, 5vw, 64px); }
+.ft__grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: 32px; }
+.ft__brand { display: flex; gap: 14px; align-items: flex-start; }
+.ft__brand .mk { width: 44px; height: 44px; flex: none; color: var(--bg); }
+.ft__brand b { display: block; font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
+.ft__brand span span { display: block; margin-top: 4px; color: #8f8a80; font-size: 14px; line-height: 1.4; }
+.ft nav { display: flex; flex-direction: column; gap: 9px; font-size: 15px; }
+.ft nav .mono { color: #8f8a80; margin-bottom: 4px; }
+.ft__bar { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: clamp(40px, 5vw, 64px); padding-top: 16px; border-top: 1px solid #2c2b28; color: #8f8a80; }
+@media (max-width: 760px) {
+  .ft { border-radius: 22px 22px 0 0; }
+  .ft__mail { font-size: 10.5vw; }
+  .ft__grid { grid-template-columns: 1fr 1fr; gap: 30px 20px; }
+  .ft__brand { grid-column: 1 / -1; }
+  .ft nav a { padding: 4px 0; }
+}
+
+/* Proyectos: detalle más contenido */
+.cover h2 { font-size: clamp(46px, 7.4vw, 120px); }
+.cover__lead p { font-size: clamp(18px, 1.6vw, 22px); }
+.cover__stats b { font-size: clamp(26px, 2.8vw, 42px); }
+.cover .sub h3 { font-size: clamp(26px, 3vw, 44px); }
+.wide__lead { font-size: clamp(22px, 2.5vw, 36px); }
+.cover .live, .cover__img { max-width: 1100px; margin-inline: auto; }
+@media (max-width: 760px) { .cover h2 { font-size: 11vw; } }

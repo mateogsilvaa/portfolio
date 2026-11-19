@@ -22,11 +22,14 @@
     <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub ↗</a>
     <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram ↗</a>`;
 
+  // Logo: cuadrado redondeado con la M y el punto recortados (toma el color del texto)
+  const mark = (id) => `<svg class="mk" viewBox="0 0 120 120" aria-hidden="true"><defs><mask id="mk-${id}"><rect width="120" height="120" fill="#fff"/><text x="11" y="94" font-family="Inter Tight, sans-serif" font-weight="900" font-size="92" letter-spacing="-6" fill="#000">M</text><circle cx="101" cy="87" r="8" fill="#000"/></mask></defs><rect width="120" height="120" rx="28" fill="currentColor" mask="url(#mk-${id})"/></svg>`;
+
   // Cabecera, menú y barra de progreso
   document.body.insertAdjacentHTML("afterbegin", `
     <div class="prog" aria-hidden="true"></div>
     <header class="top mono" id="top">
-      <div class="top__l"><a class="top__logo" href="${base}" aria-label="${L("Inicio", "Home")}">MGS</a><a class="lang" href="${other}${location.hash}" hreflang="${en ? "es" : "en"}" lang="${en ? "es" : "en"}" aria-label="${L("Read in English", "Leer en español")}"><span${en ? "" : ' class="on"'}>ES</span><span${en ? ' class="on"' : ""}>EN</span></a></div>
+      <div class="top__l"><a class="top__logo" href="${base}" aria-label="${L("Inicio", "Home")}">${mark("h")}</a><a class="lang" href="${other}${location.hash}" hreflang="${en ? "es" : "en"}" lang="${en ? "es" : "en"}" aria-label="${L("Read in English", "Leer en español")}"><span${en ? "" : ' class="on"'}>ES</span><span${en ? ' class="on"' : ""}>EN</span></a></div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
         <span class="burger__word"><span>${L("Menú", "Menu")}</span><span>${L("Cerrar", "Close")}</span></span>
         <span class="burger__lines" aria-hidden="true"><i></i><i></i></span>
@@ -39,15 +42,17 @@
       <div class="menu__foot mono"><a href="mailto:contacto@mateogsilvaa.es">contacto@mateogsilvaa.es</a><nav>${social}</nav></div>
     </div>`);
 
-  // Pie en las páginas interiores
-  if (here !== "inicio") document.body.insertAdjacentHTML("beforeend", `
-    <footer class="foot">
-      <div class="foot__cta"><span class="mono">${L("¿Hablamos?", "Let's talk")}</span><a class="foot__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a><a class="btn btn--line foot__cv" href="${cv}" download><span class="t" data-t="${L("Descargar CV ↓", "Download CV ↓")}">${L("Descargar CV ↓", "Download CV ↓")}</span></a></div>
-      <div class="foot__cols mono">
-        <nav aria-label="${L("Páginas", "Pages")}">${pages.filter(([id]) => id !== here).map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
-        <nav aria-label="${L("Redes", "Social")}">${social}</nav>
+  // Pie: bloque oscuro con logo, páginas, contacto y redes (en todas las páginas)
+  document.body.insertAdjacentHTML("beforeend", `
+    <footer class="ft">
+      ${here !== "inicio" ? `<div class="ft__cta"><span class="mono">${L("¿Hablamos?", "Let's talk")}</span><a class="ft__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a></div>` : ""}
+      <div class="ft__grid">
+        <a class="ft__brand" href="${base}">${mark("f")}<span><b>Mateo González Silva</b><span>${L("Ingeniería, IA y atletismo · Madrid", "Engineering, AI and athletics · Madrid")}</span></span></a>
+        <nav aria-label="${L("Páginas", "Pages")}"><span class="mono">${L("Páginas", "Pages")}</span>${pages.filter(([id]) => id !== "contacto").map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
+        <nav aria-label="${L("Contacto", "Contact")}"><span class="mono">${L("Contacto", "Contact")}</span><a href="mailto:contacto@mateogsilvaa.es">${L("Correo", "Email")}</a><a href="${cv}" download>${L("Descargar CV ↓", "Download CV ↓")}</a></nav>
+        <nav aria-label="${L("Redes", "Social")}"><span class="mono">${L("Redes", "Social")}</span>${social}</nav>
       </div>
-      <p class="foot__copy mono">© 2026 Mateo González Silva</p>
+      <div class="ft__bar mono"><span>© 2026 Mateo González Silva</span><a href="${other}" hreflang="${en ? "es" : "en"}">${L("English version", "Versión en español")}</a></div>
     </footer>`);
 
   const root = document.documentElement, burger = document.querySelector(".burger"), menu = document.querySelector(".menu");

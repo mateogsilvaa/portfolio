@@ -81,6 +81,7 @@
 .scard h3 { margin-top: auto; font-size: clamp(48px, 7vw, 124px); font-weight: 900; letter-spacing: -.06em; line-height: .86; overflow-wrap: anywhere; }
 .scard h3 .dot { color: var(--a); }
 .scard p { margin-top: 18px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.45; max-width: 40ch; opacity: .85; }
+.scard__role { align-self: flex-start; margin-top: 16px; display: inline-flex; align-items: center; height: 30px; padding: 0 12px; border-radius: 6px; background: var(--t); color: var(--c); font-size: 13px; font-weight: 500; }
 .scard__stats { display: flex; gap: clamp(18px, 2.5vw, 36px); margin-top: 22px; padding-top: 16px; border-top: 1px solid color-mix(in srgb, var(--t) 25%, transparent); }
 .scard__stats b { display: block; font-size: clamp(24px, 2.4vw, 36px); font-weight: 900; letter-spacing: -.04em; }
 .scard__stats span { font-size: 12px; opacity: .7; }
@@ -112,7 +113,7 @@
 @media (max-width: 760px) { .path { grid-template-columns: 2.6em minmax(0, 1fr) 24px; row-gap: 8px; } .path p { grid-column: 2; grid-row: 2; } .path .arrow { grid-column: 3; grid-row: 1; } }
 
 /* Contacto */
-.end { padding: clamp(120px, 14vw, 180px) var(--pad) 28px; }
+.end { padding: clamp(120px, 14vw, 180px) var(--pad) 0; }
 .end > .mono { color: var(--mute); }
 .end__mail { display: block; margin-top: 16px; font-size: clamp(36px, 8.6vw, 156px); font-weight: 900; letter-spacing: -.055em; line-height: .95; overflow-wrap: anywhere; }
 .end__mail .c { display: inline-block; transition: transform .45s var(--ease), color .25s; }
@@ -137,8 +138,49 @@
   </div>
 </section>
 
+
+
+
+<section class="sec" id="proyectos">
+  <div class="head" data-in><h2>Proyectos</h2><a class="more-link mono" href="/proyectos/">Todos los detalles <span>→</span></a></div>
+  <div class="stack">
+    <ul>
+      <li><a href="https://mundoatletismo.es">Mundo Atletismo</a>: resultados, rankings y atletas del atletismo español (cofundador).</li>
+      <li><a href="https://lanedata.es">Lanedata</a>: periodismo de datos sobre atletismo (fundador).</li>
+      <li><a href="https://bicifastness.es">Bicifastness</a>: liga para usuarios de BiciMAD en Madrid (creador).</li>
+      <li><a href="https://tripfinder.es">Tripfinder</a>: vuelos baratos de fin de semana desde Madrid (creador).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="premio">
+  <div class="head" data-in><h2>Premio</h2><span class="mono">02</span></div>
+  <div class="award" data-in>
+    <div>
+      <span class="mono">Primer premio · 2026</span>
+      <h3>San Esteban Tech Challenge <em>2026</em></h3>
+    </div>
+    <div>
+      <p>Con cuatro compañeros de la UFV presentamos Aire Claro, un proyecto para controlar la calidad del aire alrededor de la futura planta de biometano de San Esteban de Gormaz (Soria): cinco estaciones con sensores, un canal para que los vecinos avisen de olores o molestias y una web pública con los datos.</p>
+      <div class="award__acts">
+        <a class="btn btn--light" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Probar demo ↗">Probar demo ↗</span></a>
+        <a class="btn btn--line" href="/premio/"><span class="t" data-t="Ver el proyecto →">Ver el proyecto →</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="trayectoria">
+  <div class="head" data-in><h2>Trayectoria</h2><span class="mono">03</span></div>
+  <ul class="paths" data-in>
+    <li><a class="path" href="/experiencia/"><span class="mono">03.1</span><b>Experiencia</b><p>Beca RFEA Talento IA, Lanedata, Mundo Atletismo y UFV Racing Team.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="path" href="/educacion/"><span class="mono">03.2</span><b>Educación</b><p>Ingeniería en la UFV, el IES Cervantes, Global Classrooms y certificaciones.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a class="path" href="/voluntariado/"><span class="mono">03.3</span><b>Voluntariado</b><p>Acompañamiento a niños hospitalizados y tres semanas en Nepal.</p><span class="arrow" aria-hidden="true">→</span></a></li>
+  </ul>
+</section>
+
 <section class="sec" id="sobre-mi">
-  <div class="head" data-in><h2>Sobre mí</h2><span class="mono">00</span></div>
+  <div class="head" data-in><h2>Sobre mí</h2><span class="mono">04</span></div>
   <p class="about__txt">Estudio ingeniería informática e inteligencia artificial, compito en atletismo y me gusta aprender creando webs.</p>
   <div class="trio">
     <article data-in style="--d:0s">
@@ -161,63 +203,17 @@
     </article>
   </div>
 </section>
-
-<section class="sec" id="premio">
-  <div class="head" data-in><h2>Premio</h2><span class="mono">01</span></div>
-  <div class="award" data-in>
-    <div>
-      <span class="mono">Primer premio · 2026</span>
-      <h3>San Esteban Tech Challenge <em>2026</em></h3>
-    </div>
-    <div>
-      <p>Con cuatro compañeros de la UFV presentamos Aire Claro, un proyecto para controlar la calidad del aire alrededor de la futura planta de biometano de San Esteban de Gormaz (Soria): cinco estaciones con sensores, un canal para que los vecinos avisen de olores o molestias y una web pública con los datos.</p>
-      <div class="award__acts">
-        <a class="btn btn--light" href="https://aireclaro.netlify.app" target="_blank" rel="noopener"><span class="t" data-t="Probar demo ↗">Probar demo ↗</span></a>
-        <a class="btn btn--line" href="/premio/"><span class="t" data-t="Ver el proyecto →">Ver el proyecto →</span></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="proyectos">
-  <div class="head" data-in><h2>Proyectos</h2><a class="more-link mono" href="/proyectos/">Todos los detalles <span>→</span></a></div>
-  <div class="stack">
-    <ul>
-      <li><a href="https://mundoatletismo.es">Mundo Atletismo</a>: resultados, rankings y atletas del atletismo español (cofundador).</li>
-      <li><a href="https://lanedata.es">Lanedata</a>: periodismo de datos sobre atletismo (fundador).</li>
-      <li><a href="https://bicifastness.es">Bicifastness</a>: liga para usuarios de BiciMAD en Madrid (creador).</li>
-      <li><a href="https://tripfinder.es">Tripfinder</a>: vuelos baratos de fin de semana desde Madrid (creador).</li>
-    </ul>
-  </div>
-</section>
-
-<section class="sec" id="trayectoria">
-  <div class="head" data-in><h2>Trayectoria</h2><span class="mono">03</span></div>
-  <ul class="paths" data-in>
-    <li><a class="path" href="/experiencia/"><span class="mono">03.1</span><b>Experiencia</b><p>Beca RFEA Talento IA, Lanedata, Mundo Atletismo y UFV Racing Team.</p><span class="arrow" aria-hidden="true">→</span></a></li>
-    <li><a class="path" href="/educacion/"><span class="mono">03.2</span><b>Educación</b><p>Ingeniería en la UFV, el IES Cervantes, Global Classrooms y certificaciones.</p><span class="arrow" aria-hidden="true">→</span></a></li>
-    <li><a class="path" href="/voluntariado/"><span class="mono">03.3</span><b>Voluntariado</b><p>Acompañamiento a niños hospitalizados y tres semanas en Nepal.</p><span class="arrow" aria-hidden="true">→</span></a></li>
-  </ul>
-</section>
 </main>
 
-<footer class="end" id="contacto">
-  <span class="mono">04 — Hablemos</span>
+<section class="end" id="contacto">
+  <span class="mono">05 — Hablemos</span>
   <a class="end__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<br>mateogsilvaa.es</a>
   <div class="end__acts">
     <a class="btn btn--hot" href="mailto:contacto@mateogsilvaa.es"><span class="t" data-t="Escríbeme">Escríbeme</span></a>
     <button class="btn btn--line" type="button" data-copy="contacto@mateogsilvaa.es"><span class="t" data-t="Copiar correo">Copiar correo</span></button>
     <a class="btn btn--line" href="/cv/CV-Mateo-Gonzalez-Silva.pdf" download><span class="t" data-t="Descargar CV ↓">Descargar CV ↓</span></a>
   </div>
-  <div class="end__foot mono">
-    <span>© 2026 Mateo González Silva</span>
-    <nav>
-      <a href="https://www.linkedin.com/in/mateogonzalezsilva" target="_blank" rel="noopener">LinkedIn ↗</a>
-      <a href="https://github.com/mateogsilvaa" target="_blank" rel="noopener">GitHub ↗</a>
-      <a href="https://www.instagram.com/mateogsilvaa/" target="_blank" rel="noopener">Instagram ↗</a>
-    </nav>
-  </div>
-</footer>
+</section>
 
 <script>
 // Tarjetas de proyectos
@@ -232,8 +228,9 @@ stack.innerHTML = P.map(([id, name, role, url, txt, shot, c, t, a, st], i) => `
   <article class="scard" style="--c:${c};--t:${t};--a:${a}">
     <div class="scard__in">
       <div class="scard__txt">
-        <div class="scard__n mono"><span>${String(i + 1).padStart(2, "0")} / ${String(P.length).padStart(2, "0")}</span><span>${role}</span></div>
+        <div class="scard__n mono"><span>${String(i + 1).padStart(2, "0")} / ${String(P.length).padStart(2, "0")}</span></div>
         <h3>${name}<span class="dot">.</span></h3>
+        <span class="scard__role mono">${role}</span>
         <p>${txt}</p>
         ${st.length ? `<div class="scard__stats">${st.map(([b, s]) => `<div><b>${b}</b><span class="mono">${s}</span></div>`).join("")}</div>` : ""}
         <div class="scard__acts">

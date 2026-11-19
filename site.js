@@ -29,7 +29,7 @@
   document.body.insertAdjacentHTML("afterbegin", `
     <div class="prog" aria-hidden="true"></div>
     <header class="top mono" id="top">
-      <div class="top__l"><a class="top__logo" href="${base}" aria-label="${L("Inicio", "Home")}">${mark("h")}</a><a class="lang" href="${other}${location.hash}" hreflang="${en ? "es" : "en"}" lang="${en ? "es" : "en"}" aria-label="${L("Read in English", "Leer en español")}"><span${en ? "" : ' class="on"'}>ES</span><span${en ? ' class="on"' : ""}>EN</span></a></div>
+      <div class="top__l"><a class="top__logo" href="${base}" aria-label="${L("Inicio", "Home")}">MGS</a><a class="lang" href="${other}${location.hash}" hreflang="${en ? "es" : "en"}" lang="${en ? "es" : "en"}" aria-label="${L("Read in English", "Leer en español")}"><span${en ? "" : ' class="on"'}>ES</span><span${en ? ' class="on"' : ""}>EN</span></a></div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="menu">
         <span class="burger__word"><span>${L("Menú", "Menu")}</span><span>${L("Cerrar", "Close")}</span></span>
         <span class="burger__lines" aria-hidden="true"><i></i><i></i></span>
@@ -47,7 +47,7 @@
     <footer class="ft">
       ${here !== "inicio" ? `<div class="ft__cta"><span class="mono">${L("¿Hablamos?", "Let's talk")}</span><a class="ft__mail" href="mailto:contacto@mateogsilvaa.es">contacto@<wbr>mateogsilvaa.es</a></div>` : ""}
       <div class="ft__grid">
-        <a class="ft__brand" href="${base}">${mark("f")}<span><b>Mateo González Silva</b><span>${L("Ingeniería, IA y atletismo · Madrid", "Engineering, AI and athletics · Madrid")}</span></span></a>
+        <a class="ft__brand" href="${base}"><span><b>Mateo González Silva</b><span>${L("Ingeniería, IA y atletismo · Madrid", "Engineering, AI and athletics · Madrid")}</span></span></a>
         <nav aria-label="${L("Páginas", "Pages")}"><span class="mono">${L("Páginas", "Pages")}</span>${pages.filter(([id]) => id !== "contacto").map(([, name, href]) => `<a href="${href}">${name}</a>`).join("")}</nav>
         <nav aria-label="${L("Contacto", "Contact")}"><span class="mono">${L("Contacto", "Contact")}</span><a href="mailto:contacto@mateogsilvaa.es">${L("Correo", "Email")}</a><a href="${cv}" download>${L("Descargar CV ↓", "Download CV ↓")}</a></nav>
         <nav aria-label="${L("Redes", "Social")}"><span class="mono">${L("Redes", "Social")}</span>${social}</nav>

@@ -332,7 +332,6 @@ img { display: block; max-width: 100%; }
 
 /* Logo */
 .mk { width: 34px; height: 34px; display: block; }
-.top__logo { font-size: 0; }
 
 /* Pie: bloque oscuro */
 .ft { margin-top: clamp(90px, 11vw, 150px); background: var(--ink); color: var(--bg); border-radius: 28px 28px 0 0; padding: clamp(36px, 5vw, 64px) var(--pad) 22px; }
